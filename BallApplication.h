@@ -33,7 +33,6 @@ protected:
     virtual void createViewports();
     virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
 private:
-    Mix_Chunk* boing;
     std::map<Ogre::SceneNode*, Ogre::Vector3> spheres;
     BallWorld* ballWorld;
 };

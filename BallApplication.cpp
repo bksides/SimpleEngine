@@ -23,8 +23,8 @@ BallApplication::BallApplication(void) : ballWorld(nullptr)
         printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
         mShutDown = true;
     }
-    //boing = Mix_LoadWAV( "../media/sounds/boing.wav" );
-    if( boing == NULL )
+    Ball::boing = Mix_LoadWAV( "../media/sounds/boing.wav" );
+    if( Ball::boing == NULL )
     {
         printf( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
         mShutDown = true;
@@ -33,7 +33,7 @@ BallApplication::BallApplication(void) : ballWorld(nullptr)
 //-------------------------------------------------------------------------------------
 BallApplication::~BallApplication(void)
 {
-    Mix_FreeChunk(boing);
+    Mix_FreeChunk(Ball::boing);
     Mix_CloseAudio();
     SDL_Quit();
     delete ballWorld;

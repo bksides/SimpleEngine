@@ -5,7 +5,7 @@
 #include <OgreSceneManager.h>
 #include <SDL/SDL_mixer.h>
 
-Mix_Chunk* Ball::boing = Mix_LoadWAV( "../media/sounds/boing.wav" );
+Mix_Chunk* Ball::boing = nullptr;
 
 void Ball::onCollision(const SimpleEngine::CollisionEvent& evt)
 {

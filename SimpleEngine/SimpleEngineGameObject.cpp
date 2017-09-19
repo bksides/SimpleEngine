@@ -47,7 +47,7 @@ void GameObject::onCollision(const CollisionEvent& evt) {}
 
 GameObject::~GameObject()
 {
-    delete node;
+    //delete node;
 }
 
 void GameObject::setParentSceneNode(Ogre::SceneNode* sceneNode)
