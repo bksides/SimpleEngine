@@ -31,8 +31,6 @@ This source file is part of the
 #include <OISKeyboard.h>
 #include <OISMouse.h>
 
-#include <SdkCameraMan.h>
-
 class BaseApplication : public Ogre::FrameListener, public Ogre::WindowEventListener, public OIS::KeyListener, public OIS::MouseListener
 {
 public:
@@ -79,7 +77,6 @@ protected:
     Ogre::String mPluginsCfg;
 
     // OgreBites
-    OgreBites::SdkCameraMan* mCameraMan;       // basic camera controller
     bool mCursorWasVisible;                    // was cursor visible before dialog appeared
     bool mShutDown;
 
