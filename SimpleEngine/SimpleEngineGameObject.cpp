@@ -1,5 +1,6 @@
 #include <OgreVector3.h>
 #include <OgreSceneNode.h>
+#include <OgreNode.h>
 #include <OgreEntity.h>
 #include "SimpleEngineGameObject.h"
 #include "SimpleEngineCollisionEvent.h"
@@ -47,7 +48,7 @@ void GameObject::onCollision(const CollisionEvent& evt) {}
 
 GameObject::~GameObject()
 {
-    //delete node;
+    node->getParentSceneNode()->removeChild((Ogre::Node*)node);
 }
 
 void GameObject::setParentSceneNode(Ogre::SceneNode* sceneNode)
