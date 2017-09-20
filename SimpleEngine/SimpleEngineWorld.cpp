@@ -15,10 +15,13 @@ void World::update(float deltaTime)
     }
 }
 
-void World::addObject(GameObject* obj, float x, float y, float z)
+void World::addObject(GameObject* obj,
+    const Ogre::Vector3& pos=Ogre::Vector3::ZERO,
+    const Ogre::Vector3& vel=Ogre::Vector3::ZERO)
 {
     obj->setParentSceneNode(mSceneMgr->getRootSceneNode());
-    obj->setPosition(Ogre::Vector3(x, y, z));
+    obj->setPosition(pos);
+    obj->setVelocity(vel);
     objects.push_front(obj);
 }
 

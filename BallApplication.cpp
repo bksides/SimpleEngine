@@ -137,11 +137,11 @@ void BallApplication::createScene(void)
 
     ballWorld = new BallWorld(50, Ogre::Vector3(0, -98, 0), mSceneMgr);
 
-    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), 0,   0,   0);
-    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), 40,  40,  0);
-    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), -40, 40,  0);
-    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), -40, -40, 0);
-    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), 40, -40,  0);
+    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)));
+    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3( 40,  40, 0));
+    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3(-40,  40, 0));
+    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3(-40, -40, 0));
+    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3( 40, -40, 0));
 }
 
 //--------------------------------------------------------------------------------------
