@@ -10,21 +10,21 @@ void BallWorld::onUpdate(float deltaTime)
     {
         obj->addVelocity(gravity*deltaTime);
 
-        if(abs(obj->getPosition().x) > size-(Ball*)(obj)->radius)
+        if(abs(obj->getPosition().x) > size-((Ball*)obj)->radius)
         {
             SimpleEngine::CollisionEvent evt(nullptr,
                 Ogre::Vector3(obj->getPosition().x, 0, 0).normalisedCopy());
             obj->onCollision(evt);
             obj->setVelocity(obj->getVelocity() - 2*obj->getVelocity().x*Ogre::Vector3::UNIT_X);
         }
-        if(abs(obj->getPosition().y) > size-(Ball*)(obj)->radius)
+        if(abs(obj->getPosition().y) > size-((Ball*)obj)->radius)
         {
             SimpleEngine::CollisionEvent evt(nullptr,
                 Ogre::Vector3(0, obj->getPosition().y, 0).normalisedCopy());
             obj->onCollision(evt);
             obj->setVelocity(obj->getVelocity() - 2*obj->getVelocity().y*Ogre::Vector3::UNIT_Y);
         }
-        if(abs(obj->getPosition().z) > size-(Ball*)(obj)->radius)
+        if(abs(obj->getPosition().z) > size-((Ball*)obj)->radius)
         {
             SimpleEngine::CollisionEvent evt(nullptr,
                 Ogre::Vector3(obj->getPosition().z, 0, 0).normalisedCopy());
