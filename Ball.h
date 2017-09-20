@@ -9,9 +9,8 @@
 
 class Ball : public SimpleEngine::GameObject
 {
-protected:
-    float radius;
 public:
+    float radius;
     static Mix_Chunk* boing;
     Ball(Ogre::SceneManager* mSceneMgr, float radius);
     void onCollision(const SimpleEngine::CollisionEvent& evt);
