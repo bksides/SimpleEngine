@@ -9,7 +9,7 @@ Mix_Chunk* Ball::boing = nullptr;
 
 void Ball::onCollision(const SimpleEngine::CollisionEvent& evt)
 {
-    if(abs(velocity.z) > 3)
+    if(((velocity.dotProduct(evt.normal) / evt.normal.dotProduct(evt.normal))*evt.normal).length() > 3)
     {
         Mix_PlayChannel( -1, boing, 0 );
     }
