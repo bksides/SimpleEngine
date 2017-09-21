@@ -1,0 +1,17 @@
+/.deps/*
+/autom4te.cache/*
+/m4/*
+/aclocal.m4
+compile
+config.*
+configure
+depcomp
+install-sh
+libtool
+ltmain.sh
+Makefile
+Makefile.in
+missing
+ogre.cfg
+Ogre.log
+stamp-*

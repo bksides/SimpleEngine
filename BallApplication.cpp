@@ -5,6 +5,7 @@
 #include <cmath>
 #include <SDL/SDL.h>
 #include <SDL/SDL_mixer.h>
+#include <OgreMeshManager.h>
 
 //-------------------------------------------------------------------------------------
 BallApplication::BallApplication(void) : ballWorld(nullptr)
@@ -23,7 +24,7 @@ BallApplication::BallApplication(void) : ballWorld(nullptr)
         printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
         mShutDown = true;
     }
-    Ball::boing = Mix_LoadWAV( "../media/sounds/boing.wav" );
+    Ball::boing = Mix_LoadWAV( "./dist/media/sounds/boing.wav" );
     if( Ball::boing == NULL )
     {
         printf( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
@@ -155,10 +156,9 @@ bool BallApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 void BallApplication::createCamera()
 {
     mCamera = mSceneMgr->createCamera("PlayerCam");
-    mCamera->setPosition(0,0,-40);
+    mCamera->setPosition(0,0,-150);
     mCamera->lookAt(Ogre::Vector3(0,0,0));
     mCamera->setNearClipDistance(5);
-    mCameraMan = new OgreBites::SdkCameraMan(mCamera);
 }
 
 //--------------------------------------------------------------------------------------

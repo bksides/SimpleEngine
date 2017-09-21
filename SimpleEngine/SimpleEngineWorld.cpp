@@ -16,8 +16,8 @@ void World::update(float deltaTime)
 }
 
 void World::addObject(GameObject* obj,
-    const Ogre::Vector3& pos=Ogre::Vector3::ZERO,
-    const Ogre::Vector3& vel=Ogre::Vector3::ZERO)
+    const Ogre::Vector3& pos,
+    const Ogre::Vector3& vel)
 {
     obj->setParentSceneNode(mSceneMgr->getRootSceneNode());
     obj->setPosition(pos);
@@ -25,7 +25,9 @@ void World::addObject(GameObject* obj,
     objects.push_front(obj);
 }
 
-void World::onObjectAdded(GameObject* obj, float x, float y, float z) {}
+void World::onObjectAdded(GameObject* obj,
+    const Ogre::Vector3& pos,
+    const Ogre::Vector3& vel) {}
 
 void World::onUpdate(float deltaTime) {}
 
