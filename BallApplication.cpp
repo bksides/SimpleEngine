@@ -8,7 +8,7 @@
 #include <OgreMeshManager.h>
 
 //-------------------------------------------------------------------------------------
-BallApplication::BallApplication(void) : ballWorld(nullptr)
+BallApplication::BallApplication(void) : ballWorld(NULL)
 {
     if( SDL_Init( SDL_INIT_AUDIO ) < 0 )
     {

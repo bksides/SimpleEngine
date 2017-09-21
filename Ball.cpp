@@ -5,7 +5,7 @@
 #include <OgreSceneManager.h>
 #include <SDL/SDL_mixer.h>
 
-Mix_Chunk* Ball::boing = nullptr;
+Mix_Chunk* Ball::boing = NULL;
 
 void Ball::onCollision(const SimpleEngine::CollisionEvent& evt)
 {
