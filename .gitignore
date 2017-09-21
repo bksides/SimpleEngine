@@ -15,3 +15,8 @@ missing
 ogre.cfg
 Ogre.log
 stamp-*
+OgreApp
+.libs
+_libs
+*.o
+*.lo
