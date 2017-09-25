@@ -8,7 +8,7 @@ void BallWorld::onUpdate(float deltaTime)
 {
     for(SimpleEngine::GameObject* obj : objects)
     {
-        //obj->addVelocity(gravity*deltaTime);
+        obj->addVelocity(gravity*deltaTime);
 
         if(abs(obj->getPosition().x) > size-((Ball*)obj)->radius)
         {
@@ -44,10 +44,10 @@ void BallWorld::onUpdate(float deltaTime)
 				obj->setPosition(postColPosition);
 
 				//reflect ball velocity along contact normal
-				Ogre::Vector3 velocityProjection = (obj->getVelocity().dotProduct(collisionVector)/collisionVector.dotProduct(collisionVector))*collisionVector;
-				obj->addVelocity(-2*velocityProjection);
-				velocityProjection = (obj2->getVelocity().dotProduct(collisionVector)/collisionVector.dotProduct(collisionVector))*collisionVector;
-				obj2->addVelocity(-2*velocityProjection);
+				Ogre::Vector3 velocityProjection1 = (obj->getVelocity().dotProduct(collisionVector)/collisionVector.dotProduct(collisionVector))*collisionVector;
+				Ogre::Vector3 velocityProjection2 = (obj2->getVelocity().dotProduct(collisionVector)/collisionVector.dotProduct(collisionVector))*collisionVector;
+				obj->addVelocity(-1*velocityProjection1 + velocityProjection2);
+				obj2->addVelocity(-1*velocityProjection2 + velocityProjection1);
 			}
 		}
     }
