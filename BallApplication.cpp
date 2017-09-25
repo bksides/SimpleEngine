@@ -6,6 +6,7 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_mixer.h>
 #include <OgreMeshManager.h>
+#include <OgreMath.h>
 
 //-------------------------------------------------------------------------------------
 BallApplication::BallApplication(void) : ballWorld(NULL)
@@ -138,11 +139,27 @@ void BallApplication::createScene(void)
 
     ballWorld = new BallWorld(50, Ogre::Vector3(0, -98, 0), mSceneMgr);
 
-    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)));
-    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3( 40,  40, 0));
-    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3(-40,  40, 0));
-    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3(-40, -40, 0));
-    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3( 40, -40, 0));
+    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3::ZERO,
+			Ogre::Vector3(Ogre::Math::RangeRandom(-20, 20),
+				Ogre::Math::RangeRandom(-20, 20),
+				Ogre::Math::RangeRandom(-20, 20)));
+    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3( 40,  40, 0),
+			Ogre::Vector3(Ogre::Math::RangeRandom(-20, 20),
+				Ogre::Math::RangeRandom(-20, 20),
+				Ogre::Math::RangeRandom(-20, 20)));
+
+    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3(-40,  40, 0),
+			Ogre::Vector3(Ogre::Math::RangeRandom(-20, 20),
+				Ogre::Math::RangeRandom(-20, 20),
+				Ogre::Math::RangeRandom(-20, 20)));
+    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3(-40, -40, 0),
+			Ogre::Vector3(Ogre::Math::RangeRandom(-20, 20),
+				Ogre::Math::RangeRandom(-20, 20),
+				Ogre::Math::RangeRandom(-20, 20)));
+    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3( 40, -40, 0),
+			Ogre::Vector3(Ogre::Math::RangeRandom(-20, 20),
+				Ogre::Math::RangeRandom(-20, 20),
+				Ogre::Math::RangeRandom(-20, 20)));
 }
 
 //--------------------------------------------------------------------------------------
