@@ -25,5 +25,5 @@ Ball::Ball(Ogre::SceneManager* mSceneMgr, float radius) :
 void Ball::setParentSceneNode(Ogre::SceneNode* sceneNode)
 {
     GameObject::setParentSceneNode(sceneNode);
-    node->scale(radius*0.01, radius*0.01, radius*0.01);
+    node->scale(radius*0.02, radius*0.02, radius*0.02);
 }
