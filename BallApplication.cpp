@@ -7,6 +7,7 @@
 #include <SDL/SDL_mixer.h>
 #include <OgreMeshManager.h>
 #include <OgreMath.h>
+#include <OISKeyboard.h>
 
 //-------------------------------------------------------------------------------------
 BallApplication::BallApplication(void) : ballWorld(NULL)
@@ -165,6 +166,24 @@ void BallApplication::createScene(void)
 //--------------------------------------------------------------------------------------
 bool BallApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
+	if (pressedKeys.find(OIS::KC_RIGHT) != pressedKeys.end())
+	{
+		mCamera->setPosition(mCamera->getPosition() + 20*mCamera->getRight()*evt.timeSinceLastFrame);
+	}
+	if (pressedKeys.find(OIS::KC_LEFT) != pressedKeys.end())
+	{
+		mCamera->setPosition(mCamera->getPosition() + -20*mCamera->getRight()*evt.timeSinceLastFrame);
+	}
+	if (pressedKeys.find(OIS::KC_UP) != pressedKeys.end())
+	{
+		mCamera->setPosition(mCamera->getPosition() + 20*mCamera->getDirection()*evt.timeSinceLastFrame);
+	}
+	if (pressedKeys.find(OIS::KC_DOWN) != pressedKeys.end())
+	{
+		mCamera->setPosition(mCamera->getPosition() + -20*mCamera->getDirection()*evt.timeSinceLastFrame);
+	}
+
+
     ballWorld->update(evt.timeSinceLastFrame);
     return BaseApplication::frameRenderingQueued(evt);
 }
