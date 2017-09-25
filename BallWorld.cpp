@@ -12,6 +12,7 @@ void BallWorld::onUpdate(float deltaTime)
 
         if(abs(obj->getPosition().x) > size-((Ball*)obj)->radius)
         {
+			obj->setPosition(Ogre::Vector3((obj->getPosition().x > 0 ? 1 : -1) * (size - ((Ball*)obj)->radius), obj->getPosition().y, obj->getPosition().z));
             SimpleEngine::CollisionEvent evt(NULL,
                 Ogre::Vector3(obj->getPosition().x, 0, 0).normalisedCopy());
             obj->onCollision(evt);
@@ -19,6 +20,7 @@ void BallWorld::onUpdate(float deltaTime)
         }
         if(abs(obj->getPosition().y) > size-((Ball*)obj)->radius)
         {
+			obj->setPosition(Ogre::Vector3(obj->getPosition().x, (obj->getPosition().y > 0 ? 1 : -1) * (size - ((Ball*)obj)->radius), obj->getPosition().z));
             SimpleEngine::CollisionEvent evt(NULL,
                 Ogre::Vector3(0, obj->getPosition().y, 0).normalisedCopy());
             obj->onCollision(evt);
@@ -26,6 +28,7 @@ void BallWorld::onUpdate(float deltaTime)
         }
         if(abs(obj->getPosition().z) > size-((Ball*)obj)->radius)
         {
+			obj->setPosition(Ogre::Vector3(obj->getPosition().x, obj->getPosition().y, (obj->getPosition().z > 0 ? 1 : -1) * (size - ((Ball*)obj)->radius)));
             SimpleEngine::CollisionEvent evt(NULL,
                 Ogre::Vector3(obj->getPosition().z, 0, 0).normalisedCopy());
             obj->onCollision(evt);
