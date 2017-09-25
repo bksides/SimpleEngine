@@ -12,6 +12,8 @@
 //-------------------------------------------------------------------------------------
 BallApplication::BallApplication(void) : ballWorld(NULL)
 {
+	srand((unsigned)time(NULL));
+
     if( SDL_Init( SDL_INIT_AUDIO ) < 0 )
     {
         printf( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
@@ -144,23 +146,41 @@ void BallApplication::createScene(void)
 			Ogre::Vector3(Ogre::Math::RangeRandom(-20, 20),
 				Ogre::Math::RangeRandom(-20, 20),
 				Ogre::Math::RangeRandom(-20, 20)));
-    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3( 40,  40, 0),
+    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3( 40,  40, 40),
 			Ogre::Vector3(Ogre::Math::RangeRandom(-20, 20),
 				Ogre::Math::RangeRandom(-20, 20),
 				Ogre::Math::RangeRandom(-20, 20)));
 
-    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3(-40,  40, 0),
+    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3(-40,  40, 40),
 			Ogre::Vector3(Ogre::Math::RangeRandom(-20, 20),
 				Ogre::Math::RangeRandom(-20, 20),
 				Ogre::Math::RangeRandom(-20, 20)));
-    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3(-40, -40, 0),
+    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3(-40, -40, 40),
 			Ogre::Vector3(Ogre::Math::RangeRandom(-20, 20),
 				Ogre::Math::RangeRandom(-20, 20),
 				Ogre::Math::RangeRandom(-20, 20)));
-    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3( 40, -40, 0),
+    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3( 40, -40, 40),
 			Ogre::Vector3(Ogre::Math::RangeRandom(-20, 20),
 				Ogre::Math::RangeRandom(-20, 20),
 				Ogre::Math::RangeRandom(-20, 20)));
+    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3( 40,  40, -40),
+			Ogre::Vector3(Ogre::Math::RangeRandom(-20, 20),
+				Ogre::Math::RangeRandom(-20, 20),
+				Ogre::Math::RangeRandom(-20, 20)));
+
+    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3(-40,  40, -40),
+			Ogre::Vector3(Ogre::Math::RangeRandom(-20, 20),
+				Ogre::Math::RangeRandom(-20, 20),
+				Ogre::Math::RangeRandom(-20, 20)));
+    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3(-40, -40, -40),
+			Ogre::Vector3(Ogre::Math::RangeRandom(-20, 20),
+				Ogre::Math::RangeRandom(-20, 20),
+				Ogre::Math::RangeRandom(-20, 20)));
+    ballWorld->addObject((SimpleEngine::GameObject*)(new Ball(mSceneMgr, 5)), Ogre::Vector3( 40, -40, -40),
+			Ogre::Vector3(Ogre::Math::RangeRandom(-20, 20),
+				Ogre::Math::RangeRandom(-20, 20),
+				Ogre::Math::RangeRandom(-20, 20)));
+   
 }
 
 //--------------------------------------------------------------------------------------
