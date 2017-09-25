@@ -47,7 +47,9 @@ void BallWorld::onUpdate(float deltaTime)
 				Ogre::Vector3 velocityProjection1 = (obj->getVelocity().dotProduct(collisionVector)/collisionVector.dotProduct(collisionVector))*collisionVector;
 				Ogre::Vector3 velocityProjection2 = (obj2->getVelocity().dotProduct(collisionVector)/collisionVector.dotProduct(collisionVector))*collisionVector;
 				obj->addVelocity(-1*velocityProjection1 + velocityProjection2);
+				obj->onCollision(SimpleEngine::CollisionEvent(obj2, -1*velocityProjection1 + velocityProjection2));
 				obj2->addVelocity(-1*velocityProjection2 + velocityProjection1);
+				obj2->onCollision(SimpleEngine::CollisionEvent(obj, -1*velocityProjection2 + velocityProjection1));
 			}
 		}
     }
