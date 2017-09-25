@@ -34,6 +34,22 @@ void BallWorld::onUpdate(float deltaTime)
             obj->onCollision(evt);
             obj->setVelocity(obj->getVelocity() - 2*obj->getVelocity().z*Ogre::Vector3::UNIT_Z);
         }
+		for(SimpleEngine::GameObject* obj2 : objects)
+		{
+			Ogre::Vector3 collisionVector = obj->getPosition() - obj2->getPosition();
+			if(collisionVector.length() < ((Ball*)obj)->radius + ((Ball*)obj2)->radius && obj != obj2)
+			{
+				//Move ball outside radius of other ball
+				Ogre::Vector3 postColPosition = obj2->getPosition()+collisionVector.normalisedCopy()*(((Ball*)obj)->radius+((Ball*)obj2)->radius);
+				obj->setPosition(postColPosition);
+
+				//reflect ball velocity along contact normal
+				Ogre::Vector3 velocityProjection = (obj->getVelocity().dotProduct(collisionVector)/collisionVector.dotProduct(collisionVector))*collisionVector;
+				obj->addVelocity(-2*velocityProjection);
+				velocityProjection = (obj2->getVelocity().dotProduct(collisionVector)/collisionVector.dotProduct(collisionVector))*collisionVector;
+				obj2->addVelocity(-2*velocityProjection);
+			}
+		}
     }
 }
 
