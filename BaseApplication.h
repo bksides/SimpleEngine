@@ -45,6 +45,8 @@ http://www.ogre3d.org/wiki/
 
 #endif
 
+#	include <set>
+
 #ifdef OGRE_STATIC_LIB
 #  define OGRE_STATIC_GL
 #  if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
@@ -117,6 +119,8 @@ protected:
     OIS::InputManager*          mInputManager;
     OIS::Mouse*                 mMouse;
     OIS::Keyboard*              mKeyboard;
+	
+	std::set<OIS::KeyCode>	pressedKeys;
 
     // Added for Mac compatibility
     Ogre::String                 m_ResourcePath;

@@ -260,12 +260,18 @@ bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
   if (arg.key == OIS::KC_ESCAPE) {
     mShutDown = true;
   }
+  else
+  {
+	pressedKeys.insert(arg.key);
+  }
 
   return true;
 }
 //---------------------------------------------------------------------------
 bool BaseApplication::keyReleased(const OIS::KeyEvent &arg)
 {
+	pressedKeys.erase(arg.key);
+
     return true;
 }
 //---------------------------------------------------------------------------
