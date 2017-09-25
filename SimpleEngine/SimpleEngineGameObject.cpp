@@ -24,7 +24,14 @@ const Ogre::Vector3& GameObject::getVelocity()
 
 const Ogre::Vector3& GameObject::getPosition()
 {
-    return node->getPosition();
+    if(node != NULL)
+    {
+        return node->getPosition();
+    }
+    else
+    {
+        return Ogre::Vector3(0, 0, 0);
+    }
 }
 
 void GameObject::translate(const Ogre::Vector3& vec)
