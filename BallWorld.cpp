@@ -8,7 +8,7 @@ void BallWorld::onUpdate(float deltaTime)
 {
     for(SimpleEngine::GameObject* obj : objects)
     {
-        obj->addVelocity(gravity*deltaTime);
+        //obj->addVelocity(gravity*deltaTime);
 
         if(abs(obj->getPosition().x) > size-((Ball*)obj)->radius)
         {
