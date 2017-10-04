@@ -1,7 +1,0 @@
-The project can be built by executing the buildit script in the main project directory.  If all goes well, this will create an OgreApp executable
-which can then be run to see the app.
-
-The camera can be controlled using the arrow keys; however, it cannot be rotated.  The balls will collide with the walls and with eachother.
-Upon collision, they emit a noise that is loaded and played using SDL.
-
-The program uses the BaseApplication class provided on the course website and the SDL library for sound.
