@@ -18,6 +18,7 @@ This source file is part of the
 #define __PongApplication_h_
 
 #include "BaseApplication.h"
+#include "../SimpleEngine/SimpleEngineWorld.h"
 
 class PongApplication : public BaseApplication
 {

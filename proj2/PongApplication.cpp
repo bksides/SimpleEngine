@@ -8,6 +8,8 @@
 #include <OgreMath.h>
 #include <OISKeyboard.h>
 
+using namespace SimpleEngine;
+
 //-------------------------------------------------------------------------------------
 PongApplication::PongApplication(void)
 {
@@ -23,7 +25,41 @@ PongApplication::~PongApplication(void)
 void PongApplication::createScene(void)
 {
 	//Here we should initialize the PongWorld and populate it with GameObjects
+
+
+    Ogre::Plane wallPlane(Ogre::Vector3::UNIT_Y, 0);
+    Ogre::MeshManager::getSingleton().createPlane(
+        "wall",
+        Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+        wallPlane,
+        100,100,20,20,
+        true,
+        1,5,5,
+        Ogre::Vector3::UNIT_Z);
+
+    //Create wall entities
+    Ogre::Entity* floorEntity = mSceneMgr->createEntity("wall");
+
+    btCollisionShape* groundShape = new btStaticPlaneShape(btVector3(0, 0, 0), 1);
+
+    btDefaultMotionState* groundMotionState =
+                new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 0, 0)));
+    btRigidBody::btRigidBodyConstructionInfo
+                groundRigidBodyCI(0, groundMotionState, groundShape, btVector3(0, 0, 0));
+        btRigidBody* groundRigidBody = new btRigidBody(groundRigidBodyCI);
+
+
+    GameObject* groundObject = new GameObject(floorEntity, groundRigidBody);
+    World* wallWorld = new World(mSceneMgr);
+
+    wallWorld->addObject(groundObject, Ogre::Vector3::ZERO, Ogre::Vector3::ZERO); 
+
+    Ogre::Entity* ceilingEntity = mSceneMgr->createEntity("wall");
+    Ogre::Entity* leftWallEntity = mSceneMgr->createEntity("wall");
+    Ogre::Entity* rightWallEntity = mSceneMgr->createEntity("wall");
+    Ogre::Entity* frontWallEntity = mSceneMgr->createEntity("wall");
 }
+
 
 //--------------------------------------------------------------------------------------
 bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
