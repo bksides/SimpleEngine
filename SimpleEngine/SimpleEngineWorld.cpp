@@ -28,9 +28,11 @@ void World::addObject(GameObject* obj,
 
     if(obj->getRigidBody())
     {
-        btVector3 physVec = btVector3(pos.x, pos.y, pos.z);
+        btVector3 physPos = btVector3(pos.x, pos.y, pos.z);
+        btVector3 physVel = btVector3(vel.x, vel.y, vel.z);
         dynamicsWorld->addRigidBody(obj->getRigidBody());
-        obj->getRigidBody()->getMotionState->setTransform(physVec);
+        obj->getRigidBody()->getMotionState->setTransform(physPos);
+        obj->getRigidBody()->setLinearVelocity(physVel);
     }
 }
 
