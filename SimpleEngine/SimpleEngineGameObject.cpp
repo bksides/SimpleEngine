@@ -63,4 +63,4 @@ void GameObject::setParentSceneNode(Ogre::SceneNode* sceneNode)
     node->attachObject(mesh);
 }
 
-GameObject::GameObject(Ogre::Entity* mesh) : mesh(mesh) {}
+GameObject::GameObject(Ogre::Entity* mesh, btRigidBody* rb) : mesh(mesh), rigidBody(rb) {}

@@ -30,7 +30,7 @@ namespace SimpleEngine
         virtual void setParentSceneNode(Ogre::SceneNode* sceneNode);
         virtual void onCollision(const CollisionEvent& evt);
         virtual ~GameObject() = 0;
-        GameObject(Ogre::Entity* mesh);
+        GameObject(Ogre::Entity* mesh, btRigidBody* rb = NULL);
     };
 };
 
