@@ -2,6 +2,7 @@
 #include <OgreSceneNode.h>
 #include <OgreNode.h>
 #include <OgreEntity.h>
+#include <btBulletDynamicsCommon.h>
 #include "SimpleEngineGameObject.h"
 #include "SimpleEngineCollisionEvent.h"
 
@@ -40,6 +41,11 @@ void GameObject::setPosition(const Ogre::Vector3& pos)
 void GameObject::update(float deltaTime)
 {
     onUpdate(deltaTime);
+}
+
+btRigidBody* GameObject::getRigidBody()
+{
+    return rigidBody;
 }
 
 void GameObject::onUpdate(float deltaTime) {}

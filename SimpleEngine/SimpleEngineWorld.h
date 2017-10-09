@@ -4,13 +4,19 @@
 #include "SimpleEngineGameObject.h"
 #include <OgreSceneManager.h>
 #include <list>
+#include <btBulletDynamicsCommon.h>
 
 namespace SimpleEngine
 {
     class World
     {
     private:
-        Ogre::SceneManager* mSceneMgr;
+        Ogre::SceneManager* mSceneMgr = NULL;
+        btBroadphaseInterface* broadphase = NULL;
+        btDefaultCollisionConfiguration* collisionConfiguration = NULL;
+        btCollisionDispatcher* dispatcher = NULL;
+        btSequentialImpulseConstraintSolver* solver = NULL;
+        btDiscreteDynamicsWorld* dynamicsWorld = NULL;
     protected:
         std::list<GameObject*> objects;
         virtual void onUpdate(float deltaTime);

@@ -6,17 +6,20 @@
 #include <OgreEntity.h>
 #include <OgreMaterial.h>
 #include "SimpleEngineCollisionEvent.h"
+#include <btBulletDynamicsCommon.h>
 
 namespace SimpleEngine
 {
     class GameObject
     {
     protected:
-        Ogre::Vector3 velocity;
-        Ogre::SceneNode* node;
-        Ogre::Entity* mesh;
+        Ogre::Vector3 velocity = Ogre::Vector3::ZERO;
+        Ogre::SceneNode* node = NULL;
+        Ogre::Entity* mesh= NULL;
+        btRigidBody* rigidBody = NULL;
         virtual void onUpdate(float deltaTime);
     public:
+        btRigidBody* getRigidBody();
         void update(float deltaTime);
         const Ogre::Vector3& getVelocity();
         void addVelocity(const Ogre::Vector3& vel);
