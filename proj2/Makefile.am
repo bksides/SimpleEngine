@@ -9,6 +9,9 @@ OgreApp_LDADD= -L/usr/lib/x86_64-linux-gnu/OGRE-1.9.0 -lOgreMain -lSDL -lSDL_mix
 OgreApp_LDFLAGS= -lOgreOverlay -lboost_system
 CEGUI_CFLAGS = -pthread -I/lusr/opt/cegui-0.8.4/include/cegui-0 -I/usr/include/OGRE
 CEGUI_LIBS = -L/lusr/opt/cegui-0.8.4/lib -lCEGUIOgreRenderer-0 -lOgreMain -lpthread -lCEGUIBase-0
+BULLET_CFLAGS = -I/usr/include/bullet/
+BULLET_LIBS = -L/usr/lib/x86_64-linux-gnu/libBulletDynamics.so -L/usr/lib/x86_64-linux-gnu/libBulletCollision.so -L/usr/lib/x86_64-linux-gnu/libLinearMath.so
+
 
 EXTRA_DIST= buildit makeit
 AUTOMAKE_OPTIONS= foreign
