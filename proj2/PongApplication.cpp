@@ -9,7 +9,7 @@
 #include <OISKeyboard.h>
 
 //-------------------------------------------------------------------------------------
-PongApplication::PongApplication(void) : ballWorld(NULL)
+PongApplication::PongApplication(void)
 {
 
 }

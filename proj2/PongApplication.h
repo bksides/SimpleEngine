@@ -19,7 +19,7 @@ This source file is part of the
 
 #include "BaseApplication.h"
 
-class PongApplication : public PongApplication
+class PongApplication : public BaseApplication
 {
 public:
     PongApplication(void);
