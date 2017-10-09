@@ -29,7 +29,7 @@ namespace SimpleEngine
         void setPosition(const Ogre::Vector3& pos);
         virtual void setParentSceneNode(Ogre::SceneNode* sceneNode);
         virtual void onCollision(const CollisionEvent& evt);
-        virtual ~GameObject() = 0;
+        ~GameObject();
         GameObject(Ogre::Entity* mesh, btRigidBody* rb = NULL);
     };
 };
