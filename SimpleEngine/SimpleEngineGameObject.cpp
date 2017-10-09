@@ -55,6 +55,8 @@ void GameObject::onCollision(const CollisionEvent& evt) {}
 GameObject::~GameObject()
 {
     node->getParentSceneNode()->removeChild((Ogre::Node*)node);
+    delete rigidBody->getMotionState();
+    delete rigidBody;
 }
 
 void GameObject::setParentSceneNode(Ogre::SceneNode* sceneNode)
@@ -64,9 +66,3 @@ void GameObject::setParentSceneNode(Ogre::SceneNode* sceneNode)
 }
 
 GameObject::GameObject(Ogre::Entity* mesh, btRigidBody* rb) : mesh(mesh), rigidBody(rb) {}
-
-GameObject::~GameObject()
-{
-    delete rigidBody->getMotionState();
-    delete rigidBody;
-}

@@ -19,6 +19,7 @@ This source file is part of the
 
 #include "BaseApplication.h"
 #include "../SimpleEngine/SimpleEngineWorld.h"
+#include "../SimpleEngine/SimpleEngineGameObject.h"
 
 class PongApplication : public BaseApplication
 {
