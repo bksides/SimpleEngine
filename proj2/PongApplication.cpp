@@ -39,6 +39,7 @@ void PongApplication::createScene(void)
 
     //Create wall entities
     Ogre::Entity* floorEntity = mSceneMgr->createEntity("wall");
+    floorEntity->setMaterialName("Examples/Rockwall");
 
     btCollisionShape* groundShape = new btStaticPlaneShape(btVector3(0, 0, 0), 1);
 
