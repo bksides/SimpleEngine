@@ -1,4 +1,5 @@
 #include "PongApplication.h"
+#include "Wall.h"
 #include <cstdlib>
 #include <iostream>
 #include <cmath>
@@ -71,20 +72,9 @@ void PongApplication::createScene(void)
         Ogre::Vector3::UNIT_Z);
 
     //Create wall entities
-    Ogre::Entity* floorEntity = mSceneMgr->createEntity("wall");
-    floorEntity->setMaterialName("Examples/Rockwall");
-
-    btCollisionShape* groundShape = new btStaticPlaneShape(btVector3(0, 1, 0), 1);
-
-    btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, -1, 0)));
-    btRigidBody::btRigidBodyConstructionInfo groundRigidBodyCI(0, groundMotionState, groundShape, btVector3(0, 0, 0));
-    btRigidBody* groundRigidBody = new btRigidBody(groundRigidBodyCI);
-    groundRigidBody->setRestitution(1.0);
-
-    GameObject* groundObject = new GameObject(floorEntity, groundRigidBody);
     wallWorld = new World(mSceneMgr);
 
-    wallWorld->addObject(groundObject, Ogre::Vector3::ZERO, Ogre::Vector3::ZERO);
+    wallWorld->addObject(new Wall(mSceneMgr), Ogre::Vector3::ZERO, Ogre::Vector3::ZERO);
 
     btCollisionShape* fallShape = new btSphereShape(5);
 
@@ -106,11 +96,6 @@ void PongApplication::createScene(void)
     ballObject->getSceneNode()->scale(0.1, 0.1, 0.1);
 
     gContactProcessedCallback = playBoing;
-
-    Ogre::Entity* ceilingEntity = mSceneMgr->createEntity("wall");
-    Ogre::Entity* leftWallEntity = mSceneMgr->createEntity("wall");
-    Ogre::Entity* rightWallEntity = mSceneMgr->createEntity("wall");
-    Ogre::Entity* frontWallEntity = mSceneMgr->createEntity("wall");
 }
 
 //--------------------------------------------------------------------------------------
