@@ -56,6 +56,8 @@ World::World(Ogre::SceneManager* m) : mSceneMgr(m) {
     dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
 
     dynamicsWorld->setGravity(btVector3(0, -100, 0));
+    btContactSolverInfo& info = dynamicsWorld->getSolverInfo();
+    info.m_splitImpulse = 1;
 }
 
 World::~World()
