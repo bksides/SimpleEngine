@@ -27,6 +27,7 @@ public:
     PongApplication(void);
     virtual ~PongApplication(void);
 protected:
+    SimpleEngine::World* wallWorld;
     virtual void createScene(void);
     virtual void createCamera();
     virtual void createViewports();

@@ -8,13 +8,15 @@ void World::update(float deltaTime)
 {
     onUpdate(deltaTime);
 
+    dynamicsWorld->stepSimulation(deltaTime);
+
     for(GameObject* obj : objects)
     {
-        obj->translate(obj->getVelocity()*deltaTime);
+        btTransform trans;
+        obj->getRigidBody()->getMotionState()->getWorldTransform(trans);
+        obj->setPosition(Ogre::Vector3(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ()));
         obj->update(deltaTime);
     }
-
-    dynamicsWorld->stepSimulation(deltaTime);
 }
 
 void World::addObject(GameObject* obj,
@@ -53,7 +55,7 @@ World::World(Ogre::SceneManager* m) : mSceneMgr(m) {
 
     dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
 
-    dynamicsWorld->setGravity(btVector3(0, -10, 0));
+    dynamicsWorld->setGravity(btVector3(0, -100, 0));
 }
 
 World::~World()

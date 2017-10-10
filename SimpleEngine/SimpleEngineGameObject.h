@@ -27,6 +27,7 @@ namespace SimpleEngine
         const Ogre::Vector3& getPosition();
         void translate(const Ogre::Vector3& vec);
         void setPosition(const Ogre::Vector3& pos);
+        Ogre::SceneNode* getSceneNode();
         virtual void setParentSceneNode(Ogre::SceneNode* sceneNode);
         virtual void onCollision(const CollisionEvent& evt);
         ~GameObject();

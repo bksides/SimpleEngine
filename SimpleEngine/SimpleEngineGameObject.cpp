@@ -13,6 +13,11 @@ void GameObject::addVelocity(const Ogre::Vector3& vel)
     setVelocity(getVelocity()+vel);
 }
 
+Ogre::SceneNode* GameObject::getSceneNode()
+{
+    return node;
+}
+
 void GameObject::setVelocity(const Ogre::Vector3& vel)
 {
     velocity = vel;

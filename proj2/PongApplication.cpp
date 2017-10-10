@@ -25,7 +25,12 @@ PongApplication::~PongApplication(void)
 void PongApplication::createScene(void)
 {
 	//Here we should initialize the PongWorld and populate it with GameObjects
-
+    Ogre::Light* lamp = mSceneMgr->createLight("lamp");
+    lamp->setType(Ogre::Light::LT_POINT);
+    lamp->setPosition(0,100,0);
+    lamp->setDiffuseColour(1,1,1);
+    lamp->setSpecularColour(1,1,1);
+    lamp->setAttenuation(200, 0, 0, .0002);
 
     Ogre::Plane wallPlane(Ogre::Vector3::UNIT_Y, 0);
     Ogre::MeshManager::getSingleton().createPlane(
@@ -41,19 +46,36 @@ void PongApplication::createScene(void)
     Ogre::Entity* floorEntity = mSceneMgr->createEntity("wall");
     floorEntity->setMaterialName("Examples/Rockwall");
 
-    btCollisionShape* groundShape = new btStaticPlaneShape(btVector3(0, 0, 0), 1);
+    btCollisionShape* groundShape = new btStaticPlaneShape(btVector3(0, 1, 0), 1);
 
-    btDefaultMotionState* groundMotionState =
-                new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 0, 0)));
-    btRigidBody::btRigidBodyConstructionInfo
-                groundRigidBodyCI(0, groundMotionState, groundShape, btVector3(0, 0, 0));
-        btRigidBody* groundRigidBody = new btRigidBody(groundRigidBodyCI);
-
+    btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, -1, 0)));
+    btRigidBody::btRigidBodyConstructionInfo groundRigidBodyCI(0, groundMotionState, groundShape, btVector3(0, 0, 0));
+    btRigidBody* groundRigidBody = new btRigidBody(groundRigidBodyCI);
+    groundRigidBody->setRestitution(1.0);
 
     GameObject* groundObject = new GameObject(floorEntity, groundRigidBody);
-    World* wallWorld = new World(mSceneMgr);
+    wallWorld = new World(mSceneMgr);
 
-    wallWorld->addObject(groundObject, Ogre::Vector3::ZERO, Ogre::Vector3::ZERO); 
+    wallWorld->addObject(groundObject, Ogre::Vector3::ZERO, Ogre::Vector3::ZERO);
+
+    btCollisionShape* fallShape = new btSphereShape(5);
+
+    btDefaultMotionState* fallMotionState =
+        new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 10, 0)));
+    btScalar mass = 1;
+    btVector3 fallInertia(0, 0, 0);
+    fallShape->calculateLocalInertia(mass, fallInertia);
+    btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass, fallMotionState, fallShape, fallInertia);
+    btRigidBody* fallRigidBody = new btRigidBody(fallRigidBodyCI);
+    fallRigidBody->setRestitution(1.05);
+
+    Ogre::Entity* ballEntity = mSceneMgr->createEntity(Ogre::SceneManager::PT_SPHERE);
+    ballEntity->setMaterialName("Ball/Skin");
+
+    GameObject* ballObject = new GameObject(ballEntity, fallRigidBody);
+    wallWorld->addObject(ballObject, Ogre::Vector3(0,10,0), Ogre::Vector3::ZERO);
+    ballObject->getSceneNode()->scale(0.1, 0.1, 0.1);
+
 
     Ogre::Entity* ceilingEntity = mSceneMgr->createEntity("wall");
     Ogre::Entity* leftWallEntity = mSceneMgr->createEntity("wall");
@@ -65,6 +87,7 @@ void PongApplication::createScene(void)
 //--------------------------------------------------------------------------------------
 bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
+    wallWorld->update(evt.timeSinceLastFrame);
     return BaseApplication::frameRenderingQueued(evt);
 }
 
@@ -72,7 +95,7 @@ bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 void PongApplication::createCamera()
 {
     mCamera = mSceneMgr->createCamera("PlayerCam");
-    mCamera->setPosition(0,0,-150);
+    mCamera->setPosition(0,50,-150);
     mCamera->lookAt(Ogre::Vector3(0,0,0));
     mCamera->setNearClipDistance(5);
 }
