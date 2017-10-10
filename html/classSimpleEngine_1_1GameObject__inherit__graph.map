@@ -1,0 +1,4 @@
+<map id="SimpleEngine::GameObject" name="SimpleEngine::GameObject">
+<area shape="rect" id="node2" href="$classBall.html" title="Ball" alt="" coords="40,80,84,107"/>
+<area shape="rect" id="node3" href="$classWall.html" title="Wall" alt="" coords="109,80,157,107"/>
+</map>

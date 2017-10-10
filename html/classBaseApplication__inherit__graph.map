@@ -1,0 +1,4 @@
+<map id="BaseApplication" name="BaseApplication">
+<area shape="rect" id="node10" href="$classBallApplication.html" title="BallApplication" alt="" coords="407,157,515,184"/>
+<area shape="rect" id="node11" href="$classPongApplication.html" title="PongApplication" alt="" coords="403,208,519,235"/>
+</map>
