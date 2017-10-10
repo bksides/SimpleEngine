@@ -20,3 +20,4 @@ OgreApp
 _libs
 *.o
 *.lo
+/latex/*
