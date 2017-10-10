@@ -10,10 +10,38 @@
 
 using namespace SimpleEngine;
 
+Mix_Chunk* boing = NULL;
+
+bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
+{
+    Mix_PlayChannel( -1, boing, 0 );
+}
+
 //-------------------------------------------------------------------------------------
 PongApplication::PongApplication(void)
 {
+	srand((unsigned)time(NULL));
 
+    if( SDL_Init( SDL_INIT_AUDIO ) < 0 )
+    {
+        printf( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
+        mShutDown = true;
+    }
+    if(Mix_Init(MIX_INIT_MP3))
+    {
+        printf("Sound mixer could not initialize!");
+    }
+    if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
+    {
+        printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+        mShutDown = true;
+    }
+    boing = Mix_LoadWAV( "./dist/media/sounds/boing.wav" );
+    if( boing == NULL )
+    {
+        printf( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
+        mShutDown = true;
+    }
 }
 //-------------------------------------------------------------------------------------
 PongApplication::~PongApplication(void)
@@ -67,6 +95,7 @@ void PongApplication::createScene(void)
     fallShape->calculateLocalInertia(mass, fallInertia);
     btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass, fallMotionState, fallShape, fallInertia);
     btRigidBody* fallRigidBody = new btRigidBody(fallRigidBodyCI);
+    fallRigidBody->setCollisionFlags(fallRigidBody->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
     fallRigidBody->setRestitution(1.05);
 
     Ogre::Entity* ballEntity = mSceneMgr->createEntity(Ogre::SceneManager::PT_SPHERE);
@@ -76,13 +105,13 @@ void PongApplication::createScene(void)
     wallWorld->addObject(ballObject, Ogre::Vector3(0,10,0), Ogre::Vector3::ZERO);
     ballObject->getSceneNode()->scale(0.1, 0.1, 0.1);
 
+    gContactProcessedCallback = playBoing;
 
     Ogre::Entity* ceilingEntity = mSceneMgr->createEntity("wall");
     Ogre::Entity* leftWallEntity = mSceneMgr->createEntity("wall");
     Ogre::Entity* rightWallEntity = mSceneMgr->createEntity("wall");
     Ogre::Entity* frontWallEntity = mSceneMgr->createEntity("wall");
 }
-
 
 //--------------------------------------------------------------------------------------
 bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
