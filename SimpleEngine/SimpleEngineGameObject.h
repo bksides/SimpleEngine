@@ -18,6 +18,7 @@ namespace SimpleEngine
         Ogre::Entity* mesh= NULL;
         btRigidBody* rigidBody = NULL;
         virtual void onUpdate(float deltaTime);
+        GameObject();
     public:
         btRigidBody* getRigidBody();
         void update(float deltaTime);
