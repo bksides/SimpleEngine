@@ -5,7 +5,6 @@
 #include <cmath>
 #include <SDL/SDL.h>
 #include <SDL/SDL_mixer.h>
-#include <OgreMeshManager.h>
 #include <OgreMath.h>
 #include <OISKeyboard.h>
 
@@ -60,16 +59,6 @@ void PongApplication::createScene(void)
     lamp->setDiffuseColour(1,1,1);
     lamp->setSpecularColour(1,1,1);
     lamp->setAttenuation(200, 0, 0, .0002);
-
-    Ogre::Plane wallPlane(Ogre::Vector3::UNIT_Y, 0);
-    Ogre::MeshManager::getSingleton().createPlane(
-        "wall",
-        Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-        wallPlane,
-        100,100,20,20,
-        true,
-        1,5,5,
-        Ogre::Vector3::UNIT_Z);
 
     //Create wall entities
     wallWorld = new World(mSceneMgr);
