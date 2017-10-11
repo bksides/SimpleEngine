@@ -68,7 +68,7 @@ void PongApplication::createScene(void)
 
     btCollisionShape* fallShape = new btSphereShape(5);
 
-    wallWorld->addObject(new PongBall(mSceneMgr), Ogre::Vector3(0,10,0), Ogre::Vector3(-2, -2, 0));
+    wallWorld->addObject(new PongBall(mSceneMgr), Ogre::Vector3(0,10,0), Ogre::Vector3(2, 0, 0));
 
     gContactProcessedCallback = playBoing;
 }

@@ -15,7 +15,7 @@ PongBall::PongBall(Ogre::SceneManager* mSceneMgr)
     btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass, fallMotionState, fallShape, fallInertia);
     rigidBody = new btRigidBody(fallRigidBodyCI);
     rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
-    rigidBody->setRestitution(1);
+    rigidBody->setRestitution(1.0);
 
     mesh = mSceneMgr->createEntity(Ogre::SceneManager::PT_SPHERE);
     mesh->setMaterialName("Ball/Skin");
