@@ -54,8 +54,8 @@ World::World(Ogre::SceneManager* m) : mSceneMgr(m) {
     solver = new btSequentialImpulseConstraintSolver;
 
     dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
+    dynamicsWorld->setGravity(btVector3(0, 0, 0));
 
-    dynamicsWorld->setGravity(btVector3(0, -100, 0));
     btContactSolverInfo& info = dynamicsWorld->getSolverInfo();
     info.m_splitImpulse = 1;
 }
