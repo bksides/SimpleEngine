@@ -1,5 +1,6 @@
 #include "PongApplication.h"
 #include "Wall.h"
+#include "PongBall.h"
 #include <cstdlib>
 #include <iostream>
 #include <cmath>
@@ -67,22 +68,7 @@ void PongApplication::createScene(void)
 
     btCollisionShape* fallShape = new btSphereShape(5);
 
-    btDefaultMotionState* fallMotionState =
-        new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 10, 0)));
-    btScalar mass = 1;
-    btVector3 fallInertia(0, 0, 0);
-    fallShape->calculateLocalInertia(mass, fallInertia);
-    btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass, fallMotionState, fallShape, fallInertia);
-    btRigidBody* fallRigidBody = new btRigidBody(fallRigidBodyCI);
-    fallRigidBody->setCollisionFlags(fallRigidBody->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
-    fallRigidBody->setRestitution(1.05);
-
-    Ogre::Entity* ballEntity = mSceneMgr->createEntity(Ogre::SceneManager::PT_SPHERE);
-    ballEntity->setMaterialName("Ball/Skin");
-
-    GameObject* ballObject = new GameObject(ballEntity, fallRigidBody);
-    wallWorld->addObject(ballObject, Ogre::Vector3(0,10,0), Ogre::Vector3::ZERO);
-    ballObject->getSceneNode()->scale(0.1, 0.1, 0.1);
+    wallWorld->addObject(new PongBall(mSceneMgr), Ogre::Vector3(0,10,0), Ogre::Vector3(-2, -2, 0));
 
     gContactProcessedCallback = playBoing;
 }
