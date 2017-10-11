@@ -82,7 +82,8 @@ namespace SimpleEngine
         */
         void addObject(GameObject* obj,
             const Ogre::Vector3& pos=Ogre::Vector3::ZERO,
-            const Ogre::Vector3& vel=Ogre::Vector3::ZERO);
+            const Ogre::Vector3& vel=Ogre::Vector3::ZERO,
+            const Ogre::Vector3& rot=Ogre::Vector3::ZERO);
 
         /*!
         \param m The Ogre::SceneManager which will render all the GameObjects

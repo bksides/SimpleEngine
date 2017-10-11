@@ -62,14 +62,14 @@ namespace SimpleEngine
         */
         void update(float deltaTime);
 
-        const Ogre::Vector3& getVelocity();
+        const Ogre::Vector3 getVelocity();
         void addVelocity(const Ogre::Vector3& vel);
         void setVelocity(const Ogre::Vector3& vel);
 
         /*!
         \brief Returns the current global position of this GameObject.
         */
-        const Ogre::Vector3& getPosition();
+        const Ogre::Vector3 getPosition();
 
         /*!
         \brief Adjusts the current global position of this GameObject.
@@ -85,6 +85,29 @@ namespace SimpleEngine
         \param pos The Ogre::Vector3 representing the new position of the object.
         */
         void setPosition(const Ogre::Vector3& pos);
+
+        /*!
+        \brief Sets the global orientation of this GameObject.
+
+        \param rot The Ogre::Vector3 representing the new orientation of the object.
+        The x, y, and z components of the vector represent the rotation around each
+        respective axis in radians.
+        */
+        void setRotation(const Ogre::Vector3& rot);
+
+        /*!
+        \brief Rotates the object by the specified amount.
+
+        \param rot The vector specifying how to rotate the GameObject.  The x, y,
+        and z components of the vector represent the rotation around each respective
+        axis in radians.
+        */
+        void rotate(const Ogre::Vector3& rot);
+
+        /*!
+        \brief Returns the current global rotation of this object.
+        */
+        const Ogre::Quaternion getRotation();
 
         /*!
         \brief Returns a pointer to the Ogre::SceneNode to which this object's

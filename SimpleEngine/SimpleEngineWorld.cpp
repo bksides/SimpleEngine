@@ -21,11 +21,13 @@ void World::update(float deltaTime)
 
 void World::addObject(GameObject* obj,
     const Ogre::Vector3& pos,
-    const Ogre::Vector3& vel)
+    const Ogre::Vector3& vel,
+    const Ogre::Vector3& rot)
 {
     obj->setParentSceneNode(mSceneMgr->getRootSceneNode());
     obj->setPosition(pos);
     obj->setVelocity(vel);
+    obj->setRotation(rot);
     objects.push_front(obj);
 
     if(obj->getRigidBody())
@@ -54,7 +56,7 @@ World::World(Ogre::SceneManager* m) : mSceneMgr(m) {
     solver = new btSequentialImpulseConstraintSolver;
 
     dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
-    dynamicsWorld->setGravity(btVector3(0, 0, 0));
+    dynamicsWorld->setGravity(btVector3(0, -100, 0));
 
     btContactSolverInfo& info = dynamicsWorld->getSolverInfo();
     info.m_splitImpulse = 1;
