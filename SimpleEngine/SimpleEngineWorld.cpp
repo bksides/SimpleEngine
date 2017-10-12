@@ -1,5 +1,8 @@
 #include "SimpleEngineWorld.h"
 #include "SimpleEngineGameObject.h"
+#include <OgreMath.h>
+#include <OgreVector3.h>
+#include <OgreQuaternion.h>
 #include <OgreSceneManager.h>
 
 using namespace SimpleEngine;
@@ -15,6 +18,11 @@ void World::update(float deltaTime)
         btTransform trans;
         obj->getRigidBody()->getMotionState()->getWorldTransform(trans);
         obj->setPosition(Ogre::Vector3(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ()));
+        btQuaternion rbOrientation = obj->getRigidBody()->getOrientation();
+        btVector3 rbOrientationAxis = rbOrientation.getAxis();
+        obj->setRotation(Ogre::Quaternion(Ogre::Radian(rbOrientation.getAngle()),
+            Ogre::Vector3(rbOrientationAxis.x(),
+                rbOrientationAxis.y(),rbOrientationAxis.z())));
         obj->update(deltaTime);
     }
 }
@@ -25,19 +33,14 @@ void World::addObject(GameObject* obj,
     const Ogre::Vector3& rot)
 {
     obj->setParentSceneNode(mSceneMgr->getRootSceneNode());
+    if(obj->getRigidBody())
+    {
+        dynamicsWorld->addRigidBody(obj->getRigidBody());
+    }
     obj->setPosition(pos);
     obj->setVelocity(vel);
     obj->setRotation(rot);
     objects.push_front(obj);
-
-    if(obj->getRigidBody())
-    {
-        btVector3 physPos = btVector3(pos.x, pos.y, pos.z);
-        btVector3 physVel = btVector3(vel.x, vel.y, vel.z);
-        dynamicsWorld->addRigidBody(obj->getRigidBody());
-        obj->getRigidBody()->getMotionState()->setWorldTransform(btTransform(btQuaternion(0, 0, 0, 1), physPos));
-        obj->getRigidBody()->setLinearVelocity(physVel);
-    }
 }
 
 void World::onObjectAdded(GameObject* obj,
@@ -56,7 +59,7 @@ World::World(Ogre::SceneManager* m) : mSceneMgr(m) {
     solver = new btSequentialImpulseConstraintSolver;
 
     dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
-    dynamicsWorld->setGravity(btVector3(0, -100, 0));
+    dynamicsWorld->setGravity(btVector3(0, 0, 0));
 
     btContactSolverInfo& info = dynamicsWorld->getSolverInfo();
     info.m_splitImpulse = 1;

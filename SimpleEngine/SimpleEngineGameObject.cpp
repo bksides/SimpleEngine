@@ -46,17 +46,44 @@ void GameObject::translate(const Ogre::Vector3& vec)
 void GameObject::setPosition(const Ogre::Vector3& pos)
 {
     node->setPosition(pos);
+
     btTransform trans;
     rigidBody->getMotionState()->getWorldTransform(trans);
     trans.setOrigin(btVector3(pos.x, pos.y, pos.z));
+    rigidBody->setWorldTransform(trans);
+    rigidBody->getMotionState()->setWorldTransform(trans);
 }
 
 void GameObject::setRotation(const Ogre::Vector3& rot)
 {
     node->resetOrientation();
-    node->rotate(Ogre::Vector3::UNIT_X, Ogre::Radian(rot.x));
-    node->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(rot.y));
-    node->rotate(Ogre::Vector3::UNIT_Z, Ogre::Radian(rot.z));
+    node->rotate(Ogre::Vector3::UNIT_X, Ogre::Radian(rot.x), Ogre::Node::TS_WORLD);
+    node->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(rot.y), Ogre::Node::TS_WORLD);
+    node->rotate(Ogre::Vector3::UNIT_Z, Ogre::Radian(rot.z), Ogre::Node::TS_WORLD);
+
+    btTransform trans;
+    rigidBody->getMotionState()->getWorldTransform(trans);
+
+    trans.setRotation(btQuaternion(btVector3(1, 0, 0), rot.x));
+    trans.setRotation(btQuaternion(btVector3(0, 1, 0), rot.y) * trans.getRotation());
+    trans.setRotation(btQuaternion(btVector3(0, 0, 1), rot.z) * trans.getRotation());
+
+	rigidBody->setWorldTransform(trans);
+	rigidBody->getMotionState()->setWorldTransform(trans);
+}
+
+void GameObject::setRotation(const Ogre::Quaternion& rot)
+{
+    node->resetOrientation();
+    node->setOrientation(rot);
+
+    btTransform trans;
+    rigidBody->getMotionState()->getWorldTransform(trans);
+    Ogre::Radian angle;
+    Ogre::Vector3 axis;
+    rot.ToAngleAxis(angle, axis);
+
+    trans.setRotation(btQuaternion(btVector3(axis.x, axis.y, axis.z), angle.valueRadians()));
 }
 
 void GameObject::rotate(const Ogre::Vector3& rot)
@@ -68,9 +95,11 @@ void GameObject::rotate(const Ogre::Vector3& rot)
     btTransform trans;
     rigidBody->getMotionState()->getWorldTransform(trans);
 
-    trans.setRotation(btQuaternion(btVector3(1, 0, 0), rot.x));
-    trans.setRotation(btQuaternion(btVector3(0, 1, 0), rot.y));
-    trans.setRotation(btQuaternion(btVector3(0, 0, 1), rot.z));
+    btQuaternion btrot = btQuaternion(btVector3(1, 0, 0), rot.x) *
+                            btQuaternion(btVector3(0, 1, 0), rot.y) *
+                            btQuaternion(btVector3(0, 0, 1), rot.z);
+
+    trans.setRotation(trans.getRotation() * btrot);
 }
 
 const Ogre::Quaternion GameObject::getRotation()

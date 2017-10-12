@@ -1,12 +1,14 @@
 #include "PongApplication.h"
 #include "Wall.h"
 #include "PongBall.h"
+#include <cmath>
 #include <cstdlib>
 #include <iostream>
 #include <cmath>
 #include <SDL/SDL.h>
 #include <SDL/SDL_mixer.h>
 #include <OgreMath.h>
+#include <btBulletDynamicsCommon.h>
 #include <OISKeyboard.h>
 
 using namespace SimpleEngine;
@@ -56,7 +58,7 @@ void PongApplication::createScene(void)
 	//Here we should initialize the PongWorld and populate it with GameObjects
     Ogre::Light* lamp = mSceneMgr->createLight("lamp");
     lamp->setType(Ogre::Light::LT_POINT);
-    lamp->setPosition(0,100,0);
+    lamp->setPosition(0,49,0);
     lamp->setDiffuseColour(1,1,1);
     lamp->setSpecularColour(1,1,1);
     lamp->setAttenuation(200, 0, 0, .0002);
@@ -64,11 +66,14 @@ void PongApplication::createScene(void)
     //Create wall entities
     wallWorld = new World(mSceneMgr);
 
-    wallWorld->addObject(new Wall(mSceneMgr), Ogre::Vector3::ZERO, Ogre::Vector3::ZERO);
+    wallWorld->addObject(new Wall(mSceneMgr), -50*Ogre::Vector3::UNIT_Y, Ogre::Vector3::ZERO);
+    wallWorld->addObject(new Wall(mSceneMgr),  50*Ogre::Vector3::UNIT_X, Ogre::Vector3::ZERO, Ogre::Vector3(0, 0, M_PI / 2));
+    wallWorld->addObject(new Wall(mSceneMgr), -50*Ogre::Vector3::UNIT_X, Ogre::Vector3::ZERO, Ogre::Vector3(0, 0, M_PI / -2));
+    wallWorld->addObject(new Wall(mSceneMgr),  50*Ogre::Vector3::UNIT_Y, Ogre::Vector3::ZERO, Ogre::Vector3(0, 0, M_PI));
+	wallWorld->addObject(new Wall(mSceneMgr),  50*Ogre::Vector3::UNIT_Z, Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / -2, 0, 0));
+	wallWorld->addObject(new Wall(mSceneMgr), -50*Ogre::Vector3::UNIT_Z, Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / 2, 0, 0));
 
-    btCollisionShape* fallShape = new btSphereShape(5);
-
-    wallWorld->addObject(new PongBall(mSceneMgr), Ogre::Vector3(0,10,0), Ogre::Vector3(2, 0, 0));
+    wallWorld->addObject(new PongBall(mSceneMgr, btVector3(0,0,0)), Ogre::Vector3::ZERO, Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(40, 40), Ogre::Math::RangeRandom(40, 40)));
 
     gContactProcessedCallback = playBoing;
 }
@@ -84,7 +89,7 @@ bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 void PongApplication::createCamera()
 {
     mCamera = mSceneMgr->createCamera("PlayerCam");
-    mCamera->setPosition(0,50,-150);
+    mCamera->setPosition(0,20,-150);
     mCamera->lookAt(Ogre::Vector3(0,0,0));
     mCamera->setNearClipDistance(5);
 }

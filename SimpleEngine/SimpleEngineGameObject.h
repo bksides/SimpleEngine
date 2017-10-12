@@ -9,6 +9,7 @@
 #include <OgreVector3.h>
 #include <OgreEntity.h>
 #include <OgreMaterial.h>
+#include <OgreQuaternion.h>
 #include "SimpleEngineCollisionEvent.h"
 #include <btBulletDynamicsCommon.h>
 
@@ -94,6 +95,13 @@ namespace SimpleEngine
         respective axis in radians.
         */
         void setRotation(const Ogre::Vector3& rot);
+
+        /*!
+        \brief Sets the global orientation of this GameObject.
+
+        \param rot The Ogre::Quaternion representing the new orientation of the object.
+        */
+        void setRotation(const Ogre::Quaternion& rot);
 
         /*!
         \brief Rotates the object by the specified amount.
