@@ -38,9 +38,7 @@ const Ogre::Vector3 GameObject::getPosition()
 
 void GameObject::translate(const Ogre::Vector3& vec)
 {
-    node->translate(vec);
-
-    rigidBody->translate(btVector3(vec.x, vec.y, vec.z));
+    setPosition(getPosition() + vec);
 }
 
 void GameObject::setPosition(const Ogre::Vector3& pos)
