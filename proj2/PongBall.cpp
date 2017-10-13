@@ -18,6 +18,7 @@ PongBall::PongBall(Ogre::SceneManager* mSceneMgr, btVector3 pos)
     rigidBody->setRestitution(1.0);
 
     mesh = mSceneMgr->createEntity(Ogre::SceneManager::PT_SPHERE);
+    mesh->setCastShadows(true);
     mesh->setMaterialName("Ball/Skin");
 }
 
