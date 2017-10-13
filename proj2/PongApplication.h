@@ -20,6 +20,8 @@ This source file is part of the
 #include "BaseApplication.h"
 #include "../SimpleEngine/SimpleEngineWorld.h"
 #include "../SimpleEngine/SimpleEngineGameObject.h"
+#include <CEGUI/CEGUI.h>
+#include <CEGUI/RendererModules/Ogre/Renderer.h>
 
 class PongApplication : public BaseApplication
 {
@@ -27,6 +29,7 @@ public:
     PongApplication(void);
     virtual ~PongApplication(void);
 protected:
+    CEGUI::OgreRenderer* mRenderer;
     SimpleEngine::World* wallWorld;
     virtual void createScene(void);
     virtual void createCamera();
