@@ -16,6 +16,7 @@ using namespace SimpleEngine;
 
 Mix_Chunk* boing = NULL;
 GameObject* paddle;
+GameObject* ball;
 bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
 {
     Mix_PlayChannel( -1, boing, 0 );
@@ -74,9 +75,9 @@ void PongApplication::createScene(void)
     wallWorld->addObject(new Wall(mSceneMgr), -50*Ogre::Vector3::UNIT_X, Ogre::Vector3::ZERO, Ogre::Vector3(0, 0, M_PI / -2));
     wallWorld->addObject(new Wall(mSceneMgr),  50*Ogre::Vector3::UNIT_Y, Ogre::Vector3::ZERO, Ogre::Vector3(0, 0, M_PI));
 	wallWorld->addObject(new Wall(mSceneMgr),  50*Ogre::Vector3::UNIT_Z, Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / -2, 0, 0));
-	wallWorld->addObject(new Wall(mSceneMgr), -50*Ogre::Vector3::UNIT_Z, Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / 2, 0, 0));
 
-    wallWorld->addObject(new PongBall(mSceneMgr, btVector3(0,0,0)), Ogre::Vector3::ZERO, Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(40, 40), Ogre::Math::RangeRandom(40, 40)));
+    ball = new PongBall(mSceneMgr, btVector3(0,0,0));
+    wallWorld->addObject(ball, Ogre::Vector3::ZERO, Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(40, 40), Ogre::Math::RangeRandom(40, 40)));
 
     paddle = new Paddle(mSceneMgr);
     wallWorld->addObject(paddle, Ogre::Vector3(0, 0, -49), Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / -2, 0, 0));
@@ -121,6 +122,11 @@ bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
         paddle->translate(Ogre::Vector3(0, -20*evt.timeSinceLastFrame, 0));
     }
 
+    ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, ball->getVelocity().y, (ball->getVelocity().z * (30.0 / abs(ball->getVelocity().z)))));
+    if(ball->getPosition().z < -50)
+    {
+        mShutDown = true;
+    }
     wallWorld->update(evt.timeSinceLastFrame);
     return BaseApplication::frameRenderingQueued(evt);
 }
