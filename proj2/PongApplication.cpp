@@ -55,12 +55,12 @@ PongApplication::~PongApplication(void)
 bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
 {
     Mix_PlayChannel( -1, boing, 0 );
-    if((body0 == ball->getRigidBody() && body1 == paddle->getRigidBody())||
+/*    if((body0 == ball->getRigidBody() && body1 == paddle->getRigidBody())||
         (body1 == ball->getRigidBody() && body0 == paddle->getRigidBody()))
     {
         ++PongApplication::player_score;
         
-    }
+    }*/
 }
 
 void PongApplication::createScene(void)
