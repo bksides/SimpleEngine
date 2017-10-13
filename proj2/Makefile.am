@@ -4,8 +4,8 @@ noinst_HEADERS= BaseApplication.h PongApplication.h Wall.h Paddle.h PongBall.h .
 bin_PROGRAMS= OgreApp
 OgreApp_CPPFLAGS= -std=c++11 -I$(top_srcdir)
 OgreApp_SOURCES= BaseApplication.cpp PongApplication.cpp Wall.cpp PongBall.cpp ../SimpleEngine/SimpleEngineGameObject.cpp ../SimpleEngine/SimpleEngineWorld.cpp Paddle.cpp
-OgreApp_CXXFLAGS= -I/usr/include/OGRE -pthread $(OIS_CFLAGS) $(CEGUI_CFLAGS) $(CEGUI_OGRE_CFLAGS) $(BULLET_CFLAGS)
-OgreApp_LDADD= -L/usr/lib/x86_64-linux-gnu/OGRE-1.9.0 -lOgreMain -lSDL -lSDL_mixer -lpthread $(OIS_LIBS) $(CEGUI_LIBS) $(CEGUI_OGRE_LIBS) $(BULLET_LIBS)
+OgreApp_CXXFLAGS= -I/usr/include/OGRE -pthread $(OIS_CFLAGS) $(CEGUI_CFLAGS) $(CEGUI_OGRE_CFLAGS) $(CEGUIOGRE_CFLAGS) $(BULLET_CFLAGS)
+OgreApp_LDADD= -L/usr/lib/x86_64-linux-gnu/OGRE-1.9.0 -lOgreMain -lSDL -lSDL_mixer -lpthread $(OIS_LIBS) $(CEGUI_LIBS) $(CEGUI_OGRE_LIBS) $(CEGUIOGRE_LIBS) $(BULLET_LIBS)
 OgreApp_LDFLAGS= -lOgreOverlay -lboost_system
 CEGUIOGRE_CFLAGS= -pthread -I/lusr/opt/cegui-0.8.7/include/cegui-0 -I/usr/include/OGRE
 CEGUIOGRE_LIBS= -L/lusr/opt/cegui-0.8.7/lib -lCEGUIOgreRenderer-0 -lOgreMain -lpthread -lCEGUIBase-0 

@@ -20,8 +20,6 @@ This source file is part of the
 #include "BaseApplication.h"
 #include "../SimpleEngine/SimpleEngineWorld.h"
 #include "../SimpleEngine/SimpleEngineGameObject.h"
-#include <CEGUI/CEGUI.h>
-#include <CEGUI/RendererModules/Ogre/Renderer.h>
 
 class PongApplication : public BaseApplication
 {
@@ -35,6 +33,7 @@ protected:
     virtual void createCamera();
     virtual void createViewports();
     virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
+    void CEGUI_Init(void);
 };
 
 #endif // #ifndef __PongApplication_h_
