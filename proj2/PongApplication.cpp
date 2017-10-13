@@ -133,7 +133,7 @@ void PongApplication::CEGUI_Init(void)
     //quit->setText("Score");
 
     quit->setText(std::to_string(player_score));
-    quit->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5, 0), CEGUI::UDim(0, 0)));
+    quit->setPosition(CEGUI::UVector2(CEGUI::UDim(0.425, 0), CEGUI::UDim(0, 0)));
     quit->setSize(CEGUI::USize(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.05, 0)));
     sheet->addChild(quit);
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
