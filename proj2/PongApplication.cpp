@@ -17,10 +17,6 @@ using namespace SimpleEngine;
 Mix_Chunk* boing = NULL;
 GameObject* paddle;
 GameObject* ball;
-bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
-{
-    Mix_PlayChannel( -1, boing, 0 );
-}
 
 //-------------------------------------------------------------------------------------
 PongApplication::PongApplication(void)
@@ -47,6 +43,7 @@ PongApplication::PongApplication(void)
         printf( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
         mShutDown = true;
     }
+    player_score = 0;
 }
 //-------------------------------------------------------------------------------------
 PongApplication::~PongApplication(void)
@@ -55,6 +52,17 @@ PongApplication::~PongApplication(void)
 }
 
 //-------------------------------------------------------------------------------------
+bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
+{
+    Mix_PlayChannel( -1, boing, 0 );
+    if((body0 == ball->getRigidBody() && body1 == paddle->getRigidBody())||
+        (body1 == ball->getRigidBody() && body0 == paddle->getRigidBody()))
+    {
+        ++PongApplication::player_score;
+        
+    }
+}
+
 void PongApplication::createScene(void)
 {
 	//Here we should initialize the PongWorld and populate it with GameObjects
@@ -109,12 +117,15 @@ void PongApplication::CEGUI_Init(void)
     CEGUI::WindowManager &wmgr = CEGUI::WindowManager::getSingleton();
     CEGUI::Window *sheet = wmgr.createWindow("DefaultWindow", "CEGUIDemo/Sheet");
     CEGUI::Window *quit = wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/QuitButton");
-    quit->setText("Score");
+    //quit->setText("Score");
+
+    quit->setText(std::to_string(player_score));
     quit->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5, 0), CEGUI::UDim(0, 0)));
     quit->setSize(CEGUI::USize(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.05, 0)));
     sheet->addChild(quit);
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
 }
+
 
 //--------------------------------------------------------------------------------------
 bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
