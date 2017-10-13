@@ -27,6 +27,7 @@ public:
     PongApplication(void);
     virtual ~PongApplication(void);
 protected:
+    int player_score;
     CEGUI::OgreRenderer* mRenderer;
     SimpleEngine::World* wallWorld;
     virtual void createScene(void);

@@ -70,6 +70,8 @@ http://www.ogre3d.org/wiki/
 #  include "OgreStaticPluginLoader.h"
 #endif
 
+extern bool sound;
+
 //---------------------------------------------------------------------------
 
 class BaseApplication : public Ogre::FrameListener, public Ogre::WindowEventListener, public OIS::KeyListener, public OIS::MouseListener
@@ -122,7 +124,7 @@ protected:
     OIS::Mouse*                 mMouse;
     OIS::Keyboard*              mKeyboard;
 	
-	std::set<OIS::KeyCode>	pressedKeys;
+	std::set<OIS::KeyCode>	    pressedKeys;
 
     // Added for Mac compatibility
     Ogre::String                 m_ResourcePath;

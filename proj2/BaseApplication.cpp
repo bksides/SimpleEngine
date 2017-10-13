@@ -23,6 +23,8 @@ http://www.ogre3d.org/wiki/
 #include <macUtils.h>
 #endif
 
+bool sound = true;
+
 //---------------------------------------------------------------------------
 BaseApplication::BaseApplication(void)
     : mRoot(0),
@@ -259,6 +261,9 @@ bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
 {
   if (arg.key == OIS::KC_ESCAPE) {
     mShutDown = true;
+  }
+  else if (arg.key == OIS::KC_M) {
+    sound = !sound;
   }
   else
   {
