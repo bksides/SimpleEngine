@@ -1,4 +1,5 @@
 #include "PongApplication.h"
+#include "Paddle.h"
 #include "Wall.h"
 #include "PongBall.h"
 #include <cmath>
@@ -80,6 +81,8 @@ void PongApplication::createScene(void)
 	wallWorld->addObject(new Wall(mSceneMgr), -50*Ogre::Vector3::UNIT_Z, Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / 2, 0, 0));
 
     wallWorld->addObject(new PongBall(mSceneMgr, btVector3(0,0,0)), Ogre::Vector3::ZERO, Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(40, 40), Ogre::Math::RangeRandom(40, 40)));
+
+    wallWorld->addObject(new Paddle(mSceneMgr), Ogre::Vector3(0, 0, 0));
 
     gContactProcessedCallback = playBoing;
 }
