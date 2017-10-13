@@ -70,6 +70,8 @@ void PongApplication::createScene(void)
     lamp->setSpecularColour(1,1,1);
     lamp->setAttenuation(200, 0, 0, .0002);
 
+    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.7, 0.7, 0.7));
+
     //Create wall entities
     wallWorld = new World(mSceneMgr);
 
@@ -82,7 +84,7 @@ void PongApplication::createScene(void)
 
     wallWorld->addObject(new PongBall(mSceneMgr, btVector3(0,0,0)), Ogre::Vector3::ZERO, Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(40, 40), Ogre::Math::RangeRandom(40, 40)));
 
-    wallWorld->addObject(new Paddle(mSceneMgr), Ogre::Vector3(0, 0, 0));
+    wallWorld->addObject(new Paddle(mSceneMgr), Ogre::Vector3(0, 0, -50), Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / -2, 0, 0));
 
     gContactProcessedCallback = playBoing;
 }
