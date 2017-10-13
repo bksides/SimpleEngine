@@ -45,6 +45,12 @@ PongApplication::PongApplication(void)
         printf( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
         mShutDown = true;
     }
+    //mRenderer = &CEGUI::OgreRenderer::bootstrapSystem();
+    CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagesets");
+    CEGUI::Font::setDefaultResourceGroup("Fonts");
+    CEGUI::Scheme::setDefaultResourceGroup("Schemes");
+    CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
+    CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
 }
 //-------------------------------------------------------------------------------------
 PongApplication::~PongApplication(void)
