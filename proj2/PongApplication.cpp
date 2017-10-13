@@ -19,7 +19,11 @@ GameObject* paddle;
 GameObject* ball;
 bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
 {
-    Mix_PlayChannel( -1, boing, 0 );
+    if(sound)
+    {
+        Mix_PlayChannel( -1, boing, 0 );
+    }
+    return true;
 }
 
 //-------------------------------------------------------------------------------------
@@ -57,6 +61,7 @@ PongApplication::~PongApplication(void)
 //-------------------------------------------------------------------------------------
 void PongApplication::createScene(void)
 {
+
 	//Here we should initialize the PongWorld and populate it with GameObjects
     Ogre::Light* lamp = mSceneMgr->createLight("lamp");
     lamp->setType(Ogre::Light::LT_POINT);
