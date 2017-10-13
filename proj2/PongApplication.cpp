@@ -66,6 +66,7 @@ void PongApplication::createScene(void)
     lamp->setAttenuation(200, 0, 0, .0002);
 
     mSceneMgr->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
+    mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 
     //Create wall entities
     wallWorld = new World(mSceneMgr);
@@ -77,6 +78,7 @@ void PongApplication::createScene(void)
 	wallWorld->addObject(new Wall(mSceneMgr),  50*Ogre::Vector3::UNIT_Z, Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / -2, 0, 0));
 
     ball = new PongBall(mSceneMgr, btVector3(0,0,0));
+
     wallWorld->addObject(ball, Ogre::Vector3::ZERO, Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(40, 40), Ogre::Math::RangeRandom(40, 40)));
 
     paddle = new Paddle(mSceneMgr);
@@ -149,7 +151,7 @@ bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 void PongApplication::createCamera()
 {
     mCamera = mSceneMgr->createCamera("PlayerCam");
-    mCamera->setPosition(0,20,-150);
+    mCamera->setPosition(0,0,-180);
     mCamera->lookAt(Ogre::Vector3(0,0,0));
     mCamera->setNearClipDistance(5);
 }
