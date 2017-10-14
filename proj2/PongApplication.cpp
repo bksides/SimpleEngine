@@ -17,6 +17,7 @@ using namespace SimpleEngine;
 Mix_Chunk* boing = NULL;
 GameObject* paddle;
 GameObject* ball;
+int vel = 30;
 int player_score = 0;
 PongApplication app;
 CEGUI::Window *score_board;
@@ -33,6 +34,7 @@ bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
         ++player_score;
         //quit->setText(std::to_string(player_score));
         app.updateScoreboard();
+        vel += 3;
     }
     return true;
 }
@@ -162,24 +164,25 @@ bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
     if (pressedKeys.find(OIS::KC_RIGHT) != pressedKeys.end())
     {
-        paddle->translate(Ogre::Vector3(-20*evt.timeSinceLastFrame, 0, 0));
+        paddle->translate(Ogre::Vector3((-2*(float)vel/3)*evt.timeSinceLastFrame, 0, 0));
     }
     if (pressedKeys.find(OIS::KC_LEFT) != pressedKeys.end())
     {
-        paddle->translate(Ogre::Vector3(20*evt.timeSinceLastFrame, 0, 0));
+        paddle->translate(Ogre::Vector3((2*(float)vel/3)*evt.timeSinceLastFrame, 0, 0));
     }
     if (pressedKeys.find(OIS::KC_UP) != pressedKeys.end())
     {
-        paddle->translate(Ogre::Vector3(0, 20*evt.timeSinceLastFrame, 0));
+        paddle->translate(Ogre::Vector3(0, (2*(float)vel/3)*evt.timeSinceLastFrame, 0));
     }
     if (pressedKeys.find(OIS::KC_DOWN) != pressedKeys.end())
     {
-        paddle->translate(Ogre::Vector3(0, -20*evt.timeSinceLastFrame, 0));
+        paddle->translate(Ogre::Vector3(0, (-2*(float)vel/3)*evt.timeSinceLastFrame, 0));
     }
 
-    ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, ball->getVelocity().y, (ball->getVelocity().z * (30.0 / abs(ball->getVelocity().z)))));
+    ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, ball->getVelocity().y, (ball->getVelocity().z * ((float)vel / abs(ball->getVelocity().z)))));
     if(ball->getPosition().z < -50)
     {
+        printf("Score: %d\n", player_score);
         mShutDown = true;
     }
     wallWorld->update(evt.timeSinceLastFrame);
