@@ -17,25 +17,17 @@ using namespace SimpleEngine;
 Mix_Chunk* boing = NULL;
 GameObject* paddle;
 GameObject* ball;
-int player_score = 0;
-PongApplication app;
-CEGUI::Window *score_board;
-
+<<<<<<< HEAD
+=======
 bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
 {
     if(sound)
     {
         Mix_PlayChannel( -1, boing, 0 );
     }
-    if((body0 == ball->getRigidBody() && body1 == paddle->getRigidBody())||
-        (body1 == ball->getRigidBody() && body0 == paddle->getRigidBody()))
-    {
-        ++player_score;
-        //quit->setText(std::to_string(player_score));
-        app.updateScoreboard();
-    }
     return true;
 }
+>>>>>>> c2a2f482ad7070c4378b0847b0afee16674a4745
 
 //-------------------------------------------------------------------------------------
 PongApplication::PongApplication(void)
@@ -62,8 +54,7 @@ PongApplication::PongApplication(void)
         printf( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
         mShutDown = true;
     }
-
-    //player_score = 0;
+    player_score = 0;
 }
 //-------------------------------------------------------------------------------------
 PongApplication::~PongApplication(void)
@@ -72,22 +63,15 @@ PongApplication::~PongApplication(void)
 }
 
 //-------------------------------------------------------------------------------------
-/*
 bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
 {
     Mix_PlayChannel( -1, boing, 0 );
-    if((body0 == ball->getRigidBody() && body1 == paddle->getRigidBody())||
+/*    if((body0 == ball->getRigidBody() && body1 == paddle->getRigidBody())||
         (body1 == ball->getRigidBody() && body0 == paddle->getRigidBody()))
     {
         ++PongApplication::player_score;
         
-    }
-}
-*/
-
-void PongApplication::updateScoreboard(void)
-{
-    score_board->setText("Score: "+std::to_string(player_score));
+    }*/
 }
 
 void PongApplication::createScene(void)
@@ -146,13 +130,13 @@ void PongApplication::CEGUI_Init(void)
 */
     CEGUI::WindowManager &wmgr = CEGUI::WindowManager::getSingleton();
     CEGUI::Window *sheet = wmgr.createWindow("DefaultWindow", "CEGUIDemo/Sheet");
-    score_board = wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/QuitButton");
+    CEGUI::Window *quit = wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/QuitButton");
     //quit->setText("Score");
 
-    score_board->setText("Score: "+std::to_string(player_score));
-    score_board->setPosition(CEGUI::UVector2(CEGUI::UDim(0.425, 0), CEGUI::UDim(0, 0)));
-    score_board->setSize(CEGUI::USize(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.05, 0)));
-    sheet->addChild(score_board);
+    quit->setText(std::to_string(player_score));
+    quit->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5, 0), CEGUI::UDim(0, 0)));
+    quit->setSize(CEGUI::USize(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.05, 0)));
+    sheet->addChild(quit);
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
 }
 
@@ -221,7 +205,7 @@ extern "C" {
 #endif
     {
         // Create application object
-        //PongApplication app;
+        PongApplication app;
 
         try {
             app.go();

@@ -21,13 +21,15 @@ This source file is part of the
 #include "../SimpleEngine/SimpleEngineWorld.h"
 #include "../SimpleEngine/SimpleEngineGameObject.h"
 
+extern int player_score;
+
 class PongApplication : public BaseApplication
 {
 public:
     PongApplication(void);
     virtual ~PongApplication(void);
+    void updateScoreboard(void);
 protected:
-    int player_score;
     CEGUI::OgreRenderer* mRenderer;
     SimpleEngine::World* wallWorld;
     virtual void createScene(void);
