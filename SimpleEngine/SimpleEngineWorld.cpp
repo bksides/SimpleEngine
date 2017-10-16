@@ -9,21 +9,24 @@ using namespace SimpleEngine;
 
 void World::update(float deltaTime)
 {
-    onUpdate(deltaTime);
-
-    dynamicsWorld->stepSimulation(deltaTime);
-
-    for(GameObject* obj : objects)
+    if(!paused)
     {
-        btTransform trans;
-        obj->getRigidBody()->getMotionState()->getWorldTransform(trans);
-        obj->setPosition(Ogre::Vector3(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ()));
-        btQuaternion rbOrientation = obj->getRigidBody()->getOrientation();
-        btVector3 rbOrientationAxis = rbOrientation.getAxis();
-        obj->setRotation(Ogre::Quaternion(Ogre::Radian(rbOrientation.getAngle()),
-            Ogre::Vector3(rbOrientationAxis.x(),
-                rbOrientationAxis.y(),rbOrientationAxis.z())));
-        obj->update(deltaTime);
+        onUpdate(deltaTime);
+
+        dynamicsWorld->stepSimulation(deltaTime);
+
+        for(GameObject* obj : objects)
+        {
+            btTransform trans;
+            obj->getRigidBody()->getMotionState()->getWorldTransform(trans);
+            obj->setPosition(Ogre::Vector3(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ()));
+            btQuaternion rbOrientation = obj->getRigidBody()->getOrientation();
+            btVector3 rbOrientationAxis = rbOrientation.getAxis();
+            obj->setRotation(Ogre::Quaternion(Ogre::Radian(rbOrientation.getAngle()),
+                Ogre::Vector3(rbOrientationAxis.x(),
+                    rbOrientationAxis.y(),rbOrientationAxis.z())));
+                    obj->update(deltaTime);
+        }
     }
 }
 
@@ -41,6 +44,16 @@ void World::addObject(GameObject* obj,
     obj->setVelocity(vel);
     obj->setRotation(rot);
     objects.push_front(obj);
+}
+
+void World::pause( bool pause )
+{
+    paused = pause;
+}
+
+bool World::isPaused()
+{
+    return paused;
 }
 
 void World::onObjectAdded(GameObject* obj,

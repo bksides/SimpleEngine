@@ -27,6 +27,7 @@ namespace SimpleEngine
         btCollisionDispatcher* dispatcher = NULL;
         btSequentialImpulseConstraintSolver* solver = NULL;
         btDiscreteDynamicsWorld* dynamicsWorld = NULL;
+        bool paused = false;
     protected:
         /*!
         \brief A list of all objects in the world.
@@ -68,6 +69,20 @@ namespace SimpleEngine
         \param deltaTime The time elapsed since the last update.
         */
         void update(float deltaTime);
+
+        /*!
+        \brief A function that either pauses or unpauses the World.
+
+        \param pause If true, this function pauses the world; if false, it
+        unpauses the world.
+        */
+        void pause(bool pause = true);
+
+        /*!
+        \brief Returns true if the World is paused; false otherwise.
+        */
+
+        bool isPaused();
 
         /*!
         \brief A function which handles adding objects to the world.

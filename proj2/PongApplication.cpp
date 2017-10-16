@@ -21,6 +21,7 @@ int vel = 30;
 int player_score = 0;
 PongApplication app;
 CEGUI::Window *score_board;
+bool gameOver = false;
 
 bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
 {
@@ -82,7 +83,7 @@ bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
         (body1 == ball->getRigidBody() && body0 == paddle->getRigidBody()))
     {
         ++PongApplication::player_score;
-        
+
     }
 }
 */
@@ -126,6 +127,24 @@ void PongApplication::createScene(void)
     CEGUI_Init();
 }
 
+bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
+{
+    if(arg.key == OIS::KC_P)
+    {
+        if(!gameOver)
+            wallWorld->pause(!wallWorld->isPaused());
+            if(wallWorld->isPaused())
+            {
+                score_board->setText("Paused");
+            }
+            else
+            {
+                score_board->setText("Score: "+std::to_string(player_score));
+            }
+    }
+    return BaseApplication::keyPressed(arg);
+}
+
 void PongApplication::CEGUI_Init(void)
 {
     mRenderer = &CEGUI::OgreRenderer::bootstrapSystem();
@@ -134,16 +153,16 @@ void PongApplication::CEGUI_Init(void)
     CEGUI::Scheme::setDefaultResourceGroup("Schemes");
     CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
     CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
-    
+
     CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
     //CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("TaharezLook/MouseArrow");
-    
+
 /*    CEGUI::WindowManager &wmgr = CEGUI::WindowManager::getSingleton();
     CEGUI::Window *sheet = wmgr.createWindow("DefaultWindow", "CEGUIDemo/Sheet");
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);*/
 
-/*  Use this if you want a cool demo of what CEGUI can do with sheets    
-    CEGUI::Window *guiRoot = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("TextDemo.layout"); 
+/*  Use this if you want a cool demo of what CEGUI can do with sheets
+    CEGUI::Window *guiRoot = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("TextDemo.layout");
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(guiRoot);
 */
     CEGUI::WindowManager &wmgr = CEGUI::WindowManager::getSingleton();
@@ -162,19 +181,19 @@ void PongApplication::CEGUI_Init(void)
 //--------------------------------------------------------------------------------------
 bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
-    if (pressedKeys.find(OIS::KC_RIGHT) != pressedKeys.end())
+    if (pressedKeys.find(OIS::KC_RIGHT) != pressedKeys.end() && !wallWorld->isPaused())
     {
         paddle->translate(Ogre::Vector3((-2*(float)vel/3)*evt.timeSinceLastFrame, 0, 0));
     }
-    if (pressedKeys.find(OIS::KC_LEFT) != pressedKeys.end())
+    if (pressedKeys.find(OIS::KC_LEFT) != pressedKeys.end() && !wallWorld->isPaused())
     {
         paddle->translate(Ogre::Vector3((2*(float)vel/3)*evt.timeSinceLastFrame, 0, 0));
     }
-    if (pressedKeys.find(OIS::KC_UP) != pressedKeys.end())
+    if (pressedKeys.find(OIS::KC_UP) != pressedKeys.end() && !wallWorld->isPaused())
     {
         paddle->translate(Ogre::Vector3(0, (2*(float)vel/3)*evt.timeSinceLastFrame, 0));
     }
-    if (pressedKeys.find(OIS::KC_DOWN) != pressedKeys.end())
+    if (pressedKeys.find(OIS::KC_DOWN) != pressedKeys.end() && !wallWorld->isPaused())
     {
         paddle->translate(Ogre::Vector3(0, (-2*(float)vel/3)*evt.timeSinceLastFrame, 0));
     }
@@ -182,8 +201,12 @@ bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
     ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, ball->getVelocity().y, (ball->getVelocity().z * ((float)vel / abs(ball->getVelocity().z)))));
     if(ball->getPosition().z < -50)
     {
-        printf("Score: %d\n", player_score);
-        mShutDown = true;
+        score_board->setText("Final Score: " + std::to_string(player_score));
+        gameOver = true;
+    }
+    if(gameOver)
+    {
+        wallWorld->pause();
     }
     wallWorld->update(evt.timeSinceLastFrame);
     return BaseApplication::frameRenderingQueued(evt);

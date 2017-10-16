@@ -36,6 +36,7 @@ protected:
     virtual void createCamera();
     virtual void createViewports();
     virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
+    virtual bool keyPressed(const OIS::KeyEvent &arg);
     void CEGUI_Init(void);
 };
 
