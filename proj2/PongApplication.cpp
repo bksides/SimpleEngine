@@ -22,6 +22,7 @@ int player_score = 0;
 PongApplication app;
 CEGUI::Window *score_board;
 bool gameOver = false;
+bool CEGUI_needs_init = true;
 
 bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
 {
@@ -124,7 +125,12 @@ void PongApplication::createScene(void)
     wallWorld->addObject(paddle, Ogre::Vector3(0, 0, -49), Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / -2, 0, 0));
 
     gContactProcessedCallback = playBoing;
-    CEGUI_Init();
+
+    if(CEGUI_needs_init)
+    {
+        CEGUI_Init();
+        CEGUI_needs_init = false;
+    }
 }
 
 bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
@@ -141,6 +147,15 @@ bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
             {
                 score_board->setText("Score: "+std::to_string(player_score));
             }
+    }
+    if(arg.key == OIS::KC_RETURN && wallWorld->isPaused())
+    {
+        vel = 30;
+        player_score = 0;
+        score_board->setText("Score: "+std::to_string(player_score));
+        gameOver = false;
+        mSceneMgr->clearScene();
+        createScene();
     }
     return BaseApplication::keyPressed(arg);
 }
@@ -207,6 +222,7 @@ bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
     if(gameOver)
     {
         wallWorld->pause();
+
     }
     wallWorld->update(evt.timeSinceLastFrame);
     return BaseApplication::frameRenderingQueued(evt);
