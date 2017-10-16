@@ -15,6 +15,7 @@
 using namespace SimpleEngine;
 
 Mix_Chunk* boing = NULL;
+Mix_Music* music = NULL;
 GameObject* paddle;
 GameObject* ball;
 int vel = 30;
@@ -62,7 +63,8 @@ PongApplication::PongApplication(void)
         mShutDown = true;
     }
     boing = Mix_LoadWAV( "./dist/media/sounds/boing.wav" );
-    if( boing == NULL )
+    music = Mix_LoadMUS("./dist/media/sounds/music.mp3");
+    if( boing == NULL || music == NULL)
     {
         printf( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
         mShutDown = true;
@@ -132,6 +134,8 @@ void PongApplication::createScene(void)
         CEGUI_Init();
         CEGUI_needs_init = false;
     }
+
+    Mix_PlayMusic(music, -1);
 }
 
 bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
@@ -159,6 +163,25 @@ bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
         gameOver = false;
         mSceneMgr->clearScene();
         createScene();
+    }
+    if(arg.key == OIS::KC_PGUP)
+    {
+        Mix_VolumeMusic(Mix_VolumeMusic(-1) + 20);
+    }
+    if(arg.key == OIS::KC_PGDOWN)
+    {
+        Mix_VolumeMusic(Mix_VolumeMusic(-1) - 20);
+    }
+    if(arg.key == OIS::KC_N)
+    {
+        if(Mix_PausedMusic())
+        {
+            Mix_ResumeMusic();
+        }
+        else
+        {
+            Mix_PauseMusic();
+        }
     }
     return BaseApplication::keyPressed(arg);
 }
@@ -234,6 +257,7 @@ bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
     if(gameOver)
     {
         wallWorld->pause();
+        Mix_PauseMusic();
 
     }
     wallWorld->update(evt.timeSinceLastFrame);
