@@ -162,7 +162,7 @@ bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
         score_board->setText("Score: "+std::to_string(player_score));
         gameOver = false;
         pause_pop_up->setVisible(false);
-        pause_pop_up->setText("Game Paused.\n\nPress enter to start over.");
+        pause_pop_up->setText("Game Paused.\n\nControls:\n\nEnter: Start over(pause/game over only)\nArrow keys: Move the ball\nM: Mute the music\nS: Mute the sound effects\nPage Up/Page Down: Control music volume\nESC: Exit the game\nStop, Drop, Roll: Put out the fire");
         mSceneMgr->clearScene();
         createScene();
     }
@@ -219,9 +219,9 @@ void PongApplication::CEGUI_Init(void)
     score_board->setPosition(CEGUI::UVector2(CEGUI::UDim(0.425, 0), CEGUI::UDim(0, 0)));
     score_board->setSize(CEGUI::USize(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.05, 0)));
 
-    pause_pop_up->setText("Game Paused.\n\nPress enter to start over.");
-    pause_pop_up->setPosition(CEGUI::UVector2(CEGUI::UDim(0.35, 0), CEGUI::UDim(.35, 0)));
-    pause_pop_up->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0), CEGUI::UDim(0.3, 0)));
+    pause_pop_up->setText("Game Paused\n\nControls:\n\nEnter: Start over(pause/game over only)\nArrow keys: Move the ball\nM: Mute the music\nS: Mute the sound effects\nPage Up/Page Down: Control music volume\nESC: Exit the game\nStop, Drop, Roll: Put out the fire");
+    pause_pop_up->setPosition(CEGUI::UVector2(CEGUI::UDim(0.35, 0), CEGUI::UDim(.25, 0)));
+    pause_pop_up->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0), CEGUI::UDim(0.5, 0)));
     pause_pop_up->setVisible(false);
 
     sheet->addChild(score_board);
