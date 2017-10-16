@@ -262,7 +262,7 @@ bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
   if (arg.key == OIS::KC_ESCAPE) {
     mShutDown = true;
   }
-  else if (arg.key == OIS::KC_M) {
+  else if (arg.key == OIS::KC_S) {
     sound = !sound;
   }
   else

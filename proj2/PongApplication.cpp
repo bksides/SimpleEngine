@@ -174,7 +174,7 @@ bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
     {
         Mix_VolumeMusic(Mix_VolumeMusic(-1) - 20);
     }
-    if(arg.key == OIS::KC_N)
+    if(arg.key == OIS::KC_M)
     {
         if(Mix_PausedMusic())
         {
