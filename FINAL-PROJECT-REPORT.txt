@@ -1,0 +1,3 @@
+Project Report:
+
+We pretty much exceeded our expectations on every front. After the first milestone, that seemed unlikely.  By not focusing too much on polishing the presentation, we were able to focus more on the actual technical aspects and make sure everything got done.  That allowed us to implement some of the extra credit features with our extra time.

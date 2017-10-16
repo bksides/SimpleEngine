@@ -1,0 +1,27 @@
+Objective:
+
+Avoid letting the ball get past your paddle.  Maximize your score by
+hitting the ball as many times as possible.  The ball and paddle
+will both get faster as your score goes up.
+
+Features:
+
+ - Sweet music
+ - Muting of sweet music (don't know why you'd want to do that, though)
+ - Sweet sound effects
+ - You can mute those too
+ - Sick Pause Menu
+ - Cool ass endgame screen that shows final score
+ - Zero gravity!  Play pong like an astronaut
+ - Green ball
+ - No micro-transactions
+
+Controls:
+
+P: Pause the game
+Enter: Start over(pause/game over only)
+Arrow keys: Move the ball
+M: Mute the music
+S: Mute the sound effects
+Page Up/Page Down: Control music volume
+ESC: Exit the game
