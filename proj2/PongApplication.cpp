@@ -21,6 +21,7 @@ int vel = 30;
 int player_score = 0;
 PongApplication app;
 CEGUI::Window *score_board;
+CEGUI::Window *pause_pop_up;
 bool gameOver = false;
 
 bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
@@ -133,13 +134,15 @@ bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
     {
         if(!gameOver)
             wallWorld->pause(!wallWorld->isPaused());
-            if(wallWorld->isPaused())
+            if(wallWorld->isPaused() && !gameOver)
             {
-                score_board->setText("Paused");
+                //score_board->setText("Paused");
+                pause_pop_up->setVisible(true);
             }
             else
             {
                 score_board->setText("Score: "+std::to_string(player_score));
+                pause_pop_up->setVisible(false);
             }
     }
     return BaseApplication::keyPressed(arg);
@@ -167,13 +170,22 @@ void PongApplication::CEGUI_Init(void)
 */
     CEGUI::WindowManager &wmgr = CEGUI::WindowManager::getSingleton();
     CEGUI::Window *sheet = wmgr.createWindow("DefaultWindow", "CEGUIDemo/Sheet");
-    score_board = wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/QuitButton");
+    score_board = wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/ScoreBoard");
+
+    pause_pop_up = wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/PausePopUp");
     //quit->setText("Score");
 
     score_board->setText("Score: "+std::to_string(player_score));
     score_board->setPosition(CEGUI::UVector2(CEGUI::UDim(0.425, 0), CEGUI::UDim(0, 0)));
     score_board->setSize(CEGUI::USize(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.05, 0)));
+
+    pause_pop_up->setText("Game Paused.\n\nPress enter to start over.");
+    pause_pop_up->setPosition(CEGUI::UVector2(CEGUI::UDim(0.35, 0), CEGUI::UDim(.35, 0)));
+    pause_pop_up->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0), CEGUI::UDim(0.3, 0)));
+    pause_pop_up->setVisible(false);
+
     sheet->addChild(score_board);
+    sheet->addChild(pause_pop_up);
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
 }
 
