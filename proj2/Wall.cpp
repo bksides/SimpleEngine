@@ -23,5 +23,5 @@ Wall::Wall(Ogre::SceneManager* mSceneMgr)
     btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 0, 0)));
     btRigidBody::btRigidBodyConstructionInfo groundRigidBodyCI(0, groundMotionState, groundShape, btVector3(0, 0, 0));
     rigidBody = new btRigidBody(groundRigidBodyCI);
-    rigidBody->setRestitution(1.0);
+    rigidBody->setRestitution(1.05);
 }

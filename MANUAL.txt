@@ -12,7 +12,7 @@ Features:
  - You can mute those too
  - Sick Pause Menu
  - Cool ass endgame screen that shows final score
- - Zero gravity!  Play pong like an astronaut
+ - Gravity (lame)
  - Green ball
  - No micro-transactions
 

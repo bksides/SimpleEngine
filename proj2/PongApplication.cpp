@@ -16,6 +16,9 @@ using namespace SimpleEngine;
 
 Mix_Chunk* boing = NULL;
 Mix_Music* music = NULL;
+Mix_Chunk* ching = NULL;
+Mix_Chunk* lose = NULL;
+
 GameObject* paddle;
 GameObject* ball;
 int vel = 30;
@@ -36,9 +39,14 @@ bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
         (body1 == ball->getRigidBody() && body0 == paddle->getRigidBody()))
     {
         ++player_score;
+        ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, 50, ball->getVelocity().z));
         //quit->setText(std::to_string(player_score));
         app.updateScoreboard();
         vel += 3;
+        if(sound)
+        {
+            Mix_PlayChannel(-1, ching, 0);
+        }
     }
     return true;
 }
@@ -64,7 +72,11 @@ PongApplication::PongApplication(void)
     }
     boing = Mix_LoadWAV( "./dist/media/sounds/boing.wav" );
     music = Mix_LoadMUS("./dist/media/sounds/music.mp3");
-    if( boing == NULL || music == NULL)
+    ching = Mix_LoadWAV("./dist/media/sounds/score.wav");
+    lose = Mix_LoadWAV("./dist/media/sounds/gameover.wav");
+    //Mix_VolumeChunk(ching, MIX_MAX_VOLUME);
+
+    if( boing == NULL || music == NULL || ching == NULL || lose == NULL)
     {
         printf( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
         mShutDown = true;
@@ -249,10 +261,15 @@ bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
     {
         paddle->translate(Ogre::Vector3(0, (-2*(float)vel/3)*evt.timeSinceLastFrame, 0));
     }
+    mCamera->setPosition(paddle->getPosition() + -100 * Ogre::Vector3::UNIT_Z);
 
     ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, ball->getVelocity().y, (ball->getVelocity().z * ((float)vel / abs(ball->getVelocity().z)))));
     if(ball->getPosition().z < -50)
     {
+        if(!gameOver)
+        {
+            Mix_PlayChannel(-1, lose, 0);
+        }
         score_board->setText("Game Over");
         gameOver = true;
     }
