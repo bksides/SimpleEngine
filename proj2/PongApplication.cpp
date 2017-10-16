@@ -157,6 +157,8 @@ bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
         player_score = 0;
         score_board->setText("Score: "+std::to_string(player_score));
         gameOver = false;
+        pause_pop_up->setVisible(false);
+        pause_pop_up->setText("Game Paused.\n\nPress enter to start over.");
         mSceneMgr->clearScene();
         createScene();
     }
@@ -228,13 +230,14 @@ bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
     ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, ball->getVelocity().y, (ball->getVelocity().z * ((float)vel / abs(ball->getVelocity().z)))));
     if(ball->getPosition().z < -50)
     {
-        score_board->setText("Final Score: " + std::to_string(player_score));
+        score_board->setText("Game Over");
         gameOver = true;
     }
     if(gameOver)
     {
         wallWorld->pause();
-
+        pause_pop_up->setText("Your final score was: " + std::to_string(player_score) + "\n\nPress enter to play again!");
+        pause_pop_up->setVisible(true);
     }
     wallWorld->update(evt.timeSinceLastFrame);
     return BaseApplication::frameRenderingQueued(evt);
