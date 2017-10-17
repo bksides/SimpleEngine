@@ -9,6 +9,8 @@
 #include <OgreSceneManager.h>
 #include <list>
 #include <btBulletDynamicsCommon.h>
+#include <chrono>
+#include <thread>
 
 namespace SimpleEngine
 {
@@ -28,6 +30,7 @@ namespace SimpleEngine
         btSequentialImpulseConstraintSolver* solver = NULL;
         btDiscreteDynamicsWorld* dynamicsWorld = NULL;
         bool paused = false;
+        std::thread* physicsThread = NULL;
     protected:
         /*!
         \brief A list of all objects in the world.
@@ -84,6 +87,8 @@ namespace SimpleEngine
 
         bool isPaused();
 
+        btDiscreteDynamicsWorld* getDynamicsWorld();
+
         /*!
         \brief A function which handles adding objects to the world.
 
@@ -105,7 +110,10 @@ namespace SimpleEngine
         in this World.
         */
         World(Ogre::SceneManager* m);
+
         ~World();
+
+        std::chrono::high_resolution_clock::time_point lastPhysicsUpdate = std::chrono::high_resolution_clock::now();
     };
 }
 
