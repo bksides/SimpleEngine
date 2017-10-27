@@ -4,9 +4,6 @@
 #include <OgreVector3.h>
 #include <OgreQuaternion.h>
 #include <OgreSceneManager.h>
-#include <thread>
-#include <chrono>
-#include <unistd.h>
 
 using namespace SimpleEngine;
 
@@ -15,6 +12,8 @@ void World::update(float deltaTime)
     if(!paused)
     {
         onUpdate(deltaTime);
+
+        dynamicsWorld->stepSimulation(deltaTime);
 
         for(GameObject* obj : objects)
         {
@@ -28,23 +27,6 @@ void World::update(float deltaTime)
                     rbOrientationAxis.y(),rbOrientationAxis.z())));
                     obj->update(deltaTime);
         }
-    }
-}
-
-btDiscreteDynamicsWorld* World::getDynamicsWorld()
-{
-    return dynamicsWorld;
-}
-
-void physLoop(SimpleEngine::World* world)
-{
-    while(true)
-    {
-        std::chrono::high_resolution_clock::time_point t = std::chrono::high_resolution_clock::now();
-        int elapsedTime = (t - world->lastPhysicsUpdate).count();
-        world->getDynamicsWorld()->stepSimulation((float)elapsedTime / 1000);
-        world->lastPhysicsUpdate = t;
-        usleep(16000);
     }
 }
 
@@ -92,8 +74,6 @@ World::World(Ogre::SceneManager* m) : mSceneMgr(m) {
     dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
     dynamicsWorld->setGravity(btVector3(0, -100, 0));
 
-    physicsThread = new std::thread(physLoop, this);
-
     btContactSolverInfo& info = dynamicsWorld->getSolverInfo();
     info.m_splitImpulse = 1;
 }
@@ -110,5 +90,4 @@ World::~World()
     delete collisionConfiguration;
     delete dispatcher;
     delete broadphase;
-    delete physicsThread;
 }
