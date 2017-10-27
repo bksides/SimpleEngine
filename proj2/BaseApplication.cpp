@@ -235,7 +235,7 @@ bool BaseApplication::setup(void)
     loadResources();
 
     // Create the scene
-    createScene();
+    createMultiPlayerScene(sock);
 
     createFrameListener();
 
