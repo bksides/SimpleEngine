@@ -237,30 +237,45 @@ void PongApplication::CEGUI_Init(void)
 
 void PongApplication::createStartMenu(CEGUI::WindowManager& wmgr)
 {
-    start_menu = wmgr.createWindow("TaharezLook/FrameWindow","CEGUIDemo/StartMenu");
+    //start_menu = wmgr.createWindow("TaharezLook/FrameWindow","CEGUIDemo/StartMenu");
     
-    start_menu->setPosition(CEGUI::UVector2(CEGUI::UDim(0.3,0), CEGUI::UDim(0.3,0)));
-    start_menu->setSize(CEGUI::USize(CEGUI::UDim(0.4, 0), CEGUI::UDim(0.4, 0)));
+    start_menu = wmgr.createWindow("TaharezLook/StaticImage", "CEGUIDemo/Background");
+
+    //CEGUI::Imageset* MenuImageset = CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("Background","MenuBackground.jpg");
+    //MenuImageset->defineImage("Background", CEGUI::Point(0.0f,0.0f), CEGUI::Size( 1.0f, 1.0f ), Point(0.0f,0.0f));
+    
+    //start_menu->setProperty("Image", "menuBackground/menuBackground");
+
+    start_menu->setProperty("Image", "TaharezLook/ClientBrush");
+    
+    start_menu->setPosition(CEGUI::UVector2(CEGUI::UDim(0,0), CEGUI::UDim(0,0)));
+    start_menu->setSize(CEGUI::USize(CEGUI::UDim(1, 0), CEGUI::UDim(1, 0)));
+
+    CEGUI::Window* menu = wmgr.createWindow("TaharezLook/FrameWindow","CEGUIDemo/Menu");
+    start_menu->addChild(menu);
+
+    menu->setPosition(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.1,0)));
+    menu->setSize(CEGUI::USize(CEGUI::UDim(0.8, 0), CEGUI::UDim(0.8, 0)));
 
     CEGUI::Window* title = wmgr.createWindow("TaharezLook/StaticText","CEGUIDemo/menuTitle");
     start_menu->addChild(title);
     title->setText("Welcome to Ogre Ball! \nChoose a mode to start playing.");
-    title->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05, 0.0), CEGUI::UDim(0.1, 0.0)));
-    title->setSize(CEGUI::USize(CEGUI::UDim(0.9,0.0), CEGUI::UDim(0.3, 0.0)));
+    title->setPosition(CEGUI::UVector2(CEGUI::UDim(0.15, 0.0), CEGUI::UDim(0.15, 0.0)));
+    title->setSize(CEGUI::USize(CEGUI::UDim(0.7,0.0), CEGUI::UDim(0.15, 0.0)));
 
     //when a mode is selected, the handler should hide the start menu
     //and start the mode they picked
     //also the cursor should be hidden
     CEGUI::PushButton* singPlayer = (CEGUI::PushButton*)wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/SingPlayer");
     start_menu->addChild(singPlayer);
-    singPlayer->setPosition(CEGUI::UVector2(CEGUI::UDim(0.3, 0.0), CEGUI::UDim(0.45, 0.0)));
+    singPlayer->setPosition(CEGUI::UVector2(CEGUI::UDim(0.3, 0.0), CEGUI::UDim(0.5, 0.0)));
     singPlayer->setSize(CEGUI::USize(CEGUI::UDim(0.4,0.0), CEGUI::UDim(0.15, 0.0)));
     singPlayer->setText("Single Player");
     singPlayer->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&PongApplication::beginSinglePlayer, this));
 
     CEGUI::PushButton* multiPlayer = (CEGUI::PushButton*)wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/MultiPlayer");
     start_menu->addChild(multiPlayer);
-    multiPlayer->setPosition(CEGUI::UVector2(CEGUI::UDim(0.3, 0.0), CEGUI::UDim(0.75, 0.0)));
+    multiPlayer->setPosition(CEGUI::UVector2(CEGUI::UDim(0.3, 0.0), CEGUI::UDim(0.7, 0.0)));
     multiPlayer->setSize(CEGUI::USize(CEGUI::UDim(0.4,0.0), CEGUI::UDim(0.15, 0.0)));
     multiPlayer->setText("Multiplayer");
 }
@@ -272,6 +287,7 @@ void PongApplication::createScoreBoard(CEGUI::WindowManager& wmgr)
     score_board->setText("Score: "+std::to_string(player_score));
     score_board->setPosition(CEGUI::UVector2(CEGUI::UDim(0.425, 0), CEGUI::UDim(0, 0)));
     score_board->setSize(CEGUI::USize(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.05, 0)));
+    score_board->setVisible(false);
 }
 
 void PongApplication::createPauseMenu(CEGUI::WindowManager& wmgr)
@@ -287,6 +303,7 @@ void PongApplication::createPauseMenu(CEGUI::WindowManager& wmgr)
 void PongApplication::beginSinglePlayer(void)
 {
     start_menu->setVisible(false);
+    score_board->setVisible(true);
     CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().hide();
     //actuall create the single player scene
     Ogre::Light* lamp = mSceneMgr->createLight("lamp");
