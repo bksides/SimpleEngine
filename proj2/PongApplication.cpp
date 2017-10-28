@@ -375,7 +375,11 @@ extern "C" {
             if(SDLNet_Init() == -1)
                 return -1;
 
-            SDLNet_ResolveHost(addr, argv[1], 2025);
+            if(SDLNet_ResolveHost(addr, argv[1], 2025) == -1)
+            {
+                printf("Could not resolve hostname.\n");
+                return -1;
+            }
 
             printf("%s\n", argv[1]);
 
@@ -389,27 +393,47 @@ extern "C" {
 
             uint16_t i;
 
-            SDLNet_TCP_Recv(app.sock, &i, 2);
+            if(SDLNet_TCP_Recv(app.sock, &i, 2) <= 0)
+            {
+                printf("An error occurred when communicating with server.\n");
+                return -1;
+            }
 
             printf("%d\n", i);
         }
         else
         {
             IPaddress addr;
-            addr.host = INADDR_ANY;
-            addr.port = 2025;
+            SDLNet_ResolveHost(&addr, NULL, 2025);
             TCPsocket intermediateSock = SDLNet_TCP_Open(&addr);
-            
+            SDLNet_SocketSet sockset = SDLNet_AllocSocketSet(1);
+
             if(intermediateSock == NULL)
             {
                 printf("Couldn't initialize server socket.");
                 return -1;
             }
-            printf("Awaiting connection...\n");
-            while(app.sock == NULL)
+            if(SDLNet_TCP_AddSocket(sockset, intermediateSock) == -1)
             {
-                app.sock = SDLNet_TCP_Accept(intermediateSock);
+                printf("Error adding server socket to watch list\n");
             }
+            printf("Awaiting connection...\n");
+            while(true)
+            {
+                SDLNet_CheckSockets(sockset, 0);
+                if(SDLNet_SocketReady(intermediateSock))
+                {
+                    app.sock = SDLNet_TCP_Accept(intermediateSock);
+                    break;
+                }
+                printf("Waiting...\n");
+            }
+            if(app.sock == NULL)
+            {
+                printf("Error accepting connection from client.\n");
+                return -1;
+            }
+            printf("Accepted connection.\n");
             SDLNet_TCP_Close(intermediateSock);
             SDLNet_TCP_Send(app.sock, &addr.port, 2);
         }
