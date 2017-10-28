@@ -15,19 +15,33 @@
 using namespace SimpleEngine;
 
 Mix_Chunk* boing = NULL;
+Mix_Music* music = NULL;
 GameObject* paddle;
 GameObject* ball;
-<<<<<<< HEAD
-=======
+int vel = 30;
+int player_score = 0;
+PongApplication app;
+CEGUI::Window *score_board;
+CEGUI::Window *pause_pop_up;
+bool gameOver = false;
+bool CEGUI_needs_init = true;
+
 bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
 {
     if(sound)
     {
         Mix_PlayChannel( -1, boing, 0 );
     }
+    if((body0 == ball->getRigidBody() && body1 == paddle->getRigidBody())||
+        (body1 == ball->getRigidBody() && body0 == paddle->getRigidBody()))
+    {
+        ++player_score;
+        //quit->setText(std::to_string(player_score));
+        app.updateScoreboard();
+        vel += 3;
+    }
     return true;
 }
->>>>>>> c2a2f482ad7070c4378b0847b0afee16674a4745
 
 //-------------------------------------------------------------------------------------
 PongApplication::PongApplication(void)
@@ -49,12 +63,14 @@ PongApplication::PongApplication(void)
         mShutDown = true;
     }
     boing = Mix_LoadWAV( "./dist/media/sounds/boing.wav" );
-    if( boing == NULL )
+    music = Mix_LoadMUS("./dist/media/sounds/music.mp3");
+    if( boing == NULL || music == NULL)
     {
         printf( "Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
         mShutDown = true;
     }
-    player_score = 0;
+
+    //player_score = 0;
 }
 //-------------------------------------------------------------------------------------
 PongApplication::~PongApplication(void)
@@ -63,15 +79,22 @@ PongApplication::~PongApplication(void)
 }
 
 //-------------------------------------------------------------------------------------
+/*
 bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
 {
     Mix_PlayChannel( -1, boing, 0 );
-/*    if((body0 == ball->getRigidBody() && body1 == paddle->getRigidBody())||
+    if((body0 == ball->getRigidBody() && body1 == paddle->getRigidBody())||
         (body1 == ball->getRigidBody() && body0 == paddle->getRigidBody()))
     {
         ++PongApplication::player_score;
-        
-    }*/
+
+    }
+}
+*/
+
+void PongApplication::updateScoreboard(void)
+{
+    score_board->setText("Score: "+std::to_string(player_score));
 }
 
 void PongApplication::createScene(void)
@@ -105,7 +128,64 @@ void PongApplication::createScene(void)
     wallWorld->addObject(paddle, Ogre::Vector3(0, 0, -49), Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / -2, 0, 0));
 
     gContactProcessedCallback = playBoing;
-    CEGUI_Init();
+
+    if(CEGUI_needs_init)
+    {
+        CEGUI_Init();
+        CEGUI_needs_init = false;
+    }
+
+    Mix_PlayMusic(music, -1);
+}
+
+bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
+{
+    if(arg.key == OIS::KC_P)
+    {
+        if(!gameOver)
+            wallWorld->pause(!wallWorld->isPaused());
+            if(wallWorld->isPaused() && !gameOver)
+            {
+                //score_board->setText("Paused");
+                pause_pop_up->setVisible(true);
+            }
+            else
+            {
+                score_board->setText("Score: "+std::to_string(player_score));
+                pause_pop_up->setVisible(false);
+            }
+    }
+    if(arg.key == OIS::KC_RETURN && wallWorld->isPaused())
+    {
+        vel = 30;
+        player_score = 0;
+        score_board->setText("Score: "+std::to_string(player_score));
+        gameOver = false;
+        pause_pop_up->setVisible(false);
+        pause_pop_up->setText("Game Paused.\n\nPress enter to start over.");
+        mSceneMgr->clearScene();
+        createScene();
+    }
+    if(arg.key == OIS::KC_PGUP)
+    {
+        Mix_VolumeMusic(Mix_VolumeMusic(-1) + 20);
+    }
+    if(arg.key == OIS::KC_PGDOWN)
+    {
+        Mix_VolumeMusic(Mix_VolumeMusic(-1) - 20);
+    }
+    if(arg.key == OIS::KC_N)
+    {
+        if(Mix_PausedMusic())
+        {
+            Mix_ResumeMusic();
+        }
+        else
+        {
+            Mix_PauseMusic();
+        }
+    }
+    return BaseApplication::keyPressed(arg);
 }
 
 void PongApplication::CEGUI_Init(void)
@@ -116,27 +196,36 @@ void PongApplication::CEGUI_Init(void)
     CEGUI::Scheme::setDefaultResourceGroup("Schemes");
     CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
     CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
-    
+
     CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
     //CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("TaharezLook/MouseArrow");
-    
+
 /*    CEGUI::WindowManager &wmgr = CEGUI::WindowManager::getSingleton();
     CEGUI::Window *sheet = wmgr.createWindow("DefaultWindow", "CEGUIDemo/Sheet");
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);*/
 
-/*  Use this if you want a cool demo of what CEGUI can do with sheets    
-    CEGUI::Window *guiRoot = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("TextDemo.layout"); 
+/*  Use this if you want a cool demo of what CEGUI can do with sheets
+    CEGUI::Window *guiRoot = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("TextDemo.layout");
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(guiRoot);
 */
     CEGUI::WindowManager &wmgr = CEGUI::WindowManager::getSingleton();
     CEGUI::Window *sheet = wmgr.createWindow("DefaultWindow", "CEGUIDemo/Sheet");
-    CEGUI::Window *quit = wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/QuitButton");
+    score_board = wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/ScoreBoard");
+
+    pause_pop_up = wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/PausePopUp");
     //quit->setText("Score");
 
-    quit->setText(std::to_string(player_score));
-    quit->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5, 0), CEGUI::UDim(0, 0)));
-    quit->setSize(CEGUI::USize(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.05, 0)));
-    sheet->addChild(quit);
+    score_board->setText("Score: "+std::to_string(player_score));
+    score_board->setPosition(CEGUI::UVector2(CEGUI::UDim(0.425, 0), CEGUI::UDim(0, 0)));
+    score_board->setSize(CEGUI::USize(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.05, 0)));
+
+    pause_pop_up->setText("Game Paused.\n\nPress enter to start over.");
+    pause_pop_up->setPosition(CEGUI::UVector2(CEGUI::UDim(0.35, 0), CEGUI::UDim(.35, 0)));
+    pause_pop_up->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0), CEGUI::UDim(0.3, 0)));
+    pause_pop_up->setVisible(false);
+
+    sheet->addChild(score_board);
+    sheet->addChild(pause_pop_up);
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
 }
 
@@ -144,27 +233,39 @@ void PongApplication::CEGUI_Init(void)
 //--------------------------------------------------------------------------------------
 bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
-    if (pressedKeys.find(OIS::KC_RIGHT) != pressedKeys.end())
+    if (pressedKeys.find(OIS::KC_RIGHT) != pressedKeys.end() && !wallWorld->isPaused())
     {
-        paddle->translate(Ogre::Vector3(-20*evt.timeSinceLastFrame, 0, 0));
+        paddle->translate(Ogre::Vector3((-2*(float)vel/3)*evt.timeSinceLastFrame, 0, 0));
     }
-    if (pressedKeys.find(OIS::KC_LEFT) != pressedKeys.end())
+    if (pressedKeys.find(OIS::KC_LEFT) != pressedKeys.end() && !wallWorld->isPaused())
     {
-        paddle->translate(Ogre::Vector3(20*evt.timeSinceLastFrame, 0, 0));
+        paddle->translate(Ogre::Vector3((2*(float)vel/3)*evt.timeSinceLastFrame, 0, 0));
     }
-    if (pressedKeys.find(OIS::KC_UP) != pressedKeys.end())
+    if (pressedKeys.find(OIS::KC_UP) != pressedKeys.end() && !wallWorld->isPaused())
     {
-        paddle->translate(Ogre::Vector3(0, 20*evt.timeSinceLastFrame, 0));
+        paddle->translate(Ogre::Vector3(0, (2*(float)vel/3)*evt.timeSinceLastFrame, 0));
     }
-    if (pressedKeys.find(OIS::KC_DOWN) != pressedKeys.end())
+    if (pressedKeys.find(OIS::KC_DOWN) != pressedKeys.end() && !wallWorld->isPaused())
     {
-        paddle->translate(Ogre::Vector3(0, -20*evt.timeSinceLastFrame, 0));
+        paddle->translate(Ogre::Vector3(0, (-2*(float)vel/3)*evt.timeSinceLastFrame, 0));
     }
 
-    ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, ball->getVelocity().y, (ball->getVelocity().z * (30.0 / abs(ball->getVelocity().z)))));
+    ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, ball->getVelocity().y, (ball->getVelocity().z * ((float)vel / abs(ball->getVelocity().z)))));
     if(ball->getPosition().z < -50)
     {
-        mShutDown = true;
+        score_board->setText("Game Over");
+        gameOver = true;
+    }
+    if(gameOver)
+    {
+        wallWorld->pause();
+<<<<<<< HEAD
+        pause_pop_up->setText("Your final score was: " + std::to_string(player_score) + "\n\nPress enter to play again!");
+        pause_pop_up->setVisible(true);
+=======
+        Mix_PauseMusic();
+
+>>>>>>> ccb9c0c7543ad71f4314125a3bc6bdb80d04e702
     }
     wallWorld->update(evt.timeSinceLastFrame);
     return BaseApplication::frameRenderingQueued(evt);
@@ -205,7 +306,7 @@ extern "C" {
 #endif
     {
         // Create application object
-        PongApplication app;
+        //PongApplication app;
 
         try {
             app.go();

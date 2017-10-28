@@ -26,6 +26,7 @@ int player_score = 0;
 PongApplication app;
 CEGUI::Window *score_board;
 CEGUI::Window *pause_pop_up;
+CEGUI::Window *start_menu;
 bool gameOver = false;
 bool CEGUI_needs_init = true;
 
@@ -111,6 +112,13 @@ void PongApplication::updateScoreboard(void)
 
 void PongApplication::createScene(void)
 {
+    //First make the start menu before anything else
+    //when a button is hit to start the game, then load the game objects
+    if(CEGUI_needs_init)
+    {
+        CEGUI_Init();
+        CEGUI_needs_init = false;
+    }
 
 	//Here we should initialize the PongWorld and populate it with GameObjects
     Ogre::Light* lamp = mSceneMgr->createLight("lamp");
@@ -140,12 +148,6 @@ void PongApplication::createScene(void)
     wallWorld->addObject(paddle, Ogre::Vector3(0, 0, -49), Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / -2, 0, 0));
 
     gContactProcessedCallback = playBoing;
-
-    if(CEGUI_needs_init)
-    {
-        CEGUI_Init();
-        CEGUI_needs_init = false;
-    }
 
     Mix_PlayMusic(music, -1);
 }
@@ -210,7 +212,7 @@ void PongApplication::CEGUI_Init(void)
     CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
 
     CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
-    //CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("TaharezLook/MouseArrow");
+    CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("TaharezLook/MouseArrow");
 
 /*    CEGUI::WindowManager &wmgr = CEGUI::WindowManager::getSingleton();
     CEGUI::Window *sheet = wmgr.createWindow("DefaultWindow", "CEGUIDemo/Sheet");
@@ -222,25 +224,73 @@ void PongApplication::CEGUI_Init(void)
 */
     CEGUI::WindowManager &wmgr = CEGUI::WindowManager::getSingleton();
     CEGUI::Window *sheet = wmgr.createWindow("DefaultWindow", "CEGUIDemo/Sheet");
-    score_board = wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/ScoreBoard");
 
-    pause_pop_up = wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/PausePopUp");
-    //quit->setText("Score");
+    createStartMenu(wmgr);
+    createScoreBoard(wmgr);
+    createPauseMenu(wmgr);
+
+    /* remove this to show the menu */
+    //start_menu->setVisible(false);
+
+    sheet->addChild(score_board);
+    sheet->addChild(pause_pop_up);
+    sheet->addChild(start_menu);
+    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
+}
+
+void PongApplication::createStartMenu(CEGUI::WindowManager& wmgr)
+{
+    start_menu = wmgr.createWindow("TaharezLook/FrameWindow","CEGUIDemo/StartMenu");
+    
+    start_menu->setPosition(CEGUI::UVector2(CEGUI::UDim(0.3,0), CEGUI::UDim(0.3,0)));
+    start_menu->setSize(CEGUI::USize(CEGUI::UDim(0.4, 0), CEGUI::UDim(0.4, 0)));
+
+    CEGUI::Window* title = wmgr.createWindow("TaharezLook/StaticText","CEGUIDemo/menuTitle");
+    start_menu->addChild(title);
+    title->setText("Welcome to Ogre Ball! \nChoose a mode to start playing.");
+    title->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05, 0.0), CEGUI::UDim(0.1, 0.0)));
+    title->setSize(CEGUI::USize(CEGUI::UDim(0.9,0.0), CEGUI::UDim(0.3, 0.0)));
+
+    //when a mode is selected, the handler should hide the start menu
+    //and start the mode they picked
+    //also the cursor should be hidden
+    CEGUI::PushButton* singPlayer = (CEGUI::PushButton*)wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/SingPlayer");
+    start_menu->addChild(singPlayer);
+    singPlayer->setPosition(CEGUI::UVector2(CEGUI::UDim(0.3, 0.0), CEGUI::UDim(0.45, 0.0)));
+    singPlayer->setSize(CEGUI::USize(CEGUI::UDim(0.4,0.0), CEGUI::UDim(0.15, 0.0)));
+    singPlayer->setText("Single Player");
+    singPlayer->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&PongApplication::hideStartMenu, this));
+
+    CEGUI::PushButton* multiPlayer = (CEGUI::PushButton*)wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/MultiPlayer");
+    start_menu->addChild(multiPlayer);
+    multiPlayer->setPosition(CEGUI::UVector2(CEGUI::UDim(0.3, 0.0), CEGUI::UDim(0.75, 0.0)));
+    multiPlayer->setSize(CEGUI::USize(CEGUI::UDim(0.4,0.0), CEGUI::UDim(0.15, 0.0)));
+    multiPlayer->setText("Multiplayer");
+}
+
+void PongApplication::createScoreBoard(CEGUI::WindowManager& wmgr)
+{
+    score_board = wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/ScoreBoard");
 
     score_board->setText("Score: "+std::to_string(player_score));
     score_board->setPosition(CEGUI::UVector2(CEGUI::UDim(0.425, 0), CEGUI::UDim(0, 0)));
     score_board->setSize(CEGUI::USize(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.05, 0)));
+}
+
+void PongApplication::createPauseMenu(CEGUI::WindowManager& wmgr)
+{
+    pause_pop_up = wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/PausePopUp");
 
     pause_pop_up->setText("Game Paused\n\nControls:\n\nEnter: Start over(pause/game over only)\nArrow keys: Move the ball\nM: Mute the music\nS: Mute the sound effects\nPage Up/Page Down: Control music volume\nESC: Exit the game\nStop, Drop, Roll: Put out the fire");
     pause_pop_up->setPosition(CEGUI::UVector2(CEGUI::UDim(0.35, 0), CEGUI::UDim(.25, 0)));
     pause_pop_up->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0), CEGUI::UDim(0.5, 0)));
     pause_pop_up->setVisible(false);
-
-    sheet->addChild(score_board);
-    sheet->addChild(pause_pop_up);
-    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
 }
 
+void PongApplication::hideStartMenu(void)
+{
+    start_menu->setVisible(false);
+}
 
 //--------------------------------------------------------------------------------------
 bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)

@@ -38,6 +38,10 @@ protected:
     virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
     virtual bool keyPressed(const OIS::KeyEvent &arg);
     void CEGUI_Init(void);
+    void createStartMenu(CEGUI::WindowManager& wmgr);
+    void createScoreBoard(CEGUI::WindowManager& wmgr);
+    void createPauseMenu(CEGUI::WindowManager& wmgr);
+    void hideStartMenu(void);
 };
 
 #endif // #ifndef __PongApplication_h_
