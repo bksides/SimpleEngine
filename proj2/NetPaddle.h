@@ -4,10 +4,9 @@
 
 class NetPaddle : public Paddle
 {
-private:
-	TCPsocket socket;
-	Ogre::Vector3 mostRecentSentPosition = Ogre::Vector3::UNIT_Z*49;
 public:
+	Ogre::Vector3 mostRecentSentPosition = Ogre::Vector3::UNIT_Z*49;
+	TCPsocket socket;
 	NetPaddle(Ogre::SceneManager* mSceneMgr, TCPsocket socket);
 	virtual void onUpdate(float deltaTime);
 };

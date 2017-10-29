@@ -23,6 +23,10 @@ This source file is part of the
 #include <SDL/SDL_net.h>
 
 extern int player_score;
+extern SimpleEngine::GameObject* paddle;
+extern SimpleEngine::GameObject* ball;
+extern Ogre::Vector3 ballMostRecentSentPosition;
+extern bool client;
 
 class PongApplication : public BaseApplication
 {
@@ -39,6 +43,7 @@ protected:
     virtual void createViewports();
     virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
     virtual bool keyPressed(const OIS::KeyEvent &arg);
+    void beginGame(void);
     void CEGUI_Init(void);
 };
 

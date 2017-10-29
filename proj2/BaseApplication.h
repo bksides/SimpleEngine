@@ -98,7 +98,7 @@ protected:
     virtual void createResourceListener(void);
     virtual void loadResources(void);
     virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
-
+    virtual void beginGame(void) = 0;
     virtual bool keyPressed(const OIS::KeyEvent &arg);
     virtual bool keyReleased(const OIS::KeyEvent &arg);
     virtual bool mouseMoved(const OIS::MouseEvent &arg);

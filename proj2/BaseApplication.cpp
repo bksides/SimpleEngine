@@ -207,7 +207,8 @@ void BaseApplication::go(void)
     if (!setup())
         return;
 
-    mRoot->startRendering();
+
+    beginGame();
 
     // Clean up
     destroyScene();

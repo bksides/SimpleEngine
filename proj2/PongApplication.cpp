@@ -23,8 +23,10 @@ Mix_Chunk* lose = NULL;
 
 GameObject* paddle;
 GameObject* ball;
+Ogre::Vector3 ballMostRecentSentPosition = Ogre::Vector3::ZERO;
 int vel = 30;
 int player_score = 0;
+bool client = false;
 PongApplication app;
 CEGUI::Window *score_board;
 CEGUI::Window *pause_pop_up;
@@ -136,6 +138,11 @@ void PongApplication::createScene(void)
 
     ball = new PongBall(mSceneMgr, btVector3(0,0,0));
 
+    if(client)
+    {
+        ball->getRigidBody()->setCollisionFlags(ball->getRigidBody()->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
+    }
+
     wallWorld->addObject(ball, Ogre::Vector3::ZERO, Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(40, 40), Ogre::Math::RangeRandom(40, 40)));
 
     paddle = new Paddle(mSceneMgr);
@@ -153,7 +160,8 @@ void PongApplication::createScene(void)
 }
 
 void PongApplication::createMultiPlayerScene(TCPsocket socket)
-{   
+{
+
     //Here we should initialize the PongWorld and populate it with GameObjects
     Ogre::Light* lamp = mSceneMgr->createLight("lamp");
     lamp->setType(Ogre::Light::LT_POINT);
@@ -192,22 +200,30 @@ void PongApplication::createMultiPlayerScene(TCPsocket socket)
     Mix_PlayMusic(music, -1);
 }
 
+void PongApplication::beginGame(void)
+{
+    bool ready = true;
+    SDLNet_TCP_Send(app.sock, &ready, sizeof(bool));
+    SDLNet_TCP_Recv(app.sock, &ready, sizeof(bool));
+    mRoot->startRendering();
+}
+
 bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
 {
     if(arg.key == OIS::KC_P)
     {
         if(!gameOver)
             wallWorld->pause(!wallWorld->isPaused());
-            if(wallWorld->isPaused() && !gameOver)
-            {
-                //score_board->setText("Paused");
-                pause_pop_up->setVisible(true);
-            }
-            else
-            {
-                score_board->setText("Score: "+std::to_string(player_score));
-                pause_pop_up->setVisible(false);
-            }
+        if(wallWorld->isPaused() && !gameOver)
+        {
+            //score_board->setText("Paused");
+            pause_pop_up->setVisible(true);
+        }
+        else
+        {
+            score_board->setText("Score: "+std::to_string(player_score));
+            pause_pop_up->setVisible(false);
+        }
     }
     if(arg.key == OIS::KC_RETURN && wallWorld->isPaused())
     {
@@ -323,6 +339,12 @@ bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
         pause_pop_up->setVisible(true);
     }
     wallWorld->update(evt.timeSinceLastFrame);
+
+    if(client)
+    {
+        ball->setPosition(ballMostRecentSentPosition);
+        printf("%f, %f, %f\n", ballMostRecentSentPosition.x, ballMostRecentSentPosition.y, ballMostRecentSentPosition.z);
+    }
     return BaseApplication::frameRenderingQueued(evt);
 }
 
@@ -371,6 +393,7 @@ extern "C" {
 
         if(argc > 1)
         {
+            client = true;
             IPaddress* addr = new IPaddress();
             if(SDLNet_Init() == -1)
                 return -1;
