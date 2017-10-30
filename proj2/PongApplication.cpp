@@ -354,7 +354,7 @@ void PongApplication::createStartMenu(CEGUI::WindowManager& wmgr)
     CEGUI::Window* menu = wmgr.createWindow("TaharezLook/StaticImage", "CEGUIDemo/Menu");
     start_menu->addChild(menu);
     menu->setProperty("Image","OgreTrayImages/TrayTR");
-    //menu->setRiseOnClickEnabled(false);
+    menu->setRiseOnClickEnabled(false);
     //menu->setRollupEnabled(false);
     //menu->setDragMovingEnabled(false);
     menu->setPosition(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.1,0)));
