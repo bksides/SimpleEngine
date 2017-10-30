@@ -208,7 +208,8 @@ void BaseApplication::go(void)
         return;
 
 
-    beginGame();
+    //beginGame();
+    mRoot->startRendering();
 
     // Clean up
     destroyScene();
@@ -236,7 +237,7 @@ bool BaseApplication::setup(void)
     loadResources();
 
     // Create the scene
-    createMultiPlayerScene(sock);
+    createScene();
 
     createFrameListener();
 
@@ -281,6 +282,24 @@ bool BaseApplication::keyReleased(const OIS::KeyEvent &arg)
     return true;
 }
 //---------------------------------------------------------------------------
+CEGUI::MouseButton convertButton(OIS::MouseButtonID buttonID)
+{
+    switch (buttonID)
+    {
+    case OIS::MB_Left:
+        return CEGUI::LeftButton;
+ 
+    case OIS::MB_Right:
+        return CEGUI::RightButton;
+ 
+    case OIS::MB_Middle:
+        return CEGUI::MiddleButton;
+ 
+    default:
+        return CEGUI::LeftButton;
+    }
+}
+//---------------------------------------------------------------------------
 bool BaseApplication::mouseMoved(const OIS::MouseEvent &arg)
 {
     CEGUI::System &sys = CEGUI::System::getSingleton();
@@ -294,11 +313,13 @@ bool BaseApplication::mouseMoved(const OIS::MouseEvent &arg)
 //---------------------------------------------------------------------------
 bool BaseApplication::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
+    CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(convertButton(id));
     return true;
 }
 //---------------------------------------------------------------------------
 bool BaseApplication::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 {
+    CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(convertButton(id));
     return true;
 }
 //---------------------------------------------------------------------------
