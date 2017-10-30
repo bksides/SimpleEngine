@@ -22,6 +22,7 @@ Mix_Chunk* ching = NULL;
 Mix_Chunk* lose = NULL;
 
 GameObject* paddle;
+GameObject* netPaddle;
 GameObject* ball;
 Ogre::Vector3 ballMostRecentSentPosition = Ogre::Vector3::ZERO;
 int vel = 30;
@@ -45,9 +46,14 @@ bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
         Mix_PlayChannel( -1, boing, 0 );
     }
     if((body0 == ball->getRigidBody() && body1 == paddle->getRigidBody())||
-        (body1 == ball->getRigidBody() && body0 == paddle->getRigidBody()))
+        (body1 == ball->getRigidBody() && body0 == paddle->getRigidBody()) ||
+        (body0 == ball->getRigidBody() && body1 == netPaddle->getRigidBody()) ||
+        (body1 == ball->getRigidBody() && body0 == netPaddle->getRigidBody()))
     {
-        ++player_score;
+        if(body0 == paddle->getRigidBody() || body1 == paddle->getRigidBody())
+        {
+            ++player_score;
+        }
         ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, 50, ball->getVelocity().z));
         //quit->setText(std::to_string(player_score));
         app.updateScoreboard();
@@ -152,7 +158,7 @@ void PongApplication::createScene(void)
         ball->getRigidBody()->setCollisionFlags(ball->getRigidBody()->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
     }
 
-    wallWorld->addObject(ball, Ogre::Vector3::ZERO, Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(40, 40), Ogre::Math::RangeRandom(40, 40)));
+    wallWorld->addObject(ball, Ogre::Vector3::ZERO, Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40)));
 
     paddle = new Paddle(mSceneMgr);
     wallWorld->addObject(paddle, Ogre::Vector3(0, 0, -49), Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / -2, 0, 0));
@@ -169,8 +175,8 @@ void PongApplication::createMultiPlayerScene(TCPsocket socket)
     CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().hide();
 
     Ogre::Light* lamp = mSceneMgr->createLight("lamp");
-    lamp->setType(Ogre::Light::LT_POINT);
-    lamp->setPosition(0,49,-70);
+    lamp->setType(Ogre::Light::LT_DIRECTIONAL);
+    lamp->setDirection(0,-1,0);
     lamp->setDiffuseColour(1,1,1);
     lamp->setSpecularColour(1,1,1);
     lamp->setAttenuation(200, 0, 0, .0002);
@@ -188,11 +194,12 @@ void PongApplication::createMultiPlayerScene(TCPsocket socket)
 
     ball = new PongBall(mSceneMgr, btVector3(0,0,0));
 
-    wallWorld->addObject(ball, Ogre::Vector3::ZERO, Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(40, 40), Ogre::Math::RangeRandom(40, 40)));
+    wallWorld->addObject(ball, Ogre::Vector3::ZERO, Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40)));
 
     paddle = new Paddle(mSceneMgr);
+    netPaddle = new NetPaddle(mSceneMgr, socket);
     wallWorld->addObject(paddle, Ogre::Vector3(0, 0, -49), Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / -2, 0, 0));
-    wallWorld->addObject(new NetPaddle(mSceneMgr, socket), Ogre::Vector3(0, 0, 49), Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / -2, 0, 0));
+    wallWorld->addObject(netPaddle, Ogre::Vector3(0, 0, 49), Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / -2, 0, 0));
 
     gContactProcessedCallback = playBoing;
 
@@ -409,7 +416,7 @@ void PongApplication::beginSinglePlayer(void)
 
     ball = new PongBall(mSceneMgr, btVector3(0,0,0));
 
-    wallWorld->addObject(ball, Ogre::Vector3::ZERO, Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(40, 40), Ogre::Math::RangeRandom(40, 40)));
+    wallWorld->addObject(ball, Ogre::Vector3::ZERO, Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40)));
 
     paddle = new Paddle(mSceneMgr);
     wallWorld->addObject(paddle, Ogre::Vector3(0, 0, -49), Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / -2, 0, 0));
@@ -506,6 +513,7 @@ bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
     if(paddle != NULL && mCamera != NULL && wallWorld != NULL && ball != NULL)
     {
+        printf("%f, %f, %f\n", ball->getVelocity().x, ball->getVelocity().y, ball->getVelocity().z);
         if (pressedKeys.find(OIS::KC_RIGHT) != pressedKeys.end() && !wallWorld->isPaused())
         {
             paddle->translate(Ogre::Vector3((-2*(float)vel/3)*evt.timeSinceLastFrame, 0, 0));
@@ -524,7 +532,7 @@ bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
         }
         mCamera->setPosition(paddle->getPosition() + -100 * Ogre::Vector3::UNIT_Z);
 
-        ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, ball->getVelocity().y, (ball->getVelocity().z * ((float)vel / abs(ball->getVelocity().z)))));
+        ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, ball->getVelocity().y, ball->getVelocity().z < 0 ? -1*vel : vel));
         if(ball->getPosition().z < -50)
         {
             if(!gameOver)
@@ -538,29 +546,18 @@ bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
             }
             else
             {
-
-                if(netthread != NULL)
-                {
-                    terminating = true;
-                    netthread->join();
-                    terminating = false;
-                }
-                mSceneMgr->clearScene();
-                createMultiPlayerScene(sock);
+                ball->setPosition(Ogre::Vector3::ZERO);
+                ball->setVelocity(Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40)));
+                vel = 30;
             }
         }
         if(ball->getPosition().z > 50)
         {
             if(multiplayer)
             {
-                if(netthread != NULL)
-                {
-                    terminating = true;
-                    netthread->join();
-                    terminating = false;
-                }
-                mSceneMgr->clearScene();
-                createMultiPlayerScene(sock);
+                ball->setPosition(Ogre::Vector3::ZERO);
+                ball->setVelocity(Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40)));
+                vel = 30;
             }
         }
         if(gameOver)
