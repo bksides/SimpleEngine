@@ -33,6 +33,8 @@ CEGUI::Window *pause_pop_up;
 CEGUI::Window *start_menu;
 bool gameOver = false;
 bool CEGUI_needs_init = true;
+bool multiplayer = false;
+char* hostname = NULL;
 
 bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
 {
@@ -116,16 +118,13 @@ void PongApplication::updateScoreboard(void)
 
 void PongApplication::createScene(void)
 {
-    //First make the start menu before anything else
-    //when a button is hit to start the game, then load the game objects
     if(CEGUI_needs_init)
     {
         CEGUI_Init();
         CEGUI_needs_init = false;
     }
-
 	//Here we should initialize the PongWorld and populate it with GameObjects
-    Ogre::Light* lamp = mSceneMgr->createLight("lamp");
+/*    Ogre::Light* lamp = mSceneMgr->createLight("lamp");
     lamp->setType(Ogre::Light::LT_POINT);
     lamp->setPosition(0,49,-70);
     lamp->setDiffuseColour(1,1,1);
@@ -158,13 +157,15 @@ void PongApplication::createScene(void)
 
     gContactProcessedCallback = playBoing;
 
-    Mix_PlayMusic(music, -1);
+    Mix_PlayMusic(music, -1);*/
 }
 
 void PongApplication::createMultiPlayerScene(TCPsocket socket)
 {
+    start_menu->setVisible(false);
+    score_board->setVisible(true);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().hide();
 
-    //Here we should initialize the PongWorld and populate it with GameObjects
     Ogre::Light* lamp = mSceneMgr->createLight("lamp");
     lamp->setType(Ogre::Light::LT_POINT);
     lamp->setPosition(0,49,-70);
@@ -214,17 +215,20 @@ bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
 {
     if(arg.key == OIS::KC_P)
     {
-        if(!gameOver)
-            wallWorld->pause(!wallWorld->isPaused());
-        if(wallWorld->isPaused() && !gameOver)
+        if(!multiplayer)
         {
-            //score_board->setText("Paused");
-            pause_pop_up->setVisible(true);
-        }
-        else
-        {
-            score_board->setText("Score: "+std::to_string(player_score));
-            pause_pop_up->setVisible(false);
+            if(!gameOver)
+                wallWorld->pause(!wallWorld->isPaused());
+            if(wallWorld->isPaused() && !gameOver)
+            {
+                //score_board->setText("Paused");
+                pause_pop_up->setVisible(true);
+            }
+            else
+            {
+                score_board->setText("Score: "+std::to_string(player_score));
+                pause_pop_up->setVisible(false);
+            }
         }
     }
     if(arg.key == OIS::KC_RETURN && wallWorld->isPaused())
@@ -236,7 +240,14 @@ bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
         pause_pop_up->setVisible(false);
         pause_pop_up->setText("Game Paused.\n\nControls:\n\nEnter: Start over(pause/game over only)\nArrow keys: Move the ball\nM: Mute the music\nS: Mute the sound effects\nPage Up/Page Down: Control music volume\nESC: Exit the game\nStop, Drop, Roll: Put out the fire");
         mSceneMgr->clearScene();
-        createScene();
+        if(!multiplayer)
+        {
+            beginSinglePlayer();
+        }
+        else
+        {
+            createMultiPlayerScene(sock);
+        }
     }
     if(arg.key == OIS::KC_PGUP)
     {
@@ -298,41 +309,59 @@ void PongApplication::CEGUI_Init(void)
 
 void PongApplication::createStartMenu(CEGUI::WindowManager& wmgr)
 {
-    start_menu = wmgr.createWindow("TaharezLook/FrameWindow","CEGUIDemo/StartMenu");
+    //start_menu = wmgr.createWindow("TaharezLook/FrameWindow","CEGUIDemo/StartMenu");
     
-    start_menu->setPosition(CEGUI::UVector2(CEGUI::UDim(0.3,0), CEGUI::UDim(0.3,0)));
-    start_menu->setSize(CEGUI::USize(CEGUI::UDim(0.4, 0), CEGUI::UDim(0.4, 0)));
+    start_menu = wmgr.createWindow("TaharezLook/StaticImage", "CEGUIDemo/Background");
+
+    //CEGUI::Imageset* MenuImageset = CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("Background","MenuBackground.jpg");
+    //MenuImageset->defineImage("Background", CEGUI::Point(0.0f,0.0f), CEGUI::Size( 1.0f, 1.0f ), Point(0.0f,0.0f));
+    
+    //start_menu->setProperty("Image", "menuBackground/menuBackground");
+
+    start_menu->setProperty("Image", "TaharezLook/ClientBrush");
+    
+    start_menu->setPosition(CEGUI::UVector2(CEGUI::UDim(0,0), CEGUI::UDim(0,0)));
+    start_menu->setSize(CEGUI::USize(CEGUI::UDim(1, 0), CEGUI::UDim(1, 0)));
+
+    CEGUI::Window* menu = wmgr.createWindow("TaharezLook/FrameWindow","CEGUIDemo/Menu");
+    start_menu->addChild(menu);
+
+    menu->setPosition(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.1,0)));
+    menu->setSize(CEGUI::USize(CEGUI::UDim(0.8, 0), CEGUI::UDim(0.8, 0)));
 
     CEGUI::Window* title = wmgr.createWindow("TaharezLook/StaticText","CEGUIDemo/menuTitle");
     start_menu->addChild(title);
     title->setText("Welcome to Ogre Ball! \nChoose a mode to start playing.");
-    title->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05, 0.0), CEGUI::UDim(0.1, 0.0)));
-    title->setSize(CEGUI::USize(CEGUI::UDim(0.9,0.0), CEGUI::UDim(0.3, 0.0)));
+    title->setPosition(CEGUI::UVector2(CEGUI::UDim(0.15, 0.0), CEGUI::UDim(0.15, 0.0)));
+    title->setSize(CEGUI::USize(CEGUI::UDim(0.7,0.0), CEGUI::UDim(0.15, 0.0)));
 
     //when a mode is selected, the handler should hide the start menu
     //and start the mode they picked
     //also the cursor should be hidden
     CEGUI::PushButton* singPlayer = (CEGUI::PushButton*)wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/SingPlayer");
     start_menu->addChild(singPlayer);
-    singPlayer->setPosition(CEGUI::UVector2(CEGUI::UDim(0.3, 0.0), CEGUI::UDim(0.45, 0.0)));
+    singPlayer->setPosition(CEGUI::UVector2(CEGUI::UDim(0.3, 0.0), CEGUI::UDim(0.5, 0.0)));
     singPlayer->setSize(CEGUI::USize(CEGUI::UDim(0.4,0.0), CEGUI::UDim(0.15, 0.0)));
     singPlayer->setText("Single Player");
-    singPlayer->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&PongApplication::hideStartMenu, this));
+    singPlayer->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&PongApplication::beginSinglePlayer, this));
 
     CEGUI::PushButton* multiPlayer = (CEGUI::PushButton*)wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/MultiPlayer");
     start_menu->addChild(multiPlayer);
-    multiPlayer->setPosition(CEGUI::UVector2(CEGUI::UDim(0.3, 0.0), CEGUI::UDim(0.75, 0.0)));
+    multiPlayer->setPosition(CEGUI::UVector2(CEGUI::UDim(0.3, 0.0), CEGUI::UDim(0.7, 0.0)));
     multiPlayer->setSize(CEGUI::USize(CEGUI::UDim(0.4,0.0), CEGUI::UDim(0.15, 0.0)));
     multiPlayer->setText("Multiplayer");
+    multiPlayer->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&PongApplication::beginMultiPlayer, this));
 }
 
 void PongApplication::createScoreBoard(CEGUI::WindowManager& wmgr)
 {
     score_board = wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/ScoreBoard");
 
+
     score_board->setText("Score: "+std::to_string(player_score));
     score_board->setPosition(CEGUI::UVector2(CEGUI::UDim(0.425, 0), CEGUI::UDim(0, 0)));
     score_board->setSize(CEGUI::USize(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.05, 0)));
+    score_board->setVisible(false);
 }
 
 void PongApplication::createPauseMenu(CEGUI::WindowManager& wmgr)
@@ -345,55 +374,171 @@ void PongApplication::createPauseMenu(CEGUI::WindowManager& wmgr)
     pause_pop_up->setVisible(false);
 }
 
-void PongApplication::hideStartMenu(void)
+void PongApplication::beginSinglePlayer(void)
 {
     start_menu->setVisible(false);
+    score_board->setVisible(true);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().hide();
+    //actuall create the single player scene
+    Ogre::Light* lamp = mSceneMgr->createLight("lamp");
+    lamp->setType(Ogre::Light::LT_POINT);
+    lamp->setPosition(0,49,-70);
+    lamp->setDiffuseColour(1,1,1);
+    lamp->setSpecularColour(1,1,1);
+    lamp->setAttenuation(200, 0, 0, .0002);
+
+    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
+    mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
+
+    //Create wall entities
+    wallWorld = new World(mSceneMgr);
+
+    wallWorld->addObject(new Wall(mSceneMgr), -50*Ogre::Vector3::UNIT_Y, Ogre::Vector3::ZERO);
+    wallWorld->addObject(new Wall(mSceneMgr),  50*Ogre::Vector3::UNIT_X, Ogre::Vector3::ZERO, Ogre::Vector3(0, 0, M_PI / 2));
+    wallWorld->addObject(new Wall(mSceneMgr), -50*Ogre::Vector3::UNIT_X, Ogre::Vector3::ZERO, Ogre::Vector3(0, 0, M_PI / -2));
+    wallWorld->addObject(new Wall(mSceneMgr),  50*Ogre::Vector3::UNIT_Y, Ogre::Vector3::ZERO, Ogre::Vector3(0, 0, M_PI));
+    wallWorld->addObject(new Wall(mSceneMgr),  50*Ogre::Vector3::UNIT_Z, Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / -2, 0, 0));
+
+    ball = new PongBall(mSceneMgr, btVector3(0,0,0));
+
+    wallWorld->addObject(ball, Ogre::Vector3::ZERO, Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(40, 40), Ogre::Math::RangeRandom(40, 40)));
+
+    paddle = new Paddle(mSceneMgr);
+    wallWorld->addObject(paddle, Ogre::Vector3(0, 0, -49), Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / -2, 0, 0));
+
+    gContactProcessedCallback = playBoing;
+
+    Mix_PlayMusic(music, -1);
 }
+
+void PongApplication::beginMultiPlayer(void)
+{
+        multiplayer = true;
+        if(SDL_Init(0) == -1)
+            exit(-1);
+
+        if(SDLNet_Init() == -1)
+            exit(-1);
+
+        if(hostname != NULL)
+        {
+            client = true;
+            IPaddress* addr = new IPaddress();
+            if(SDLNet_Init() == -1)
+                exit(-1);
+
+            if(SDLNet_ResolveHost(addr, hostname, 2025) == -1)
+            {
+                printf("Could not resolve hostname.\n");
+                exit(-1);
+            }
+
+            printf("%s\n", hostname);
+
+            sock = SDLNet_TCP_Open(addr);
+
+            if(sock == NULL)
+            {
+                printf("Couldn't connect to server: %s", SDLNet_GetError());
+                exit(-1);
+            }
+
+            uint16_t i;
+
+            if(SDLNet_TCP_Recv(sock, &i, 2) <= 0)
+            {
+                printf("An error occurred when communicating with server.\n");
+                exit(-1);
+            }
+
+            printf("%d\n", i);
+        }
+        else
+        {
+            IPaddress addr;
+            SDLNet_ResolveHost(&addr, NULL, 2025);
+            TCPsocket intermediateSock = SDLNet_TCP_Open(&addr);
+            SDLNet_SocketSet sockset = SDLNet_AllocSocketSet(1);
+
+            if(intermediateSock == NULL)
+            {
+                printf("Couldn't initialize server socket.");
+                exit(-1);
+            }
+            if(SDLNet_TCP_AddSocket(sockset, intermediateSock) == -1)
+            {
+                printf("Error adding server socket to watch list\n");
+            }
+            printf("Awaiting connection...\n");
+            while(true)
+            {
+                SDLNet_CheckSockets(sockset, 0);
+                if(SDLNet_SocketReady(intermediateSock))
+                {
+                    sock = SDLNet_TCP_Accept(intermediateSock);
+                    break;
+                }
+                printf("Waiting...\n");
+            }
+            if(sock == NULL)
+            {
+                printf("Error accepting connection from client.\n");
+                exit(-1);
+            }
+            printf("Accepted connection.\n");
+            SDLNet_TCP_Close(intermediateSock);
+            SDLNet_TCP_Send(sock, &addr.port, 2);
+        }
+        createMultiPlayerScene(sock);
+}
+
 
 //--------------------------------------------------------------------------------------
 bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
-    if (pressedKeys.find(OIS::KC_RIGHT) != pressedKeys.end() && !wallWorld->isPaused())
+    if(paddle != NULL && mCamera != NULL && wallWorld != NULL && ball != NULL)
     {
-        paddle->translate(Ogre::Vector3((-2*(float)vel/3)*evt.timeSinceLastFrame, 0, 0));
-    }
-    if (pressedKeys.find(OIS::KC_LEFT) != pressedKeys.end() && !wallWorld->isPaused())
-    {
-        paddle->translate(Ogre::Vector3((2*(float)vel/3)*evt.timeSinceLastFrame, 0, 0));
-    }
-    if (pressedKeys.find(OIS::KC_UP) != pressedKeys.end() && !wallWorld->isPaused())
-    {
-        paddle->translate(Ogre::Vector3(0, (2*(float)vel/3)*evt.timeSinceLastFrame, 0));
-    }
-    if (pressedKeys.find(OIS::KC_DOWN) != pressedKeys.end() && !wallWorld->isPaused())
-    {
-        paddle->translate(Ogre::Vector3(0, (-2*(float)vel/3)*evt.timeSinceLastFrame, 0));
-    }
-    mCamera->setPosition(paddle->getPosition() + -100 * Ogre::Vector3::UNIT_Z);
-
-    ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, ball->getVelocity().y, (ball->getVelocity().z * ((float)vel / abs(ball->getVelocity().z)))));
-    if(ball->getPosition().z < -50)
-    {
-        if(!gameOver)
+        if (pressedKeys.find(OIS::KC_RIGHT) != pressedKeys.end() && !wallWorld->isPaused())
         {
-            Mix_PlayChannel(-1, lose, 0);
+            paddle->translate(Ogre::Vector3((-2*(float)vel/3)*evt.timeSinceLastFrame, 0, 0));
         }
-        score_board->setText("Game Over");
-        gameOver = true;
-    }
-    if(gameOver)
-    {
-        wallWorld->pause();
-        Mix_PauseMusic();
-        pause_pop_up->setText("Your final score was: " + std::to_string(player_score) + "\n\nPress enter to play again!");
-        pause_pop_up->setVisible(true);
-    }
-    wallWorld->update(evt.timeSinceLastFrame);
+        if (pressedKeys.find(OIS::KC_LEFT) != pressedKeys.end() && !wallWorld->isPaused())
+        {
+            paddle->translate(Ogre::Vector3((2*(float)vel/3)*evt.timeSinceLastFrame, 0, 0));
+        }
+        if (pressedKeys.find(OIS::KC_UP) != pressedKeys.end() && !wallWorld->isPaused())
+        {
+            paddle->translate(Ogre::Vector3(0, (2*(float)vel/3)*evt.timeSinceLastFrame, 0));
+        }
+        if (pressedKeys.find(OIS::KC_DOWN) != pressedKeys.end() && !wallWorld->isPaused())
+        {
+            paddle->translate(Ogre::Vector3(0, (-2*(float)vel/3)*evt.timeSinceLastFrame, 0));
+        }
+        mCamera->setPosition(paddle->getPosition() + -100 * Ogre::Vector3::UNIT_Z);
 
-    if(client)
-    {
-        ball->setPosition(ballMostRecentSentPosition);
-        printf("%f, %f, %f\n", ballMostRecentSentPosition.x, ballMostRecentSentPosition.y, ballMostRecentSentPosition.z);
+        ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, ball->getVelocity().y, (ball->getVelocity().z * ((float)vel / abs(ball->getVelocity().z)))));
+        if(ball->getPosition().z < -50)
+        {
+            if(!gameOver)
+            {
+                Mix_PlayChannel(-1, lose, 0);
+            }
+            score_board->setText("Game Over");
+            gameOver = true;
+        }
+        if(gameOver)
+        {
+            wallWorld->pause();
+            Mix_PauseMusic();
+            pause_pop_up->setText("Your final score was: " + std::to_string(player_score) + "\n\nPress enter to play again!");
+            pause_pop_up->setVisible(true);
+        }
+        wallWorld->update(evt.timeSinceLastFrame);
+    	if(client)
+    	{
+        	ball->setPosition(Ogre::Vector3(-1*ballMostRecentSentPosition.x, ballMostRecentSentPosition.y, -1*ballMostRecentSentPosition.z));
+        	printf("%f, %f, %f\n", ballMostRecentSentPosition.x, ballMostRecentSentPosition.y, ballMostRecentSentPosition.z);
+    	}
     }
     return BaseApplication::frameRenderingQueued(evt);
 }
@@ -434,7 +579,8 @@ extern "C" {
     {
         // Create application object
         //PongApplication app;
-
+	
+	/*
         if(SDL_Init(0) == -1)
             return -1;
 
@@ -510,6 +656,12 @@ extern "C" {
             SDLNet_TCP_Close(intermediateSock);
             SDLNet_TCP_Send(app.sock, &addr.port, 2);
         }
+	*/
+        if(argc > 1)
+        {
+            hostname = argv[1];
+        }
+
         try {
             app.go();
         } catch( Ogre::Exception& e ) {

@@ -208,7 +208,8 @@ void BaseApplication::go(void)
         return;
 
 
-    beginGame();
+    //beginGame();
+    mRoot->startRendering();
 
     // Clean up
     destroyScene();
@@ -236,7 +237,7 @@ bool BaseApplication::setup(void)
     loadResources();
 
     // Create the scene
-    createMultiPlayerScene(sock);
+    createScene();
 
     createFrameListener();
 

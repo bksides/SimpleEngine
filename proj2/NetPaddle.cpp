@@ -24,7 +24,7 @@ void updateRemotePosition(NetPaddle* netpaddle)
 		}
 		else
 		{
-			netpaddle->mostRecentSentPosition = newPos1.vector+99*Ogre::Vector3::UNIT_Z;
+			netpaddle->mostRecentSentPosition = Ogre::Vector3(-1*newPos1.vector.x, newPos1.vector.y, -1*newPos1.vector.z);
 		}
 
 		if(client)
@@ -36,7 +36,7 @@ void updateRemotePosition(NetPaddle* netpaddle)
 			}
 			else
 			{
-				netpaddle->mostRecentSentPosition = newPos2.vector+99*Ogre::Vector3::UNIT_Z;
+				netpaddle->mostRecentSentPosition = Ogre::Vector3(-1*newPos2.vector.x, newPos2.vector.y, -1*newPos2.vector.z);
 			}
 		}
 
