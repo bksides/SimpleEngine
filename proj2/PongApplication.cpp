@@ -209,6 +209,8 @@ void PongApplication::CEGUI_Init(void)
     CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
 
     CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
+    CEGUI::SchemeManager::getSingleton().createFromFile("OgreTray.scheme");
+
     CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("TaharezLook/MouseArrow");
 
 /*    CEGUI::WindowManager &wmgr = CEGUI::WindowManager::getSingleton();
@@ -251,11 +253,13 @@ void PongApplication::createStartMenu(CEGUI::WindowManager& wmgr)
     start_menu->setPosition(CEGUI::UVector2(CEGUI::UDim(0,0), CEGUI::UDim(0,0)));
     start_menu->setSize(CEGUI::USize(CEGUI::UDim(1, 0), CEGUI::UDim(1, 0)));
 
-    CEGUI::FrameWindow* menu = (CEGUI::FrameWindow*)wmgr.createWindow("TaharezLook/FrameWindow","CEGUIDemo/Menu");
+    //CEGUI::FrameWindow* menu = (CEGUI::FrameWindow*)wmgr.createWindow("TaharezLook/FrameWindow","CEGUIDemo/Menu");
+    CEGUI::Window* menu = wmgr.createWindow("TaharezLook/StaticImage", "CEGUIDemo/Menu");
     start_menu->addChild(menu);
-    menu->setRiseOnClickEnabled(false);
-    menu->setRollupEnabled(false);
-    menu->setDragMovingEnabled(false);
+    menu->setProperty("Image","OgreTrayImages/TrayTR");
+    //menu->setRiseOnClickEnabled(false);
+    //menu->setRollupEnabled(false);
+    //menu->setDragMovingEnabled(false);
     menu->setPosition(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.1,0)));
     menu->setSize(CEGUI::USize(CEGUI::UDim(0.8, 0), CEGUI::UDim(0.8, 0)));
 
