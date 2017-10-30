@@ -46,14 +46,9 @@ bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
         Mix_PlayChannel( -1, boing, 0 );
     }
     if((body0 == ball->getRigidBody() && body1 == paddle->getRigidBody())||
-        (body1 == ball->getRigidBody() && body0 == paddle->getRigidBody()) ||
-        (body0 == ball->getRigidBody() && body1 == netPaddle->getRigidBody()) ||
-        (body1 == ball->getRigidBody() && body0 == netPaddle->getRigidBody()))
+        (body1 == ball->getRigidBody() && body0 == paddle->getRigidBody()))
     {
-        if(body0 == paddle->getRigidBody() || body1 == paddle->getRigidBody())
-        {
-            ++player_score;
-        }
+        ++player_score;
         ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, 50, ball->getVelocity().z));
         //quit->setText(std::to_string(player_score));
         app.updateScoreboard();
@@ -61,6 +56,21 @@ bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
         if(sound)
         {
             Mix_PlayChannel(-1, ching, 0);
+        }
+    }
+    if(multiplayer)
+    {
+        if((body0 == ball->getRigidBody() && body1 == netPaddle->getRigidBody()) ||
+        (body1 == ball->getRigidBody() && body0 == netPaddle->getRigidBody()))
+        {
+            ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, 50, ball->getVelocity().z));
+            //quit->setText(std::to_string(player_score));
+            app.updateScoreboard();
+            vel += 3;
+            if(sound)
+            {
+                Mix_PlayChannel(-1, ching, 0);
+            }
         }
     }
     return true;
