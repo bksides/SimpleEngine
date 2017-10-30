@@ -296,6 +296,8 @@ void PongApplication::CEGUI_Init(void)
     CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
 
     CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
+    CEGUI::SchemeManager::getSingleton().createFromFile("OgreTray.scheme");
+
     CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("TaharezLook/MouseArrow");
 
 /*    CEGUI::WindowManager &wmgr = CEGUI::WindowManager::getSingleton();
@@ -338,9 +340,13 @@ void PongApplication::createStartMenu(CEGUI::WindowManager& wmgr)
     start_menu->setPosition(CEGUI::UVector2(CEGUI::UDim(0,0), CEGUI::UDim(0,0)));
     start_menu->setSize(CEGUI::USize(CEGUI::UDim(1, 0), CEGUI::UDim(1, 0)));
 
-    CEGUI::Window* menu = wmgr.createWindow("TaharezLook/FrameWindow","CEGUIDemo/Menu");
+    //CEGUI::FrameWindow* menu = (CEGUI::FrameWindow*)wmgr.createWindow("TaharezLook/FrameWindow","CEGUIDemo/Menu");
+    CEGUI::Window* menu = wmgr.createWindow("TaharezLook/StaticImage", "CEGUIDemo/Menu");
     start_menu->addChild(menu);
-
+    menu->setProperty("Image","OgreTrayImages/TrayTR");
+    //menu->setRiseOnClickEnabled(false);
+    //menu->setRollupEnabled(false);
+    //menu->setDragMovingEnabled(false);
     menu->setPosition(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.1,0)));
     menu->setSize(CEGUI::USize(CEGUI::UDim(0.8, 0), CEGUI::UDim(0.8, 0)));
 
@@ -370,9 +376,9 @@ void PongApplication::createStartMenu(CEGUI::WindowManager& wmgr)
 
 void PongApplication::createScoreBoard(CEGUI::WindowManager& wmgr)
 {
-    score_board = wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/ScoreBoard");
+    score_board = wmgr.createWindow("TaharezLook/StaticText", "CEGUIDemo/ScoreBoard");
 
-
+    score_board->setProperty("HorzFormatting","HorzCentred");
     score_board->setText("Score: "+std::to_string(player_score));
     score_board->setPosition(CEGUI::UVector2(CEGUI::UDim(0.425, 0), CEGUI::UDim(0, 0)));
     score_board->setSize(CEGUI::USize(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.05, 0)));
@@ -381,8 +387,9 @@ void PongApplication::createScoreBoard(CEGUI::WindowManager& wmgr)
 
 void PongApplication::createPauseMenu(CEGUI::WindowManager& wmgr)
 {
-    pause_pop_up = wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/PausePopUp");
+    pause_pop_up = wmgr.createWindow("TaharezLook/StaticText", "CEGUIDemo/PausePopUp");
 
+    score_board->setProperty("HorzFormatting","HorzCentred");
     pause_pop_up->setText("Game Paused\n\nControls:\n\nEnter: Start over(pause/game over only)\nArrow keys: Move the ball\nM: Mute the music\nS: Mute the sound effects\nPage Up/Page Down: Control music volume\nESC: Exit the game\nStop, Drop, Roll: Put out the fire");
     pause_pop_up->setPosition(CEGUI::UVector2(CEGUI::UDim(0.35, 0), CEGUI::UDim(.25, 0)));
     pause_pop_up->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0), CEGUI::UDim(0.5, 0)));
@@ -513,7 +520,6 @@ bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
     if(paddle != NULL && mCamera != NULL && wallWorld != NULL && ball != NULL)
     {
-        printf("%f, %f, %f\n", ball->getVelocity().x, ball->getVelocity().y, ball->getVelocity().z);
         if (pressedKeys.find(OIS::KC_RIGHT) != pressedKeys.end() && !wallWorld->isPaused())
         {
             paddle->translate(Ogre::Vector3((-2*(float)vel/3)*evt.timeSinceLastFrame, 0, 0));
