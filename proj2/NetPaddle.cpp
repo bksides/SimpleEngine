@@ -18,6 +18,10 @@ void updateRemotePosition(NetPaddle* netpaddle)
 	SDLNet_TCP_Send(netpaddle->socket, &paddlePos, sizeof(struct posdata));
 	while(SDLNet_TCP_Recv(netpaddle->socket, &newPos1, sizeof(struct posdata)) > 0)
 	{
+		if(terminating)
+		{
+			std::terminate();
+		}
 		if(newPos1.isForBall)
 		{
 			ballMostRecentSentPosition = newPos1.vector;
@@ -56,7 +60,7 @@ void updateRemotePosition(NetPaddle* netpaddle)
 NetPaddle::NetPaddle(Ogre::SceneManager* mSceneMgr, TCPsocket socket) : Paddle(mSceneMgr)
 {
 	this->socket = socket;
-	new std::thread(updateRemotePosition, this);
+	netthread = new std::thread(updateRemotePosition, this);
 }
 
 void NetPaddle::onUpdate(float deltaTime)

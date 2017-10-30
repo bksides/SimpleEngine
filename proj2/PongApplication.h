@@ -21,12 +21,15 @@ This source file is part of the
 #include "../SimpleEngine/SimpleEngineWorld.h"
 #include "../SimpleEngine/SimpleEngineGameObject.h"
 #include <SDL/SDL_net.h>
+#include <thread>
 
 extern int player_score;
 extern SimpleEngine::GameObject* paddle;
 extern SimpleEngine::GameObject* ball;
 extern Ogre::Vector3 ballMostRecentSentPosition;
 extern bool client;
+extern bool terminating;
+extern std::thread* netthread;
 
 class PongApplication : public BaseApplication
 {

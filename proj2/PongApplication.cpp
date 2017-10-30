@@ -35,6 +35,8 @@ bool gameOver = false;
 bool CEGUI_needs_init = true;
 bool multiplayer = false;
 char* hostname = NULL;
+std::thread* netthread = NULL;
+bool terminating = false;
 
 bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
 {
@@ -239,6 +241,12 @@ bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
         gameOver = false;
         pause_pop_up->setVisible(false);
         pause_pop_up->setText("Game Paused.\n\nControls:\n\nEnter: Start over(pause/game over only)\nArrow keys: Move the ball\nM: Mute the music\nS: Mute the sound effects\nPage Up/Page Down: Control music volume\nESC: Exit the game\nStop, Drop, Roll: Put out the fire");
+        if(netthread != NULL)
+        {
+            terminating = true;
+            netthread->join();
+            terminating = false;
+        }
         mSceneMgr->clearScene();
         if(!multiplayer)
         {
@@ -523,8 +531,37 @@ bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
             {
                 Mix_PlayChannel(-1, lose, 0);
             }
-            score_board->setText("Game Over");
-            gameOver = true;
+            if(!multiplayer)
+            {
+                score_board->setText("You Lose!");
+                gameOver = true;
+            }
+            else
+            {
+
+                if(netthread != NULL)
+                {
+                    terminating = true;
+                    netthread->join();
+                    terminating = false;
+                }
+                mSceneMgr->clearScene();
+                createMultiPlayerScene(sock);
+            }
+        }
+        if(ball->getPosition().z > 50)
+        {
+            if(multiplayer)
+            {
+                if(netthread != NULL)
+                {
+                    terminating = true;
+                    netthread->join();
+                    terminating = false;
+                }
+                mSceneMgr->clearScene();
+                createMultiPlayerScene(sock);
+            }
         }
         if(gameOver)
         {
