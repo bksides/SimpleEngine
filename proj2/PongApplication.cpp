@@ -1,5 +1,6 @@
 #include "PongApplication.h"
 #include "Paddle.h"
+#include "NetPaddle.h"
 #include "Wall.h"
 #include "PongBall.h"
 #include <cmath>
@@ -11,6 +12,7 @@
 #include <OgreMath.h>
 #include <btBulletDynamicsCommon.h>
 #include <OISKeyboard.h>
+#include <cstdint>
 
 using namespace SimpleEngine;
 
@@ -21,8 +23,10 @@ Mix_Chunk* lose = NULL;
 
 GameObject* paddle;
 GameObject* ball;
+Ogre::Vector3 ballMostRecentSentPosition = Ogre::Vector3::ZERO;
 int vel = 30;
 int player_score = 0;
+bool client = false;
 PongApplication app;
 CEGUI::Window *score_board;
 CEGUI::Window *pause_pop_up;
@@ -142,6 +146,11 @@ void PongApplication::createScene(void)
 
     ball = new PongBall(mSceneMgr, btVector3(0,0,0));
 
+    if(client)
+    {
+        ball->getRigidBody()->setCollisionFlags(ball->getRigidBody()->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
+    }
+
     wallWorld->addObject(ball, Ogre::Vector3::ZERO, Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(40, 40), Ogre::Math::RangeRandom(40, 40)));
 
     paddle = new Paddle(mSceneMgr);
@@ -152,22 +161,71 @@ void PongApplication::createScene(void)
     Mix_PlayMusic(music, -1);
 }
 
+void PongApplication::createMultiPlayerScene(TCPsocket socket)
+{
+
+    //Here we should initialize the PongWorld and populate it with GameObjects
+    Ogre::Light* lamp = mSceneMgr->createLight("lamp");
+    lamp->setType(Ogre::Light::LT_POINT);
+    lamp->setPosition(0,49,-70);
+    lamp->setDiffuseColour(1,1,1);
+    lamp->setSpecularColour(1,1,1);
+    lamp->setAttenuation(200, 0, 0, .0002);
+
+    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
+    mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
+
+    //Create wall entities
+    wallWorld = new World(mSceneMgr);
+
+    wallWorld->addObject(new Wall(mSceneMgr), -50*Ogre::Vector3::UNIT_Y, Ogre::Vector3::ZERO);
+    wallWorld->addObject(new Wall(mSceneMgr),  50*Ogre::Vector3::UNIT_X, Ogre::Vector3::ZERO, Ogre::Vector3(0, 0, M_PI / 2));
+    wallWorld->addObject(new Wall(mSceneMgr), -50*Ogre::Vector3::UNIT_X, Ogre::Vector3::ZERO, Ogre::Vector3(0, 0, M_PI / -2));
+    wallWorld->addObject(new Wall(mSceneMgr),  50*Ogre::Vector3::UNIT_Y, Ogre::Vector3::ZERO, Ogre::Vector3(0, 0, M_PI));
+
+    ball = new PongBall(mSceneMgr, btVector3(0,0,0));
+
+    wallWorld->addObject(ball, Ogre::Vector3::ZERO, Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(40, 40), Ogre::Math::RangeRandom(40, 40)));
+
+    paddle = new Paddle(mSceneMgr);
+    wallWorld->addObject(paddle, Ogre::Vector3(0, 0, -49), Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / -2, 0, 0));
+    wallWorld->addObject(new NetPaddle(mSceneMgr, socket), Ogre::Vector3(0, 0, 49), Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / -2, 0, 0));
+
+    gContactProcessedCallback = playBoing;
+
+    if(CEGUI_needs_init)
+    {
+        CEGUI_Init();
+        CEGUI_needs_init = false;
+    }
+
+    Mix_PlayMusic(music, -1);
+}
+
+void PongApplication::beginGame(void)
+{
+    bool ready = true;
+    SDLNet_TCP_Send(app.sock, &ready, sizeof(bool));
+    SDLNet_TCP_Recv(app.sock, &ready, sizeof(bool));
+    mRoot->startRendering();
+}
+
 bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
 {
     if(arg.key == OIS::KC_P)
     {
         if(!gameOver)
             wallWorld->pause(!wallWorld->isPaused());
-            if(wallWorld->isPaused() && !gameOver)
-            {
-                //score_board->setText("Paused");
-                pause_pop_up->setVisible(true);
-            }
-            else
-            {
-                score_board->setText("Score: "+std::to_string(player_score));
-                pause_pop_up->setVisible(false);
-            }
+        if(wallWorld->isPaused() && !gameOver)
+        {
+            //score_board->setText("Paused");
+            pause_pop_up->setVisible(true);
+        }
+        else
+        {
+            score_board->setText("Score: "+std::to_string(player_score));
+            pause_pop_up->setVisible(false);
+        }
     }
     if(arg.key == OIS::KC_RETURN && wallWorld->isPaused())
     {
@@ -331,6 +389,12 @@ bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
         pause_pop_up->setVisible(true);
     }
     wallWorld->update(evt.timeSinceLastFrame);
+
+    if(client)
+    {
+        ball->setPosition(ballMostRecentSentPosition);
+        printf("%f, %f, %f\n", ballMostRecentSentPosition.x, ballMostRecentSentPosition.y, ballMostRecentSentPosition.z);
+    }
     return BaseApplication::frameRenderingQueued(evt);
 }
 
@@ -371,6 +435,81 @@ extern "C" {
         // Create application object
         //PongApplication app;
 
+        if(SDL_Init(0) == -1)
+            return -1;
+
+        if(SDLNet_Init() == -1)
+            return -1;
+
+        if(argc > 1)
+        {
+            client = true;
+            IPaddress* addr = new IPaddress();
+            if(SDLNet_Init() == -1)
+                return -1;
+
+            if(SDLNet_ResolveHost(addr, argv[1], 2025) == -1)
+            {
+                printf("Could not resolve hostname.\n");
+                return -1;
+            }
+
+            printf("%s\n", argv[1]);
+
+            app.sock = SDLNet_TCP_Open(addr);
+
+            if(app.sock == NULL)
+            {
+                printf("Couldn't connect to server: %s", SDLNet_GetError());
+                return -1;
+            }
+
+            uint16_t i;
+
+            if(SDLNet_TCP_Recv(app.sock, &i, 2) <= 0)
+            {
+                printf("An error occurred when communicating with server.\n");
+                return -1;
+            }
+
+            printf("%d\n", i);
+        }
+        else
+        {
+            IPaddress addr;
+            SDLNet_ResolveHost(&addr, NULL, 2025);
+            TCPsocket intermediateSock = SDLNet_TCP_Open(&addr);
+            SDLNet_SocketSet sockset = SDLNet_AllocSocketSet(1);
+
+            if(intermediateSock == NULL)
+            {
+                printf("Couldn't initialize server socket.");
+                return -1;
+            }
+            if(SDLNet_TCP_AddSocket(sockset, intermediateSock) == -1)
+            {
+                printf("Error adding server socket to watch list\n");
+            }
+            printf("Awaiting connection...\n");
+            while(true)
+            {
+                SDLNet_CheckSockets(sockset, 0);
+                if(SDLNet_SocketReady(intermediateSock))
+                {
+                    app.sock = SDLNet_TCP_Accept(intermediateSock);
+                    break;
+                }
+                printf("Waiting...\n");
+            }
+            if(app.sock == NULL)
+            {
+                printf("Error accepting connection from client.\n");
+                return -1;
+            }
+            printf("Accepted connection.\n");
+            SDLNet_TCP_Close(intermediateSock);
+            SDLNet_TCP_Send(app.sock, &addr.port, 2);
+        }
         try {
             app.go();
         } catch( Ogre::Exception& e ) {

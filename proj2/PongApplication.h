@@ -20,8 +20,13 @@ This source file is part of the
 #include "BaseApplication.h"
 #include "../SimpleEngine/SimpleEngineWorld.h"
 #include "../SimpleEngine/SimpleEngineGameObject.h"
+#include <SDL/SDL_net.h>
 
 extern int player_score;
+extern SimpleEngine::GameObject* paddle;
+extern SimpleEngine::GameObject* ball;
+extern Ogre::Vector3 ballMostRecentSentPosition;
+extern bool client;
 
 class PongApplication : public BaseApplication
 {
@@ -33,10 +38,12 @@ protected:
     CEGUI::OgreRenderer* mRenderer;
     SimpleEngine::World* wallWorld;
     virtual void createScene(void);
+    virtual void createMultiPlayerScene(TCPsocket socket);
     virtual void createCamera();
     virtual void createViewports();
     virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
     virtual bool keyPressed(const OIS::KeyEvent &arg);
+    void beginGame(void);
     void CEGUI_Init(void);
     void createStartMenu(CEGUI::WindowManager& wmgr);
     void createScoreBoard(CEGUI::WindowManager& wmgr);

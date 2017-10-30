@@ -48,6 +48,7 @@ http://www.ogre3d.org/wiki/
 #endif
 
 #	include <set>
+#   include <SDL/SDL_net.h>
 
 #ifdef OGRE_STATIC_LIB
 #  define OGRE_STATIC_GL
@@ -81,6 +82,7 @@ public:
     virtual ~BaseApplication(void);
 
     virtual void go(void);
+    TCPsocket sock = NULL;
 
 protected:
     virtual bool setup();
@@ -88,6 +90,7 @@ protected:
     virtual void chooseSceneManager(void);
     virtual void createCamera(void);
     virtual void createFrameListener(void);
+    virtual void createMultiPlayerScene(TCPsocket socket) = 0;
     virtual void createScene(void) = 0; // Override me!
     virtual void destroyScene(void);
     virtual void createViewports(void);
@@ -95,7 +98,7 @@ protected:
     virtual void createResourceListener(void);
     virtual void loadResources(void);
     virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
-
+    virtual void beginGame(void) = 0;
     virtual bool keyPressed(const OIS::KeyEvent &arg);
     virtual bool keyReleased(const OIS::KeyEvent &arg);
     virtual bool mouseMoved(const OIS::MouseEvent &arg);
