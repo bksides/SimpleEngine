@@ -51,8 +51,10 @@ protected:
     void createStartMenu(CEGUI::WindowManager& wmgr);
     void createScoreBoard(CEGUI::WindowManager& wmgr);
     void createPauseMenu(CEGUI::WindowManager& wmgr);
+    void createMultiPlayerMenu(CEGUI::WindowManager& wmgr);
+    void showMultiPlayerOptions(void);
     void beginSinglePlayer(void);
-    void beginMultiPlayer();
+    void beginMultiPlayer(void);
 };
 
 #endif // #ifndef __PongApplication_h_
