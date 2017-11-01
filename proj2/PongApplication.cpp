@@ -32,6 +32,7 @@ PongApplication app;
 CEGUI::Window *score_board;
 CEGUI::Window *pause_pop_up;
 CEGUI::Window *start_menu;
+CEGUI::Window *mult_menu;
 bool gameOver = false;
 bool CEGUI_needs_init = true;
 bool multiplayer = false;
@@ -334,6 +335,7 @@ void PongApplication::CEGUI_Init(void)
     createStartMenu(wmgr);
     createScoreBoard(wmgr);
     createPauseMenu(wmgr);
+    createMultiPlayerMenu(wmgr);
 
     /* remove this to show the menu */
     //start_menu->setVisible(false);
@@ -341,6 +343,8 @@ void PongApplication::CEGUI_Init(void)
     sheet->addChild(score_board);
     sheet->addChild(pause_pop_up);
     sheet->addChild(start_menu);
+    sheet->addChild(mult_menu);
+    mult_menu->setSize(CEGUI::USize(CEGUI::UDim(1.0,0.0), CEGUI::UDim(1.0, 0.0)));
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
 }
 
@@ -391,7 +395,8 @@ void PongApplication::createStartMenu(CEGUI::WindowManager& wmgr)
     multiPlayer->setPosition(CEGUI::UVector2(CEGUI::UDim(0.3, 0.0), CEGUI::UDim(0.7, 0.0)));
     multiPlayer->setSize(CEGUI::USize(CEGUI::UDim(0.4,0.0), CEGUI::UDim(0.15, 0.0)));
     multiPlayer->setText("Multiplayer");
-    multiPlayer->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&PongApplication::beginMultiPlayer, this));
+    //multiPlayer->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&PongApplication::beginMultiPlayer, this));
+    multiPlayer->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&PongApplication::showMultiPlayerOptions, this));
 }
 
 void PongApplication::createScoreBoard(CEGUI::WindowManager& wmgr)
@@ -414,6 +419,51 @@ void PongApplication::createPauseMenu(CEGUI::WindowManager& wmgr)
     pause_pop_up->setPosition(CEGUI::UVector2(CEGUI::UDim(0.35, 0), CEGUI::UDim(.25, 0)));
     pause_pop_up->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0), CEGUI::UDim(0.5, 0)));
     pause_pop_up->setVisible(false);
+}
+
+void PongApplication::createMultiPlayerMenu(CEGUI::WindowManager& wmgr)
+{
+    mult_menu = wmgr.createWindow("TaharezLook/StaticImage", "CEGUIDemo/MPBackground");
+    CEGUI::Window* menu = wmgr.createWindow("TaharezLook/StaticImage", "CEGUIDemo/MPMenu");
+    mult_menu->addChild(menu);
+    menu->setProperty("Image","OgreTrayImages/TrayTR");
+    menu->setRiseOnClickEnabled(false);
+
+    menu->setPosition(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.1,0)));
+    menu->setSize(CEGUI::USize(CEGUI::UDim(0.8, 0), CEGUI::UDim(0.8, 0)));
+
+    CEGUI::Window* info = wmgr.createWindow("TaharezLook/StaticText","CEGUIDemo/MPMenuTitle");
+    mult_menu->addChild(info);
+    info->setText("Select if you're hosting or joining a game.\n\nIf you're joining, enter the address of the host you want to connect to.");
+    info->setPosition(CEGUI::UVector2(CEGUI::UDim(0.15, 0.0), CEGUI::UDim(0.15, 0.0)));
+    info->setSize(CEGUI::USize(CEGUI::UDim(0.7,0.0), CEGUI::UDim(0.15, 0.0)));
+
+    CEGUI::FrameWindow* window = (CEGUI::FrameWindow*)wmgr.createWindow("TaharezLook/FrameWindow", "CEGUIDemo/MPWindow");
+    mult_menu->addChild(window);
+    window->setPosition(CEGUI::UVector2(CEGUI::UDim(0.2,0), CEGUI::UDim(0.4,0)));
+    window->setSize(CEGUI::USize(CEGUI::UDim(0.6,0.0), CEGUI::UDim(0.4, 0.0)));
+    window->setRiseOnClickEnabled(false);
+    window->setRollupEnabled(false);
+    window->setDragMovingEnabled(false);
+
+    CEGUI::RadioButton* hostOption = (CEGUI::RadioButton*)wmgr.createWindow("TaharezLook/RadioButton", "CEGUIDemo/MPHostOption");
+    window->addChild(hostOption);
+    hostOption->setPosition(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.2,0)));
+    hostOption->setText("Host");
+    hostOption->setGroupID(1);
+
+
+    CEGUI::RadioButton* clientOption = (CEGUI::RadioButton*)wmgr.createWindow("TaharezLook/RadioButton", "CEGUIDemo/MPClientOption");
+    window->addChild(clientOption);
+    clientOption->setPosition(CEGUI::UVector2(CEGUI::UDim(0.3,0), CEGUI::UDim(0.2,0)));
+    clientOption->setText("Client");
+    clientOption->setGroupID(1);
+
+    //add editable text field -- should only be able to edit if clientOption is selected
+    //add button to go back to main menu
+
+
+    mult_menu->setVisible(false);
 }
 
 void PongApplication::beginSinglePlayer(void)
@@ -451,6 +501,12 @@ void PongApplication::beginSinglePlayer(void)
     gContactProcessedCallback = playBoing;
 
     Mix_PlayMusic(music, -1);
+}
+
+void PongApplication::showMultiPlayerOptions(void)
+{
+    start_menu->setVisible(false);
+    mult_menu->setVisible(true);
 }
 
 void PongApplication::beginMultiPlayer(void)
