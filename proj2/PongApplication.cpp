@@ -38,6 +38,8 @@ bool multiplayer = false;
 char* hostname = NULL;
 std::thread* netthread = NULL;
 bool terminating = false;
+bool firstCol = true;
+clock_t hitClock = NULL;
 
 bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
 {
@@ -46,8 +48,12 @@ bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
         Mix_PlayChannel( -1, boing, 0 );
     }
     if((body0 == ball->getRigidBody() && body1 == paddle->getRigidBody())||
-        (body1 == ball->getRigidBody() && body0 == paddle->getRigidBody()))
+        (body1 == ball->getRigidBody() && body0 == paddle->getRigidBody())&&
+        (firstCol || (clock() - hitClock > 3000)))
     {
+        if(firstCol)
+            firstCol = false;
+        hitClock = clock();
         ++player_score;
         ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, 50, ball->getVelocity().z));
         //quit->setText(std::to_string(player_score));
@@ -61,8 +67,12 @@ bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
     if(multiplayer)
     {
         if((body0 == ball->getRigidBody() && body1 == netPaddle->getRigidBody()) ||
-        (body1 == ball->getRigidBody() && body0 == netPaddle->getRigidBody()))
+        (body1 == ball->getRigidBody() && body0 == netPaddle->getRigidBody())&&
+        (firstCol || (clock() - hitClock > 3000)))
         {
+            if(firstCol)
+                firstCol = false;
+            hitClock = clock();
             ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, 50, ball->getVelocity().z));
             //quit->setText(std::to_string(player_score));
             app.updateScoreboard();
