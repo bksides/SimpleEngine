@@ -299,6 +299,19 @@ CEGUI::MouseButton convertButton(OIS::MouseButtonID buttonID)
         return CEGUI::LeftButton;
     }
 }
+//--------------------------------------------------------------------------
+CEGUI::Key convertButton(OIS::KeyEvent inKey, bool bButtonDown)
+{
+    if(bButtonDown)
+    {
+        CEGUI::System.getSingleton().getDefaultGUIContext().injectKeyDown((CEGUI::Key::Scan)inKey.key);
+        CEGUI::System.getSingleton().getDefaultGUIContext().injectChar(inKey.text);
+    }
+    else
+    {
+        CEGUI::System.getSingleton().getDefaultGUIContext().injectKeyUp((CEGUI::Key::Scan)inKey.key);
+    }
+}
 //---------------------------------------------------------------------------
 bool BaseApplication::mouseMoved(const OIS::MouseEvent &arg)
 {

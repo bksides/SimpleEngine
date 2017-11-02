@@ -33,6 +33,8 @@ CEGUI::Window *score_board;
 CEGUI::Window *pause_pop_up;
 CEGUI::Window *start_menu;
 CEGUI::Window *mult_menu;
+CEGUI::RadioButton* hostOption;
+CEGUI::Editbox* toConnect;
 bool gameOver = false;
 bool CEGUI_needs_init = true;
 bool multiplayer = false;
@@ -446,19 +448,37 @@ void PongApplication::createMultiPlayerMenu(CEGUI::WindowManager& wmgr)
     window->setRollupEnabled(false);
     window->setDragMovingEnabled(false);
 
-    CEGUI::RadioButton* hostOption = (CEGUI::RadioButton*)wmgr.createWindow("TaharezLook/RadioButton", "CEGUIDemo/MPHostOption");
+    hostOption = (CEGUI::RadioButton*)wmgr.createWindow("TaharezLook/RadioButton", "CEGUIDemo/MPHostOption");
     window->addChild(hostOption);
     hostOption->setPosition(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.2,0)));
+    hostOption->setSize(CEGUI::USize(CEGUI::UDim(0.1,0.0), CEGUI::UDim(0.1, 0.0)));
     hostOption->setText("Host");
     hostOption->setGroupID(1);
-
+    hostOption->setSelected(true);
+    hostOption->setID(0);
+//  hostOption->subscribeEvent(CEGUI::RadioButton::EventSelectStateChanged, CEGUI::Event::Subscriber(&PongApplication::testRadios(hostOption), this));
 
     CEGUI::RadioButton* clientOption = (CEGUI::RadioButton*)wmgr.createWindow("TaharezLook/RadioButton", "CEGUIDemo/MPClientOption");
     window->addChild(clientOption);
     clientOption->setPosition(CEGUI::UVector2(CEGUI::UDim(0.3,0), CEGUI::UDim(0.2,0)));
+    clientOption->setSize(CEGUI::USize(CEGUI::UDim(0.1,0.0), CEGUI::UDim(0.1, 0.0)));
     clientOption->setText("Client");
     clientOption->setGroupID(1);
+    clientOption->setID(1);
 
+    toConnect = (CEGUI::Editbox*)wmgr.createWindow("TaharezLook/Editbox", "CEGUIDemo/MPhostname");
+    window->addChild(toConnect);
+    toConnect->setPosition(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.4,0)));
+    toConnect->setSize(CEGUI::USize(CEGUI::UDim(0.8,0.0), CEGUI::UDim(0.2, 0.0)));
+    toConnect->setReadOnly(false);
+    toConnect->setTextMasked(false);
+
+    CEGUI::PushButton* startGame = (CEGUI::PushButton*)wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/MPStartGame");
+    window->addChild(startGame);
+    startGame->setPosition(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.7,0)));
+    startGame->setSize(CEGUI::USize(CEGUI::UDim(0.8,0.0), CEGUI::UDim(0.2, 0.0)));
+    startGame->setText("Start multiplayer game");
+    startGame->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&PongApplication::prepareMultiPlayer, this));
     //add editable text field -- should only be able to edit if clientOption is selected
     //add button to go back to main menu
 
@@ -501,6 +521,14 @@ void PongApplication::beginSinglePlayer(void)
     gContactProcessedCallback = playBoing;
 
     Mix_PlayMusic(music, -1);
+}
+
+void PongApplication::prepareMultiPlayer(void)
+{
+    client = (hostOption->getSelectedButtonInGroup()->getID()==1) ? true : false;
+    //conversion from String to char*
+    //if client: hostname = toConnect->getText()
+    //beginMultiPlayer()
 }
 
 void PongApplication::showMultiPlayerOptions(void)
