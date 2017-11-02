@@ -55,6 +55,7 @@ protected:
     void showMultiPlayerOptions(void);
     void beginSinglePlayer(void);
     void beginMultiPlayer(void);
+    void prepareMultiPlayer(void);
 };
 
 #endif // #ifndef __PongApplication_h_
