@@ -275,6 +275,8 @@ bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
             netthread->join();
             terminating = false;
         }
+        firstCol = true;
+        hitClock = NULL;
         mSceneMgr->clearScene();
         if(!multiplayer)
         {
