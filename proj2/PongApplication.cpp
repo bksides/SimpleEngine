@@ -531,6 +531,7 @@ void PongApplication::prepareMultiPlayer(void)
     //printf("Here's what was typed: %s\n", toConnect->getText().c_str());
     if(client)
         hostname = const_cast<char *>(toConnect->getText().c_str());
+    mult_menu->setVisible(false);
     beginMultiPlayer();
 }
 
