@@ -528,9 +528,10 @@ void PongApplication::beginSinglePlayer(void)
 void PongApplication::prepareMultiPlayer(void)
 {
     client = (hostOption->getSelectedButtonInGroup()->getID()==1) ? true : false;
-    //conversion from String to char*
-    //if client: hostname = toConnect->getText()
-    //beginMultiPlayer()
+    //printf("Here's what was typed: %s\n", toConnect->getText().c_str());
+    if(client)
+        hostname = const_cast<char *>(toConnect->getText().c_str());
+    beginMultiPlayer();
 }
 
 void PongApplication::showMultiPlayerOptions(void)

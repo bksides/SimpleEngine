@@ -258,9 +258,23 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 
     return true;
 }
+//--------------------------------------------------------------------------
+CEGUI::Key InjectOISKey(OIS::KeyEvent inKey, bool bButtonDown)
+{
+    if (bButtonDown)
+    {
+        CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyDown((CEGUI::Key::Scan)inKey.key);
+        CEGUI::System::getSingleton().getDefaultGUIContext().injectChar(inKey.text);
+    }
+    else
+    {
+        CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyUp((CEGUI::Key::Scan)inKey.key);
+    }
+}
 //---------------------------------------------------------------------------
 bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
 {
+  InjectOISKey(arg, true);
   if (arg.key == OIS::KC_ESCAPE) {
     mShutDown = true;
   }
@@ -277,6 +291,7 @@ bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
 //---------------------------------------------------------------------------
 bool BaseApplication::keyReleased(const OIS::KeyEvent &arg)
 {
+    InjectOISKey(arg, false);
 	pressedKeys.erase(arg.key);
 
     return true;
@@ -297,19 +312,6 @@ CEGUI::MouseButton convertButton(OIS::MouseButtonID buttonID)
  
     default:
         return CEGUI::LeftButton;
-    }
-}
-//--------------------------------------------------------------------------
-CEGUI::Key convertButton(OIS::KeyEvent inKey, bool bButtonDown)
-{
-    if(bButtonDown)
-    {
-        CEGUI::System.getSingleton().getDefaultGUIContext().injectKeyDown((CEGUI::Key::Scan)inKey.key);
-        CEGUI::System.getSingleton().getDefaultGUIContext().injectChar(inKey.text);
-    }
-    else
-    {
-        CEGUI::System.getSingleton().getDefaultGUIContext().injectKeyUp((CEGUI::Key::Scan)inKey.key);
     }
 }
 //---------------------------------------------------------------------------
