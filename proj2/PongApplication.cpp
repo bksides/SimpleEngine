@@ -484,6 +484,12 @@ void PongApplication::createMultiPlayerMenu(CEGUI::WindowManager& wmgr)
     //add editable text field -- should only be able to edit if clientOption is selected
     //add button to go back to main menu
 
+    CEGUI::PushButton* backToStartMenu = (CEGUI::PushButton*)wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/MPBackToStart");
+    window->addChild(backToStartMenu);
+    backToStartMenu->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05,0), CEGUI::UDim(0.8,0)));
+    backToStartMenu->setSize(CEGUI::USize(CEGUI::UDim(0.2,0.0), CEGUI::UDim(0.15, 0.0)));
+    backToStartMenu->setText("Back to Main Menu");
+
 
     mult_menu->setVisible(false);
 }
