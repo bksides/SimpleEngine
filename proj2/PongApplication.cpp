@@ -52,7 +52,7 @@ bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
     }
     if((body0 == ball->getRigidBody() && body1 == paddle->getRigidBody())||
         (body1 == ball->getRigidBody() && body0 == paddle->getRigidBody())&&
-        (firstCol || (clock() - hitClock > 3000)))
+        (firstCol || (clock() - hitClock > 2000)))
     {
         if(firstCol)
             firstCol = false;
@@ -71,7 +71,7 @@ bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
     {
         if((body0 == ball->getRigidBody() && body1 == netPaddle->getRigidBody()) ||
         (body1 == ball->getRigidBody() && body0 == netPaddle->getRigidBody())&&
-        (firstCol || (clock() - hitClock > 3000)))
+        (firstCol || (clock() - hitClock > 2000)))
         {
             if(firstCol)
                 firstCol = false;
@@ -277,8 +277,6 @@ bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
             netthread->join();
             terminating = false;
         }
-        firstCol = true;
-        hitClock = NULL;
         mSceneMgr->clearScene();
         if(!multiplayer)
         {
