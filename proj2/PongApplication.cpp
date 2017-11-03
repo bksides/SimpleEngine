@@ -426,9 +426,22 @@ void PongApplication::createPauseMenu(CEGUI::WindowManager& wmgr)
 void PongApplication::createMultiPlayerMenu(CEGUI::WindowManager& wmgr)
 {
     mult_menu = wmgr.createWindow("TaharezLook/StaticImage", "CEGUIDemo/MPBackground");
+
+    //CEGUI::Imageset* MenuImageset = CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("Background","MenuBackground.jpg");
+    //MenuImageset->defineImage("Background", CEGUI::Point(0.0f,0.0f), CEGUI::Size( 1.0f, 1.0f ), Point(0.0f,0.0f));
+    
+    //start_menu->setProperty("Image", "menuBackground/menuBackground");
+
+    mult_menu->setProperty("Image", "TaharezLook/ClientBrush");
+    
+    mult_menu->setPosition(CEGUI::UVector2(CEGUI::UDim(0,0), CEGUI::UDim(0,0)));
+    mult_menu->setSize(CEGUI::USize(CEGUI::UDim(1, 0), CEGUI::UDim(1, 0)));
+
+
+
     CEGUI::Window* menu = wmgr.createWindow("TaharezLook/StaticImage", "CEGUIDemo/MPMenu");
     mult_menu->addChild(menu);
-    menu->setProperty("Image","OgreTrayImages/TrayTR");
+    menu->setProperty("Image","OgreTrayImages/BandsFull");
     menu->setRiseOnClickEnabled(false);
 
     menu->setPosition(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.1,0)));
@@ -442,11 +455,12 @@ void PongApplication::createMultiPlayerMenu(CEGUI::WindowManager& wmgr)
 
     CEGUI::FrameWindow* window = (CEGUI::FrameWindow*)wmgr.createWindow("TaharezLook/FrameWindow", "CEGUIDemo/MPWindow");
     mult_menu->addChild(window);
-    window->setPosition(CEGUI::UVector2(CEGUI::UDim(0.2,0), CEGUI::UDim(0.4,0)));
-    window->setSize(CEGUI::USize(CEGUI::UDim(0.6,0.0), CEGUI::UDim(0.4, 0.0)));
+    window->setPosition(CEGUI::UVector2(CEGUI::UDim(0.2,0), CEGUI::UDim(0.35,0)));
+    window->setSize(CEGUI::USize(CEGUI::UDim(0.6,0.0), CEGUI::UDim(0.5, 0.0)));
     window->setRiseOnClickEnabled(false);
     window->setRollupEnabled(false);
     window->setDragMovingEnabled(false);
+    window->setSizingEnabled(false);
 
     hostOption = (CEGUI::RadioButton*)wmgr.createWindow("TaharezLook/RadioButton", "CEGUIDemo/MPHostOption");
     window->addChild(hostOption);
@@ -484,12 +498,19 @@ void PongApplication::createMultiPlayerMenu(CEGUI::WindowManager& wmgr)
 
     CEGUI::PushButton* backToStartMenu = (CEGUI::PushButton*)wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/MPBackToStart");
     window->addChild(backToStartMenu);
-    backToStartMenu->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05,0), CEGUI::UDim(0.8,0)));
+    backToStartMenu->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05,0), CEGUI::UDim(0.02,0)));
     backToStartMenu->setSize(CEGUI::USize(CEGUI::UDim(0.2,0.0), CEGUI::UDim(0.15, 0.0)));
-    backToStartMenu->setText("Back to Main Menu");
+    backToStartMenu->setText("Back");
+    backToStartMenu->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&PongApplication::backToMenu, this));
 
 
     mult_menu->setVisible(false);
+}
+
+void PongApplication::backToMenu(void)
+{
+    mult_menu->setVisible(false);
+    start_menu->setVisible(true);
 }
 
 void PongApplication::beginSinglePlayer(void)
