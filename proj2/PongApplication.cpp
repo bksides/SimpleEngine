@@ -71,7 +71,7 @@ bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
     {
         if((body0 == ball->getRigidBody() && body1 == netPaddle->getRigidBody()) ||
         (body1 == ball->getRigidBody() && body0 == netPaddle->getRigidBody())&&
-        (firstCol || (clock() - hitClock > 2000)))
+        (firstCol || (clock() - hitClock > 10000000)))
         {
             if(firstCol)
                 firstCol = false;
