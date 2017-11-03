@@ -52,6 +52,7 @@ protected:
     void createScoreBoard(CEGUI::WindowManager& wmgr);
     void createPauseMenu(CEGUI::WindowManager& wmgr);
     void createMultiPlayerMenu(CEGUI::WindowManager& wmgr);
+    void backToMenu(void);
     void showMultiPlayerOptions(void);
     void beginSinglePlayer(void);
     void beginMultiPlayer(void);
