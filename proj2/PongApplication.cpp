@@ -28,9 +28,6 @@ Mix_Chunk* error = NULL;
 GameObject* paddle;
 GameObject* netPaddle;
 GameObject* ball;
-GameObject* wall = NULL;
-GameObject* frontWall = NULL;
-GameObject* backWall = NULL;
 Ogre::Vector3 ballMostRecentSentPosition = Ogre::Vector3::ZERO;
 int vel = 30;
 int player_score = 0;
@@ -49,6 +46,8 @@ bool multiplayer = false;
 char* hostname = NULL;
 std::thread* netthread = NULL;
 bool terminating = false;
+bool firstCol = true;
+clock_t hitClock = NULL;
 
 bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
 {
@@ -56,10 +55,15 @@ bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
     {
         Mix_PlayChannel( -1, boing, 0 );
     }
-    if(!multiplayer && ((body0 == ball->getRigidBody() && body1 == wall->getRigidBody())||
-        (body1 == ball->getRigidBody() && body0 == wall->getRigidBody())))
+    if((body0 == ball->getRigidBody() && body1 == paddle->getRigidBody())||
+        (body1 == ball->getRigidBody() && body0 == paddle->getRigidBody())&&
+        (firstCol || (clock() - hitClock > 10000000)))
     {
+        if(firstCol)
+            firstCol = false;
+        hitClock = clock();
         ++player_score;
+        ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, 50, ball->getVelocity().z));
         //quit->setText(std::to_string(player_score));
         app.updateScoreboard();
         vel += 3;
@@ -71,44 +75,21 @@ bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
     if(multiplayer)
     {
         if((body0 == ball->getRigidBody() && body1 == netPaddle->getRigidBody()) ||
-        (body1 == ball->getRigidBody() && body0 == netPaddle->getRigidBody()))
+        (body1 == ball->getRigidBody() && body0 == netPaddle->getRigidBody())&&
+        (firstCol || (clock() - hitClock > 10000000)))
         {
+            if(firstCol)
+                firstCol = false;
+            hitClock = clock();
             ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, 50, ball->getVelocity().z));
             //quit->setText(std::to_string(player_score));
+            app.updateScoreboard();
             vel += 3;
+            if(sound)
+            {
+                Mix_PlayChannel(-1, ching, 0);
+            }
         }
-    }   
-    if(body0 == ball->getRigidBody() && body1 == frontWall->getRigidBody() ||
-        body1 == ball->getRigidBody() && body0 == frontWall->getRigidBody())
-    {
-        if(!gameOver)
-        {
-            Mix_PlayChannel(-1, lose, 0);
-        }
-        if(!multiplayer)
-        {
-            score_board->setText("You Lose!");
-            gameOver = true;
-        }
-        else
-        {
-            ball->setPosition(Ogre::Vector3::ZERO);
-            ball->setVelocity(Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40)));
-            vel = 30;
-        }
-    }
-    if(multiplayer && (body0 == ball->getRigidBody() && body1 == backWall->getRigidBody() ||
-        body1 == ball->getRigidBody() && body0 == backWall->getRigidBody()))
-    {
-        ball->setPosition(Ogre::Vector3::ZERO);
-        ball->setVelocity(Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40)));
-        vel = 30;
-        if(sound)
-        {
-            Mix_PlayChannel(-1, ching, 1);
-        }
-        player_score++;
-        app.updateScoreboard();
     }
     return true;
 }
@@ -235,15 +216,10 @@ void PongApplication::createMultiPlayerScene(TCPsocket socket)
     //Create wall entities
     wallWorld = new World(mSceneMgr);
 
-    backWall = new Wall(mSceneMgr);
-    frontWall = new Wall(mSceneMgr);
-
     wallWorld->addObject(new Wall(mSceneMgr), -50*Ogre::Vector3::UNIT_Y, Ogre::Vector3::ZERO);
     wallWorld->addObject(new Wall(mSceneMgr),  50*Ogre::Vector3::UNIT_X, Ogre::Vector3::ZERO, Ogre::Vector3(0, 0, M_PI / 2));
     wallWorld->addObject(new Wall(mSceneMgr), -50*Ogre::Vector3::UNIT_X, Ogre::Vector3::ZERO, Ogre::Vector3(0, 0, M_PI / -2));
     wallWorld->addObject(new Wall(mSceneMgr),  50*Ogre::Vector3::UNIT_Y, Ogre::Vector3::ZERO, Ogre::Vector3(0, 0, M_PI));
-    wallWorld->addObject(frontWall, -60*Ogre::Vector3::UNIT_Z, Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / 2, 0, 0));
-    wallWorld->addObject(backWall, 60*Ogre::Vector3::UNIT_Z, Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / 2, 0, 0));
 
     ball = new PongBall(mSceneMgr, btVector3(0,0,0));
 
@@ -564,14 +540,11 @@ void PongApplication::beginSinglePlayer(void)
     //Create wall entities
     wallWorld = new World(mSceneMgr);
 
-    wall = new Wall(mSceneMgr);
-    frontWall = new Wall(mSceneMgr);
     wallWorld->addObject(new Wall(mSceneMgr), -50*Ogre::Vector3::UNIT_Y, Ogre::Vector3::ZERO);
     wallWorld->addObject(new Wall(mSceneMgr),  50*Ogre::Vector3::UNIT_X, Ogre::Vector3::ZERO, Ogre::Vector3(0, 0, M_PI / 2));
     wallWorld->addObject(new Wall(mSceneMgr), -50*Ogre::Vector3::UNIT_X, Ogre::Vector3::ZERO, Ogre::Vector3(0, 0, M_PI / -2));
     wallWorld->addObject(new Wall(mSceneMgr),  50*Ogre::Vector3::UNIT_Y, Ogre::Vector3::ZERO, Ogre::Vector3(0, 0, M_PI));
-    wallWorld->addObject(wall,  50*Ogre::Vector3::UNIT_Z, Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / -2, 0, 0));
-    wallWorld->addObject(frontWall, -60*Ogre::Vector3::UNIT_Z, Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / 2, 0, 0));
+    wallWorld->addObject(new Wall(mSceneMgr),  50*Ogre::Vector3::UNIT_Z, Ogre::Vector3::ZERO, Ogre::Vector3(M_PI / -2, 0, 0));
 
     ball = new PongBall(mSceneMgr, btVector3(0,0,0));
 
@@ -583,6 +556,13 @@ void PongApplication::beginSinglePlayer(void)
     gContactProcessedCallback = playBoing;
 
     Mix_PlayMusic(music, -1);
+}
+
+void PongApplication::win(void)
+{
+    gameOve = true;
+    pause_pop_up->setText("Congratulations, you won!\n\n Press enter to exit.");
+    pause_pop_up->setVisible(true);
 }
 
 void PongApplication::prepareMultiPlayer(void)
@@ -725,7 +705,33 @@ bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
         mCamera->setPosition(paddle->getPosition() + -100 * Ogre::Vector3::UNIT_Z);
 
         ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, ball->getVelocity().y, ball->getVelocity().z < 0 ? -1*vel : vel));
-
+        if(ball->getPosition().z < -50)
+        {
+            if(!gameOver)
+            {
+                Mix_PlayChannel(-1, lose, 0);
+            }
+            if(!multiplayer)
+            {
+                score_board->setText("You Lose!");
+                gameOver = true;
+            }
+            else
+            {
+                ball->setPosition(Ogre::Vector3::ZERO);
+                ball->setVelocity(Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40)));
+                vel = 30;
+            }
+        }
+        if(ball->getPosition().z > 50)
+        {
+            if(multiplayer)
+            {
+                ball->setPosition(Ogre::Vector3::ZERO);
+                ball->setVelocity(Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40)));
+                vel = 30;
+            }
+        }
         if(gameOver)
         {
             wallWorld->pause();
