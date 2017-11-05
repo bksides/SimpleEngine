@@ -13,6 +13,9 @@
 #include <btBulletDynamicsCommon.h>
 #include <OISKeyboard.h>
 #include <cstdint>
+#include <string.h>
+#include <stdio.h>
+#include <cstring>
 
 using namespace SimpleEngine;
 
@@ -20,6 +23,7 @@ Mix_Chunk* boing = NULL;
 Mix_Music* music = NULL;
 Mix_Chunk* ching = NULL;
 Mix_Chunk* lose = NULL;
+Mix_Chunk* error = NULL;
 
 GameObject* paddle;
 GameObject* netPaddle;
@@ -33,6 +37,7 @@ CEGUI::Window *score_board;
 CEGUI::Window *pause_pop_up;
 CEGUI::Window *start_menu;
 CEGUI::Window *mult_menu;
+CEGUI::Window* mult_info;
 CEGUI::RadioButton* hostOption;
 CEGUI::Editbox* toConnect;
 bool gameOver = false;
@@ -112,6 +117,7 @@ PongApplication::PongApplication(void)
     music = Mix_LoadMUS("./dist/media/sounds/music.mp3");
     ching = Mix_LoadWAV("./dist/media/sounds/score.wav");
     lose = Mix_LoadWAV("./dist/media/sounds/gameover.wav");
+    error = Mix_LoadWAV("./dist/media/sounds/error.wav");
     //Mix_VolumeChunk(ching, MIX_MAX_VOLUME);
 
     if( boing == NULL || music == NULL || ching == NULL || lose == NULL)
@@ -447,11 +453,11 @@ void PongApplication::createMultiPlayerMenu(CEGUI::WindowManager& wmgr)
     menu->setPosition(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.1,0)));
     menu->setSize(CEGUI::USize(CEGUI::UDim(0.8, 0), CEGUI::UDim(0.8, 0)));
 
-    CEGUI::Window* info = wmgr.createWindow("TaharezLook/StaticText","CEGUIDemo/MPMenuTitle");
-    mult_menu->addChild(info);
-    info->setText("Select if you're hosting or joining a game.\n\nIf you're joining, enter the address of the host you want to connect to.");
-    info->setPosition(CEGUI::UVector2(CEGUI::UDim(0.15, 0.0), CEGUI::UDim(0.15, 0.0)));
-    info->setSize(CEGUI::USize(CEGUI::UDim(0.7,0.0), CEGUI::UDim(0.15, 0.0)));
+    mult_info = wmgr.createWindow("TaharezLook/StaticText","CEGUIDemo/MPMenuTitle");
+    mult_menu->addChild(mult_info);
+    mult_info->setText("Select if you're hosting or joining a game.\n\nIf you're joining, enter the address of the host you want to connect to.");
+    mult_info->setPosition(CEGUI::UVector2(CEGUI::UDim(0.15, 0.0), CEGUI::UDim(0.15, 0.0)));
+    mult_info->setSize(CEGUI::USize(CEGUI::UDim(0.7,0.0), CEGUI::UDim(0.15, 0.0)));
 
     CEGUI::FrameWindow* window = (CEGUI::FrameWindow*)wmgr.createWindow("TaharezLook/FrameWindow", "CEGUIDemo/MPWindow");
     mult_menu->addChild(window);
@@ -479,6 +485,7 @@ void PongApplication::createMultiPlayerMenu(CEGUI::WindowManager& wmgr)
     clientOption->setText("Client");
     clientOption->setGroupID(1);
     clientOption->setID(1);
+    //hostOption->subscribeEvent(CEGUI::RadioButton::EventSelectStateChanged, CEGUI::Event::Subscriber(&PongApplication::toggleIP(), this));
 
     toConnect = (CEGUI::Editbox*)wmgr.createWindow("TaharezLook/Editbox", "CEGUIDemo/MPhostname");
     window->addChild(toConnect);
@@ -510,6 +517,7 @@ void PongApplication::createMultiPlayerMenu(CEGUI::WindowManager& wmgr)
 void PongApplication::backToMenu(void)
 {
     mult_menu->setVisible(false);
+    mult_info->setText("Select if you're hosting or joining a game.\n\nIf you're joining, enter the address of the host you want to connect to.");
     start_menu->setVisible(true);
 }
 
@@ -554,8 +562,26 @@ void PongApplication::prepareMultiPlayer(void)
 {
     client = (hostOption->getSelectedButtonInGroup()->getID()==1) ? true : false;
     //printf("Here's what was typed: %s\n", toConnect->getText().c_str());
+    char* typedText = const_cast<char *>(toConnect->getText().c_str());
+    //printf("The selected type was %s.\n", client?"client":"host");
     if(client)
-        hostname = const_cast<char *>(toConnect->getText().c_str());
+        hostname = typedText;
+    else
+        hostname = NULL;
+    //error checking
+    if(client && strcmp(typedText, "")==0)
+    {
+        mult_info->setText("ERROR: You must enter the hostname of who you're connecting to if you're not hosting!!");
+        Mix_PlayChannel(-1, error, 0);
+        return;
+    }
+    if(!client && strcmp(typedText, "")!=0)
+    {
+        mult_info->setText("ERROR: If you're hosting, you shouldn't enter anything in the textbox.");
+        Mix_PlayChannel(-1, error, 0);
+        return;       
+    }
+    mult_info->setText("PLEASE WAIT\n\nWaiting for someone to connect...");
     mult_menu->setVisible(false);
     beginMultiPlayer();
 }
