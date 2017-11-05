@@ -49,8 +49,8 @@ bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
     {
         Mix_PlayChannel( -1, boing, 0 );
     }
-    if(!multiplayer && (body0 == ball->getRigidBody() && body1 == wall->getRigidBody())||
-        (body1 == ball->getRigidBody() && body0 == wall->getRigidBody()))
+    if(!multiplayer && ((body0 == ball->getRigidBody() && body1 == wall->getRigidBody())||
+        (body1 == ball->getRigidBody() && body0 == wall->getRigidBody())))
     {
         ++player_score;
         //quit->setText(std::to_string(player_score));
