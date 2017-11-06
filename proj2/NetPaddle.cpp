@@ -40,7 +40,7 @@ void updateRemotePosition(NetPaddle* netpaddle)
 					ballMostRecentSentPosition = data.vec;
 					break;
 				case Paddle_Location:
-					netpaddle->mostRecentSentPosition = data.vec;
+					netpaddle->mostRecentSentPosition = Ogre::Vector3(-1*data.vec.x, data.vec.y, -1*data.vec.z);
 					break;
 				case Player_Score:
 					player_score = data.score;
