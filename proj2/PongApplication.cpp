@@ -316,7 +316,7 @@ bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
             }
         }
     }
-    if(arg.key == OIS::KC_RETURN && wallWorld->isPaused())
+    if(!multiplayer && arg.key == OIS::KC_RETURN && wallWorld->isPaused())
     {
         vel = 30;
         player_score = 0;
