@@ -177,7 +177,18 @@ bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
 
 void PongApplication::updateScoreboard(void)
 {
-    score_board->setText("You: "+std::to_string(player_score)+ " | Opp: "+std::to_string(opponent_score));
+    if(multiplayer)
+    {
+        score_board->setText("You: "+std::to_string(player_score)+ " | Opp: "+std::to_string(opponent_score));
+    }
+    else
+    {
+        score_board->setText("Score: "+std::to_string(player_score));
+    }
+    if(multiplayer && (opponent_score >= 10 || player_score >= 10))
+    {
+        gameOverScreen(player_score >= 10);
+    }
 }
 
 void PongApplication::createScene(void)
@@ -226,6 +237,9 @@ void PongApplication::createScene(void)
 
 void PongApplication::createMultiPlayerScene(TCPsocket socket)
 {
+    player_score = 0;
+    opponent_score = 0;
+
     start_menu->setVisible(false);
     score_board->setVisible(true);
     CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().hide();
@@ -320,7 +334,7 @@ bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
         {
             beginSinglePlayer();
         }
-        else
+        else if(!client)
         {
             createMultiPlayerScene(sock);
         }
@@ -444,7 +458,14 @@ void PongApplication::createScoreBoard(CEGUI::WindowManager& wmgr)
     score_board = wmgr.createWindow("TaharezLook/StaticText", "CEGUIDemo/ScoreBoard");
 
     score_board->setProperty("HorzFormatting","HorzCentred");
-    score_board->setText("You: "+std::to_string(player_score)+ " | Opp: "+std::to_string(opponent_score));
+    if(multiplayer)
+    {
+        score_board->setText("You: "+std::to_string(player_score)+ " | Opp: "+std::to_string(opponent_score));
+    }
+    else
+    {
+        score_board->setText("Score: "+std::to_string(player_score));
+    }
     score_board->setPosition(CEGUI::UVector2(CEGUI::UDim(0.425, 0), CEGUI::UDim(0, 0)));
     score_board->setSize(CEGUI::USize(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.05, 0)));
     score_board->setVisible(false);
@@ -593,10 +614,32 @@ void PongApplication::beginSinglePlayer(void)
     Mix_PlayMusic(music, -1);
 }
 
-void PongApplication::win(void)
+void PongApplication::gameOverScreen(bool win)
 {
+    wallWorld->pause();
     gameOver = true;
-    pause_pop_up->setText("Congratulations, you won!\n\n Press enter to exit.");
+    if(client)
+    {
+        if(win)
+        {
+            pause_pop_up->setText("Congratulations, you won!\n\n Press escape to exit, or wait for the server to start a new game.");
+        }
+        else
+        {
+            pause_pop_up->setText("Congratulations, you're a loser!\n\n Press escape to exit, or wait for the server to start a new game.");
+        }
+    }
+    else
+    {
+        if(win)
+        {
+            pause_pop_up->setText("Congratulations, you won!\n\n Press escape to exit, or press enter to start a new game.");
+        }
+        else
+        {
+            pause_pop_up->setText("Congratulations, you're a loser!\n\n Press escape to exit, or press enter to start a new game.");
+        }
+    }
     pause_pop_up->setVisible(true);
 }
 

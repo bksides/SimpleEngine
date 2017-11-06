@@ -58,7 +58,7 @@ protected:
     void beginSinglePlayer(void);
     void beginMultiPlayer(void);
     void prepareMultiPlayer(void);
-    void win(void);
+    void gameOverScreen(bool win);
 };
 
 extern PongApplication app;
