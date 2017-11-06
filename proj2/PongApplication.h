@@ -58,6 +58,7 @@ protected:
     void beginSinglePlayer(void);
     void beginMultiPlayer(void);
     void prepareMultiPlayer(void);
+    void win(void);
 };
 
 #endif // #ifndef __PongApplication_h_

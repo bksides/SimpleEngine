@@ -593,6 +593,13 @@ void PongApplication::beginSinglePlayer(void)
     Mix_PlayMusic(music, -1);
 }
 
+void PongApplication::win(void)
+{
+    gameOve = true;
+    pause_pop_up->setText("Congratulations, you won!\n\n Press enter to exit.");
+    pause_pop_up->setVisible(true);
+}
+
 void PongApplication::prepareMultiPlayer(void)
 {
     client = (hostOption->getSelectedButtonInGroup()->getID()==1) ? true : false;
