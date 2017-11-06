@@ -67,6 +67,7 @@ void updateRemotePosition(NetPaddle* netpaddle)
 			data.dt = Opponent_Score;
 			data.score = player_score;
 			SDLNet_TCP_Send(netpaddle->socket, &data, sizeof(netdata));
+			app.updateScoreboard();
 		}
 	}
 }
