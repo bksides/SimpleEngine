@@ -298,7 +298,7 @@ void PongApplication::beginGame(void)
 
 bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
 {
-    if(arg.key == OIS::KC_P)
+    if(ball != NULL && arg.key == OIS::KC_P)
     {
         if(!multiplayer)
         {
@@ -336,15 +336,15 @@ bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
             beginSinglePlayer();
         }
     }
-    if(arg.key == OIS::KC_PGUP)
+    if(ball != NULL && arg.key == OIS::KC_PGUP)
     {
         Mix_VolumeMusic(Mix_VolumeMusic(-1) + 20);
     }
-    if(arg.key == OIS::KC_PGDOWN)
+    if(ball != NULL && arg.key == OIS::KC_PGDOWN)
     {
         Mix_VolumeMusic(Mix_VolumeMusic(-1) - 20);
     }
-    if(arg.key == OIS::KC_M)
+    if(ball != NULL && arg.key == OIS::KC_M)
     {
         if(Mix_PausedMusic())
         {
