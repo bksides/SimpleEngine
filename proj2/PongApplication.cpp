@@ -595,7 +595,7 @@ void PongApplication::beginSinglePlayer(void)
 
 void PongApplication::win(void)
 {
-    gameOve = true;
+    gameOver = true;
     pause_pop_up->setText("Congratulations, you won!\n\n Press enter to exit.");
     pause_pop_up->setVisible(true);
 }
