@@ -74,7 +74,6 @@ bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
         if((body0 == ball->getRigidBody() && body1 == netPaddle->getRigidBody()) ||
         (body1 == ball->getRigidBody() && body0 == netPaddle->getRigidBody()))
         {
-            ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, 50, ball->getVelocity().z));
             //quit->setText(std::to_string(player_score));
             vel += 3;
         }
