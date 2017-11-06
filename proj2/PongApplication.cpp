@@ -335,10 +335,6 @@ bool PongApplication::keyPressed( const OIS::KeyEvent &arg )
         {
             beginSinglePlayer();
         }
-        else if(!client)
-        {
-            createMultiPlayerScene(sock);
-        }
     }
     if(arg.key == OIS::KC_PGUP)
     {
@@ -619,27 +615,13 @@ void PongApplication::gameOverScreen(bool win)
 {
     wallWorld->pause();
     gameOver = true;
-    if(client)
+    if(win)
     {
-        if(win)
-        {
-            pause_pop_up->setText("Congratulations, you won!\n\n Press escape to exit, or wait for the server\n\nto start a new game.");
-        }
-        else
-        {
-            pause_pop_up->setText("Congratulations, you're a loser!\n\n Press escape to exit, or wait for the server\n\nto start a new game.");
-        }
+        pause_pop_up->setText("Congratulations, you won!\n\n Press escape to exit.");
     }
     else
     {
-        if(win)
-        {
-            pause_pop_up->setText("Congratulations, you won!\n\n Press escape to exit, or press enter to\n\nstart a new game.");
-        }
-        else
-        {
-            pause_pop_up->setText("Congratulations, you're a loser!\n\n Press escape to exit, or press enter to\n\nstart a new game.");
-        }
+        pause_pop_up->setText("Congratulations, you're a loser!\n\n Press escape to exit.");
     }
     pause_pop_up->setVisible(true);
 }
