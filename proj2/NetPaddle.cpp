@@ -8,7 +8,8 @@ enum DATA_TYPE {
 	Ball_Location,
 	Paddle_Location,
 	Player_Score,
-	Opponent_Score
+	Opponent_Score,
+	Vel
 };
 
 struct netdata {
@@ -50,6 +51,9 @@ void updateRemotePosition(NetPaddle* netpaddle)
 				case Opponent_Score:
 					opponent_score = data.score;
 					break;
+				case Vel:
+					vel = data.score;
+					break;
 			}
 		}
 		while(SDLNet_CheckSockets(sockcheck, 0) > 0);
@@ -68,6 +72,9 @@ void updateRemotePosition(NetPaddle* netpaddle)
 			SDLNet_TCP_Send(netpaddle->socket, &data, sizeof(netdata));
 			data.dt = Opponent_Score;
 			data.score = player_score;
+			SDLNet_TCP_Send(netpaddle->socket, &data, sizeof(netdata));
+			data.dt = Vel;
+			data.score = vel;
 			SDLNet_TCP_Send(netpaddle->socket, &data, sizeof(netdata));
 		}
 	}

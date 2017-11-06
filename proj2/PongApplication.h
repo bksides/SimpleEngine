@@ -32,6 +32,7 @@ extern bool client;
 extern bool terminating;
 extern std::thread* netthread;
 extern bool ready;
+extern int vel;
 
 class PongApplication : public BaseApplication
 {
