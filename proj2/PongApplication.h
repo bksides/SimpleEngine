@@ -31,6 +31,7 @@ extern Ogre::Vector3 ballMostRecentSentPosition;
 extern bool client;
 extern bool terminating;
 extern std::thread* netthread;
+extern bool ready;
 
 class PongApplication : public BaseApplication
 {

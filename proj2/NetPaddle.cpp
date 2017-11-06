@@ -21,7 +21,7 @@ struct netdata {
 void updateRemotePosition(NetPaddle* netpaddle)
 {
 	sleep(3);
-
+	ready = true;
 	struct netdata data = {Paddle_Location, paddle->getPosition()};
 	SDLNet_TCP_Send(netpaddle->socket, &data, sizeof(netdata));
 	SDLNet_SocketSet sockcheck = SDLNet_AllocSocketSet(1);
