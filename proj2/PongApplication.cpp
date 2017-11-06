@@ -178,7 +178,7 @@ bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
 
 void PongApplication::updateScoreboard(void)
 {
-    score_board->setText("Score: "+std::to_string(player_score));
+    score_board->setText("You: "+std::to_string(player_score)+ " | Opp: "+std::to_string(opponent_score));
 }
 
 void PongApplication::createScene(void)
@@ -445,7 +445,7 @@ void PongApplication::createScoreBoard(CEGUI::WindowManager& wmgr)
     score_board = wmgr.createWindow("TaharezLook/StaticText", "CEGUIDemo/ScoreBoard");
 
     score_board->setProperty("HorzFormatting","HorzCentred");
-    score_board->setText("You: "+std::to_string(player_score)+ "| Opp: "+std::to_string(opponent_score));
+    score_board->setText("You: "+std::to_string(player_score)+ " | Opp: "+std::to_string(opponent_score));
     score_board->setPosition(CEGUI::UVector2(CEGUI::UDim(0.425, 0), CEGUI::UDim(0, 0)));
     score_board->setSize(CEGUI::USize(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.05, 0)));
     score_board->setVisible(false);
