@@ -241,6 +241,7 @@ void PongApplication::createMultiPlayerScene(TCPsocket socket)
     opponent_score = 0;
 
     start_menu->setVisible(false);
+    score_board->setText("You: " + std::to_string(player_score) + " | Opp: " + std::to_string(opponent_score));
     score_board->setVisible(true);
     CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().hide();
 
@@ -622,22 +623,22 @@ void PongApplication::gameOverScreen(bool win)
     {
         if(win)
         {
-            pause_pop_up->setText("Congratulations, you won!\n\n Press escape to exit, or wait for the server to start a new game.");
+            pause_pop_up->setText("Congratulations, you won!\n\n Press escape to exit, or wait for the server\n\nto start a new game.");
         }
         else
         {
-            pause_pop_up->setText("Congratulations, you're a loser!\n\n Press escape to exit, or wait for the server to start a new game.");
+            pause_pop_up->setText("Congratulations, you're a loser!\n\n Press escape to exit, or wait for the server\n\nto start a new game.");
         }
     }
     else
     {
         if(win)
         {
-            pause_pop_up->setText("Congratulations, you won!\n\n Press escape to exit, or press enter to start a new game.");
+            pause_pop_up->setText("Congratulations, you won!\n\n Press escape to exit, or press enter to\n\nstart a new game.");
         }
         else
         {
-            pause_pop_up->setText("Congratulations, you're a loser!\n\n Press escape to exit, or press enter to start a new game.");
+            pause_pop_up->setText("Congratulations, you're a loser!\n\n Press escape to exit, or press enter to\n\nstart a new game.");
         }
     }
     pause_pop_up->setVisible(true);
@@ -784,7 +785,7 @@ bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 
         ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, ball->getVelocity().y, ball->getVelocity().z < 0 ? -1*vel : vel));
 
-        if(gameOver)
+        if(gameOver && !multiplayer)
         {
             wallWorld->pause();
             Mix_PauseMusic();
