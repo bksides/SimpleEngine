@@ -96,7 +96,7 @@ bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
             if(!client)
             {
                 ++opponent_score;
-                updateScoreboard();
+                app.updateScoreboard();
             }
             ball->setPosition(Ogre::Vector3::ZERO);
             ball->setVelocity(Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40)));

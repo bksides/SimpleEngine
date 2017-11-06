@@ -61,4 +61,6 @@ protected:
     void win(void);
 };
 
+extern PongApplication app;
+
 #endif // #ifndef __PongApplication_h_
