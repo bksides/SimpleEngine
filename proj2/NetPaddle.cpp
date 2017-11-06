@@ -2,6 +2,7 @@
 #include "PongApplication.h"
 #include <SDL/SDL_net.h>
 #include <thread>
+#include <unistd.h>
 
 enum DATA_TYPE {
 	Ball_Location,
@@ -20,8 +21,7 @@ struct netdata {
 
 void updateRemotePosition(NetPaddle* netpaddle)
 {
-	sleep(3);
-	ready = true;
+	usleep(500000);
 	struct netdata data = {Paddle_Location, paddle->getPosition()};
 	SDLNet_TCP_Send(netpaddle->socket, &data, sizeof(netdata));
 	SDLNet_SocketSet sockcheck = SDLNet_AllocSocketSet(1);

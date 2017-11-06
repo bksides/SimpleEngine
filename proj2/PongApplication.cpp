@@ -50,7 +50,6 @@ bool multiplayer = false;
 char* hostname = NULL;
 std::thread* netthread = NULL;
 bool terminating = false;
-bool ready = false;
 
 bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
 {
@@ -746,50 +745,47 @@ void PongApplication::beginMultiPlayer(void)
 //--------------------------------------------------------------------------------------
 bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
-    if(ready)
+    if(paddle != NULL && mCamera != NULL && wallWorld != NULL && ball != NULL)
     {
-        if(paddle != NULL && mCamera != NULL && wallWorld != NULL && ball != NULL)
+        if (pressedKeys.find(OIS::KC_RIGHT) != pressedKeys.end() && !wallWorld->isPaused())
         {
-            if (pressedKeys.find(OIS::KC_RIGHT) != pressedKeys.end() && !wallWorld->isPaused())
-            {
-                paddle->translate(Ogre::Vector3((-2*(float)vel/3)*evt.timeSinceLastFrame, 0, 0));
-            }
-            if (pressedKeys.find(OIS::KC_LEFT) != pressedKeys.end() && !wallWorld->isPaused())
-            {
-                paddle->translate(Ogre::Vector3((2*(float)vel/3)*evt.timeSinceLastFrame, 0, 0));
-            }
-            if (pressedKeys.find(OIS::KC_UP) != pressedKeys.end() && !wallWorld->isPaused())
-            {
-                paddle->translate(Ogre::Vector3(0, (2*(float)vel/3)*evt.timeSinceLastFrame, 0));
-            }
-            if (pressedKeys.find(OIS::KC_DOWN) != pressedKeys.end() && !wallWorld->isPaused())
-            {
-                paddle->translate(Ogre::Vector3(0, (-2*(float)vel/3)*evt.timeSinceLastFrame, 0));
-            }
-            mCamera->setPosition(paddle->getPosition() + -100 * Ogre::Vector3::UNIT_Z);
-
-            ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, ball->getVelocity().y, ball->getVelocity().z < 0 ? -1*vel : vel));
-
-            if(gameOver && !multiplayer)
-            {
-                wallWorld->pause();
-                Mix_PauseMusic();
-                pause_pop_up->setText("Your final score was: " + std::to_string(player_score) + "\n\nPress enter to play again!");
-                pause_pop_up->setVisible(true);
-            }
-            wallWorld->update(evt.timeSinceLastFrame);
-    	   if(client)
-    	   {
-        	   ball->setPosition(Ogre::Vector3(-1*ballMostRecentSentPosition.x, ballMostRecentSentPosition.y, -1*ballMostRecentSentPosition.z));
-        	   printf("%f, %f, %f\n", ballMostRecentSentPosition.x, ballMostRecentSentPosition.y, ballMostRecentSentPosition.z);
-    	   }
+            paddle->translate(Ogre::Vector3((-2*(float)vel/3)*evt.timeSinceLastFrame, 0, 0));
         }
-        if(client)
+        if (pressedKeys.find(OIS::KC_LEFT) != pressedKeys.end() && !wallWorld->isPaused())
         {
-            app.updateScoreboard();
+            paddle->translate(Ogre::Vector3((2*(float)vel/3)*evt.timeSinceLastFrame, 0, 0));
         }
-        return BaseApplication::frameRenderingQueued(evt);
+        if (pressedKeys.find(OIS::KC_UP) != pressedKeys.end() && !wallWorld->isPaused())
+        {
+            paddle->translate(Ogre::Vector3(0, (2*(float)vel/3)*evt.timeSinceLastFrame, 0));
+        }
+        if (pressedKeys.find(OIS::KC_DOWN) != pressedKeys.end() && !wallWorld->isPaused())
+        {
+            paddle->translate(Ogre::Vector3(0, (-2*(float)vel/3)*evt.timeSinceLastFrame, 0));
+        }
+        mCamera->setPosition(paddle->getPosition() + -100 * Ogre::Vector3::UNIT_Z);
+
+        ball->setVelocity(Ogre::Vector3(ball->getVelocity().x, ball->getVelocity().y, ball->getVelocity().z < 0 ? -1*vel : vel));
+
+        if(gameOver && !multiplayer)
+        {
+            wallWorld->pause();
+            Mix_PauseMusic();
+            pause_pop_up->setText("Your final score was: " + std::to_string(player_score) + "\n\nPress enter to play again!");
+            pause_pop_up->setVisible(true);
+        }
+        wallWorld->update(evt.timeSinceLastFrame);
+    	if(client)
+    	{
+        	ball->setPosition(Ogre::Vector3(-1*ballMostRecentSentPosition.x, ballMostRecentSentPosition.y, -1*ballMostRecentSentPosition.z));
+        	printf("%f, %f, %f\n", ballMostRecentSentPosition.x, ballMostRecentSentPosition.y, ballMostRecentSentPosition.z);
+    	}
     }
+    if(client)
+    {
+        app.updateScoreboard();
+    }
+    return BaseApplication::frameRenderingQueued(evt);
 }
 
 //--------------------------------------------------------------------------------------
