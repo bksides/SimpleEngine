@@ -756,6 +756,10 @@ bool PongApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
         	printf("%f, %f, %f\n", ballMostRecentSentPosition.x, ballMostRecentSentPosition.y, ballMostRecentSentPosition.z);
     	}
     }
+    if(client)
+    {
+        app.updateScoreboard();
+    }
     return BaseApplication::frameRenderingQueued(evt);
 }
 
