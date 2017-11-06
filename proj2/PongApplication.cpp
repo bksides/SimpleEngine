@@ -34,6 +34,7 @@ GameObject* backWall = NULL;
 Ogre::Vector3 ballMostRecentSentPosition = Ogre::Vector3::ZERO;
 int vel = 30;
 int player_score = 0;
+int opponent_score =0;
 bool client = false;
 PongApplication app;
 CEGUI::Window *score_board;
@@ -92,6 +93,10 @@ bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
         }
         else
         {
+            if(!client)
+            {
+                ++opponent_score;
+            }
             ball->setPosition(Ogre::Vector3::ZERO);
             ball->setVelocity(Ogre::Vector3(Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40), Ogre::Math::RangeRandom(-40, 40)));
             vel = 30;
@@ -107,7 +112,10 @@ bool playBoing(btManifoldPoint& cp, void* body0, void* body1)
         {
             Mix_PlayChannel(-1, ching, 1);
         }
-        player_score++;
+        if(!client)
+        {
+            player_score++;
+        }
         app.updateScoreboard();
     }
     return true;

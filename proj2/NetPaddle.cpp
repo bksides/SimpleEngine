@@ -3,56 +3,70 @@
 #include <SDL/SDL_net.h>
 #include <thread>
 
-struct posdata {
-	bool isForBall;
-	Ogre::Vector3 vector;
+enum DATA_TYPE {
+	Ball_Location,
+	Paddle_Location,
+	Player_Score,
+	Opponent_Score
+};
+
+struct netdata {
+	DATA_TYPE dt;
+	union {
+		Ogre::Vector3 vec;
+		int score;
+	};
 };
 
 void updateRemotePosition(NetPaddle* netpaddle)
 {
-	struct posdata newPos1;
-	struct posdata newPos2;
-	struct posdata paddlePos;
-	paddlePos.isForBall = false;
-	paddlePos.vector = paddle->getPosition();
-	SDLNet_TCP_Send(netpaddle->socket, &paddlePos, sizeof(struct posdata));
-	while(SDLNet_TCP_Recv(netpaddle->socket, &newPos1, sizeof(struct posdata)) > 0)
+	struct netdata data = {Paddle_Location, paddle->getPosition()};
+	SDLNet_TCP_Send(netpaddle->socket, &data, sizeof(netdata));
+	SDLNet_SocketSet sockcheck = SDLNet_AllocSocketSet(1);
+	SDLNet_TCP_AddSocket(sockcheck, netpaddle->socket);
+
+	while(SDLNet_CheckSockets(sockcheck, -1) > 0)
 	{
 		if(terminating)
 		{
 			std::terminate();
 		}
-		if(newPos1.isForBall)
+		do
 		{
-			ballMostRecentSentPosition = newPos1.vector;
-		}
-		else
-		{
-			netpaddle->mostRecentSentPosition = Ogre::Vector3(-1*newPos1.vector.x, newPos1.vector.y, -1*newPos1.vector.z);
-		}
-
-		if(client)
-		{
-			SDLNet_TCP_Recv(netpaddle->socket, &newPos2, sizeof(struct posdata));
-			if(newPos2.isForBall)
+			SDLNet_TCP_Recv(netpaddle->socket, &data, sizeof(netdata));
+			switch(data.dt)
 			{
-				ballMostRecentSentPosition = -1*(newPos2.vector);
-			}
-			else
-			{
-				netpaddle->mostRecentSentPosition = Ogre::Vector3(-1*newPos2.vector.x, newPos2.vector.y, -1*newPos2.vector.z);
+				case Ball_Location:
+					ballMostRecentSentPosition = data.vec;
+					break;
+				case Paddle_Location:
+					netpaddle->mostRecentSentPosition = data.vec;
+					break;
+				case Player_Score:
+					player_score = data.score;
+					break;
+				case Opponent_Score:
+					opponent_score = data.score;
+					break;
 			}
 		}
+		while(SDLNet_CheckSockets(sockcheck, 0) > 0);
 
-		paddlePos.isForBall = false;
-		paddlePos.vector = paddle->getPosition();
-		SDLNet_TCP_Send(netpaddle->socket, &paddlePos, sizeof(struct posdata));
+		data.dt = Paddle_Location;
+		data.vec = paddle->getPosition();
+
+		SDLNet_TCP_Send(netpaddle->socket, &data, sizeof(netdata));
 		if(!client)
 		{
-			struct posdata ballPos;
-			ballPos.isForBall = true;
-			ballPos.vector = ball->getPosition();
-			SDLNet_TCP_Send(netpaddle->socket, &ballPos, sizeof(struct posdata));
+			data.dt = Ball_Location;
+			data.vec = ball->getPosition();
+			SDLNet_TCP_Send(netpaddle->socket, &data, sizeof(netdata));
+			data.dt = Player_Score;
+			data.score = opponent_score;
+			SDLNet_TCP_Send(netpaddle->socket, &data, sizeof(netdata));
+			data.dt = Opponent_Score;
+			data.score = player_score;
+			SDLNet_TCP_Send(netpaddle->socket, &data, sizeof(netdata));
 		}
 	}
 }

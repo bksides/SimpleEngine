@@ -24,6 +24,7 @@ This source file is part of the
 #include <thread>
 
 extern int player_score;
+extern int opponent_score;
 extern SimpleEngine::GameObject* paddle;
 extern SimpleEngine::GameObject* ball;
 extern Ogre::Vector3 ballMostRecentSentPosition;
