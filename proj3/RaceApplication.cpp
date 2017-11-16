@@ -1,3 +1,4 @@
+#include "Vehicle.h"
 #include "RaceApplication.h"
 #include "FloorTile.h"
 #include <cstdlib>
@@ -51,6 +52,7 @@ void RaceApplication::createScene(void)
     raceWorld = new RaceWorld(mSceneMgr);
 
     raceWorld->addObject(new FloorTile(mSceneMgr));
+    raceWorld->addObject(new Vehicle(mSceneMgr), Ogre::Vector3::UNIT_Y*10);
 }
 
 //--------------------------------------------------------------------------------------
