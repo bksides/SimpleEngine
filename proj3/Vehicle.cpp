@@ -1,12 +1,16 @@
 #include "Vehicle.h"
+#include <cstdio>
 
 Vehicle::Vehicle(Ogre::SceneManager* mSceneManager)
 {
-	mesh = mSceneManager->createEntity(Ogre::SceneManager::PT_SPHERE);
+    printf("In vehicle constructor.");
+	mesh = mSceneManager->createEntity("penguin.mesh");
+    printf("Loaded mesh\n");
 	mesh->setCastShadows(true);
-    mesh->setMaterialName("Ball/Skin");
+    mesh->setMaterialName("Penguin");
+    printf("Did some shit to mesh\n");
 
-	btCollisionShape* chairShape = new btBoxShape(btVector3(50, 0.1, 50));
+	btCollisionShape* chairShape = new btBoxShape(btVector3(50, 5, 50));
 
     btDefaultMotionState* chairMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 10, 0)));
     btScalar mass = 1;
@@ -15,5 +19,12 @@ Vehicle::Vehicle(Ogre::SceneManager* mSceneManager)
     btRigidBody::btRigidBodyConstructionInfo chairRigidBodyCI(mass, chairMotionState, chairShape, chairInertia);
     rigidBody = new btRigidBody(chairRigidBodyCI);
     rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
-    rigidBody->setRestitution(1.0);
+    rigidBody->setRestitution(.2);
+    printf("Made it to end of constructor\n");
+}
+
+void Vehicle::setParentSceneNode(Ogre::SceneNode* node)
+{
+    GameObject::setParentSceneNode(node);
+    this->node->scale(0.1, 0.1, 0.1);
 }

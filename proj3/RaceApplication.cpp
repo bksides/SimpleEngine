@@ -84,7 +84,7 @@ bool RaceApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 void RaceApplication::createCamera()
 {
     mCamera = mSceneMgr->createCamera("PlayerCam");
-    mCamera->setPosition(0,40,-100);
+    mCamera->setPosition(0,40,100);
     mCamera->lookAt(Ogre::Vector3(0,0,0));
     mCamera->setNearClipDistance(5);
 }
