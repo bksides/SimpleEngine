@@ -1,0 +1,18 @@
+material Ball/Skin
+{
+	technique
+	{
+		pass
+		{
+			shading gouraud
+			specular 0.8 0.8 0.8 100
+			ambient 0.6 0.6 0.6
+
+			texture_unit
+			{
+				texture GreenSkin.jpg
+				tex_address_mode mirror
+			}
+		}
+	}
+}
