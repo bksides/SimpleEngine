@@ -60,7 +60,7 @@ void RaceApplication::createScene(void)
 bool RaceApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
 	mCamera->setPosition(raceWorld->playerVehicle->getPosition() + 100*raceWorld->cameraAngle + 40*Ogre::Vector3::UNIT_Y);
-    mCamera->lookAt(raceWorld->playerVehicle->getPosition())
+    mCamera->lookAt(raceWorld->playerVehicle->getPosition());
     if (pressedKeys.find(OIS::KC_W) != pressedKeys.end())
     {
         raceWorld->playerVehicle->getRigidBody()->activate(true);
