@@ -1065,7 +1065,8 @@ OgreApp-RaceWorld.o: RaceWorld.cpp /usr/include/stdc-predef.h RaceWorld.h \
  /usr/include/OGRE/OgreRenderTexture.h \
  /usr/include/OGRE/OgreFrameListener.h \
  /usr/include/OGRE/OgreConfigOptionMap.h \
- /usr/include/OGRE/OgreNameGenerator.h
+ /usr/include/OGRE/OgreNameGenerator.h Vehicle.h \
+ ../SimpleEngine/SimpleEngineGameObject.h
 
 /usr/include/stdc-predef.h:
 
@@ -3500,3 +3501,7 @@ RaceWorld.h:
 /usr/include/OGRE/OgreConfigOptionMap.h:
 
 /usr/include/OGRE/OgreNameGenerator.h:
+
+Vehicle.h:
+
+../SimpleEngine/SimpleEngineGameObject.h:
