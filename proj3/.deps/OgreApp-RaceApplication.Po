@@ -1,5 +1,5 @@
 OgreApp-RaceApplication.o: RaceApplication.cpp /usr/include/stdc-predef.h \
- Vehicle.h /usr/include/OGRE/OgreSceneManager.h \
+ PlayerVehicle.h /usr/include/OGRE/OgreSceneNode.h \
  /usr/include/OGRE/OgrePrerequisites.h /usr/include/OGRE/OgrePlatform.h \
  /usr/include/OGRE/OgreConfig.h /usr/include/OGRE/OgreBuildSettings.h \
  /usr/include/c++/5/string \
@@ -233,13 +233,12 @@ OgreApp-RaceApplication.o: RaceApplication.cpp /usr/include/stdc-predef.h \
  /usr/include/OGRE/OgreHeaderPrefix.h \
  /usr/include/OGRE/OgreHeaderSuffix.h \
  /usr/include/OGRE/OgreMemorySTLAllocator.h \
- /usr/include/OGRE/OgreMemoryNedPooling.h /usr/include/OGRE/OgreString.h \
- /usr/include/OGRE/OgreSceneNode.h /usr/include/OGRE/OgreNode.h \
- /usr/include/OGRE/OgreCommon.h /usr/include/OGRE/OgreMatrix3.h \
- /usr/include/OGRE/OgreVector3.h /usr/include/OGRE/OgreMath.h \
- /usr/include/OGRE/OgreQuaternion.h /usr/include/OGRE/OgreMatrix4.h \
- /usr/include/OGRE/OgreVector4.h /usr/include/OGRE/OgrePlane.h \
- /usr/include/OGRE/OgreRenderable.h \
+ /usr/include/OGRE/OgreMemoryNedPooling.h /usr/include/OGRE/OgreNode.h \
+ /usr/include/OGRE/OgreCommon.h /usr/include/OGRE/OgreString.h \
+ /usr/include/OGRE/OgreMatrix3.h /usr/include/OGRE/OgreVector3.h \
+ /usr/include/OGRE/OgreMath.h /usr/include/OGRE/OgreQuaternion.h \
+ /usr/include/OGRE/OgreMatrix4.h /usr/include/OGRE/OgreVector4.h \
+ /usr/include/OGRE/OgrePlane.h /usr/include/OGRE/OgreRenderable.h \
  /usr/include/OGRE/OgreRenderOperation.h \
  /usr/include/OGRE/OgreVertexIndexData.h \
  /usr/include/OGRE/OgreHardwareVertexBuffer.h \
@@ -889,7 +888,8 @@ OgreApp-RaceApplication.o: RaceApplication.cpp /usr/include/stdc-predef.h \
  /usr/include/OGRE/OgreRotationalSpline.h \
  /usr/include/OGRE/OgreKeyFrame.h /usr/include/OGRE/OgrePose.h \
  /usr/include/OGRE/OgreAnimationState.h \
- /usr/include/OGRE/OgreController.h /usr/include/OGRE/OgreSceneQuery.h \
+ /usr/include/OGRE/OgreController.h /usr/include/OGRE/OgreSceneManager.h \
+ /usr/include/OGRE/OgreSceneNode.h /usr/include/OGRE/OgreSceneQuery.h \
  /usr/include/OGRE/OgreSphere.h /usr/include/OGRE/OgreRay.h \
  /usr/include/OGRE/OgrePlaneBoundedVolume.h \
  /usr/include/OGRE/OgreAutoParamDataSource.h \
@@ -928,7 +928,7 @@ OgreApp-RaceApplication.o: RaceApplication.cpp /usr/include/stdc-predef.h \
  /usr/include/OGRE/OgreRenderTexture.h \
  /usr/include/OGRE/OgreFrameListener.h \
  /usr/include/OGRE/OgreConfigOptionMap.h \
- /usr/include/OGRE/OgreNameGenerator.h /usr/include/OGRE/OgreSceneNode.h \
+ /usr/include/OGRE/OgreNameGenerator.h Vehicle.h \
  ../SimpleEngine/SimpleEngineGameObject.h /usr/include/OGRE/OgreVector3.h \
  /usr/include/OGRE/OgreEntity.h \
  /usr/include/OGRE/OgreHardwareBufferManager.h \
@@ -1127,9 +1127,9 @@ OgreApp-RaceApplication.o: RaceApplication.cpp /usr/include/stdc-predef.h \
 
 /usr/include/stdc-predef.h:
 
-Vehicle.h:
+PlayerVehicle.h:
 
-/usr/include/OGRE/OgreSceneManager.h:
+/usr/include/OGRE/OgreSceneNode.h:
 
 /usr/include/OGRE/OgrePrerequisites.h:
 
@@ -1733,13 +1733,11 @@ Vehicle.h:
 
 /usr/include/OGRE/OgreMemoryNedPooling.h:
 
-/usr/include/OGRE/OgreString.h:
-
-/usr/include/OGRE/OgreSceneNode.h:
-
 /usr/include/OGRE/OgreNode.h:
 
 /usr/include/OGRE/OgreCommon.h:
+
+/usr/include/OGRE/OgreString.h:
 
 /usr/include/OGRE/OgreMatrix3.h:
 
@@ -3169,6 +3167,10 @@ Vehicle.h:
 
 /usr/include/OGRE/OgreController.h:
 
+/usr/include/OGRE/OgreSceneManager.h:
+
+/usr/include/OGRE/OgreSceneNode.h:
+
 /usr/include/OGRE/OgreSceneQuery.h:
 
 /usr/include/OGRE/OgreSphere.h:
@@ -3273,7 +3275,7 @@ Vehicle.h:
 
 /usr/include/OGRE/OgreNameGenerator.h:
 
-/usr/include/OGRE/OgreSceneNode.h:
+Vehicle.h:
 
 ../SimpleEngine/SimpleEngineGameObject.h:
 

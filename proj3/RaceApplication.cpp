@@ -1,4 +1,4 @@
-#include "Vehicle.h"
+#include "PlayerVehicle.h"
 #include "RaceApplication.h"
 #include "FloorTile.h"
 #include <cstdlib>
@@ -7,6 +7,7 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_mixer.h>
 #include <OgreMeshManager.h>
+#include <OgreQuaternion.h>
 #include <OgreMath.h>
 #include <OISKeyboard.h>
 
@@ -50,10 +51,11 @@ void RaceApplication::createScene(void)
     mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 
     raceWorld = new RaceWorld(mSceneMgr);
-    raceWorld->playerVehicle = new Vehicle(mSceneMgr);
+    raceWorld->playerVehicle = new PlayerVehicle(mSceneMgr);
 
     raceWorld->addObject(new FloorTile(mSceneMgr));
     raceWorld->addObject(raceWorld->playerVehicle, Ogre::Vector3::UNIT_Y*10);
+    raceWorld->playerVehicle->cameraNode->attachObject(mCamera);
 }
 
 //--------------------------------------------------------------------------------------
@@ -73,13 +75,11 @@ bool RaceApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
     }
     if (pressedKeys.find(OIS::KC_A) != pressedKeys.end())
     {
-        raceWorld->playerVehicle->getRigidBody()->activate(true);
-        raceWorld->playerVehicle->addVelocity(Ogre::Vector3::NEGATIVE_UNIT_X*evt.timeSinceLastFrame*10);
+        raceWorld->playerVehicle->cameraNode->yaw(Ogre::Radian(M_PI * evt.timeSinceLastFrame), Ogre::Node::TS_WORLD);
     }
     if (pressedKeys.find(OIS::KC_D) != pressedKeys.end())
     {
-        raceWorld->playerVehicle->getRigidBody()->activate(true);
-        raceWorld->playerVehicle->addVelocity(Ogre::Vector3::UNIT_X*evt.timeSinceLastFrame*10);
+        raceWorld->playerVehicle->cameraNode->yaw(Ogre::Radian(-1*M_PI * evt.timeSinceLastFrame), Ogre::Node::TS_WORLD);
     }
     raceWorld->update(evt.timeSinceLastFrame);
     return BaseApplication::frameRenderingQueued(evt);
