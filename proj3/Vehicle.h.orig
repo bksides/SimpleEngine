@@ -9,6 +9,10 @@ class Vehicle : public SimpleEngine::GameObject
 {
 public:
 	Vehicle(Ogre::SceneManager* mSceneMgr);
+<<<<<<< HEAD
+};
+#endif VEHICLE_H
+=======
 	void setParentSceneNode(Ogre::SceneNode* node);
 };
-#endif //VEHICLE_H
+>>>>>>> 6adb51e6158f8caf460ba5d66de6fb3250e1a02a

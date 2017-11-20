@@ -77,19 +77,19 @@ bool RaceApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	}
     if (pressedKeys.find(OIS::KC_W) != pressedKeys.end())
     {
-        raceWorld->playerVehicle->addVelocity(Ogre::Vector3::UNIT_Z*evt.timeSinceLastFrame);
+        raceWorld->playerVehicle->addVelocity(Ogre::Vector3::UNIT_Z*evt.timeSinceLastFrame*10);
     }
     if (pressedKeys.find(OIS::KC_S) != pressedKeys.end())
     {
-        raceWorld->playerVehicle->addVelocity(Ogre::Vector3::NEGATIVE_UNIT_Z*evt.timeSinceLastFrame);
+        raceWorld->playerVehicle->addVelocity(Ogre::Vector3::NEGATIVE_UNIT_Z*evt.timeSinceLastFrame*10);
     }
     if (pressedKeys.find(OIS::KC_A) != pressedKeys.end())
     {
-        raceWorld->playerVehicle->addVelocity(Ogre::Vector3::NEGATIVE_UNIT_X*evt.timeSinceLastFrame);
+        raceWorld->playerVehicle->addVelocity(Ogre::Vector3::NEGATIVE_UNIT_X*evt.timeSinceLastFrame*10);
     }
     if (pressedKeys.find(OIS::KC_D) != pressedKeys.end())
     {
-        raceWorld->playerVehicle->addVelocity(Ogre::Vector3::UNIT_X*evt.timeSinceLastFrame);
+        raceWorld->playerVehicle->addVelocity(Ogre::Vector3::UNIT_X*evt.timeSinceLastFrame*10);
     }
 
     raceWorld->update(evt.timeSinceLastFrame);
