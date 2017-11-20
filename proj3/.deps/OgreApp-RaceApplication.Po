@@ -928,9 +928,8 @@ OgreApp-RaceApplication.o: RaceApplication.cpp /usr/include/stdc-predef.h \
  /usr/include/OGRE/OgreRenderTexture.h \
  /usr/include/OGRE/OgreFrameListener.h \
  /usr/include/OGRE/OgreConfigOptionMap.h \
- /usr/include/OGRE/OgreNameGenerator.h \
- ../SimpleEngine/SimpleEngineGameObject.h \
- /usr/include/OGRE/OgreSceneNode.h /usr/include/OGRE/OgreVector3.h \
+ /usr/include/OGRE/OgreNameGenerator.h /usr/include/OGRE/OgreSceneNode.h \
+ ../SimpleEngine/SimpleEngineGameObject.h /usr/include/OGRE/OgreVector3.h \
  /usr/include/OGRE/OgreEntity.h \
  /usr/include/OGRE/OgreHardwareBufferManager.h \
  /usr/include/OGRE/OgreHardwareCounterBuffer.h \
@@ -3274,9 +3273,9 @@ Vehicle.h:
 
 /usr/include/OGRE/OgreNameGenerator.h:
 
-../SimpleEngine/SimpleEngineGameObject.h:
-
 /usr/include/OGRE/OgreSceneNode.h:
+
+../SimpleEngine/SimpleEngineGameObject.h:
 
 /usr/include/OGRE/OgreVector3.h:
 
