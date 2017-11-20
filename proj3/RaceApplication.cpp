@@ -59,39 +59,28 @@ void RaceApplication::createScene(void)
 //--------------------------------------------------------------------------------------
 bool RaceApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
-	if (pressedKeys.find(OIS::KC_RIGHT) != pressedKeys.end())
-	{
-		mCamera->setPosition(mCamera->getPosition() + 20*mCamera->getRight()*evt.timeSinceLastFrame);
-	}
-	if (pressedKeys.find(OIS::KC_LEFT) != pressedKeys.end())
-	{
-		mCamera->setPosition(mCamera->getPosition() + -20*mCamera->getRight()*evt.timeSinceLastFrame);
-	}
-	if (pressedKeys.find(OIS::KC_UP) != pressedKeys.end())
-	{
-		mCamera->setPosition(mCamera->getPosition() + 20*mCamera->getDirection()*evt.timeSinceLastFrame);
-	}
-	if (pressedKeys.find(OIS::KC_DOWN) != pressedKeys.end())
-	{
-		mCamera->setPosition(mCamera->getPosition() + -20*mCamera->getDirection()*evt.timeSinceLastFrame);
-	}
+	mCamera->setPosition(raceWorld->playerVehicle->getPosition() + 100*raceWorld->cameraAngle + 40*Ogre::Vector3::UNIT_Y);
+    mCamera->lookAt(raceWorld->playerVehicle->getPosition())
     if (pressedKeys.find(OIS::KC_W) != pressedKeys.end())
     {
+        raceWorld->playerVehicle->getRigidBody()->activate(true);
         raceWorld->playerVehicle->addVelocity(Ogre::Vector3::UNIT_Z*evt.timeSinceLastFrame*10);
     }
     if (pressedKeys.find(OIS::KC_S) != pressedKeys.end())
     {
+        raceWorld->playerVehicle->getRigidBody()->activate(true);
         raceWorld->playerVehicle->addVelocity(Ogre::Vector3::NEGATIVE_UNIT_Z*evt.timeSinceLastFrame*10);
     }
     if (pressedKeys.find(OIS::KC_A) != pressedKeys.end())
     {
+        raceWorld->playerVehicle->getRigidBody()->activate(true);
         raceWorld->playerVehicle->addVelocity(Ogre::Vector3::NEGATIVE_UNIT_X*evt.timeSinceLastFrame*10);
     }
     if (pressedKeys.find(OIS::KC_D) != pressedKeys.end())
     {
+        raceWorld->playerVehicle->getRigidBody()->activate(true);
         raceWorld->playerVehicle->addVelocity(Ogre::Vector3::UNIT_X*evt.timeSinceLastFrame*10);
     }
-
     raceWorld->update(evt.timeSinceLastFrame);
     return BaseApplication::frameRenderingQueued(evt);
 }

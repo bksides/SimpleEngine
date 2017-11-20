@@ -10,7 +10,7 @@ Vehicle::Vehicle(Ogre::SceneManager* mSceneManager)
     mesh->setMaterialName("Penguin");
     printf("Did some shit to mesh\n");
 
-	btCollisionShape* chairShape = new btBoxShape(btVector3(50, 5, 50));
+	btCollisionShape* chairShape = new btBoxShape(btVector3(1, 2.3, 1));
 
     btDefaultMotionState* chairMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 10, 0)));
     btScalar mass = 1;
@@ -18,7 +18,7 @@ Vehicle::Vehicle(Ogre::SceneManager* mSceneManager)
     chairShape->calculateLocalInertia(mass, chairInertia);
     btRigidBody::btRigidBodyConstructionInfo chairRigidBodyCI(mass, chairMotionState, chairShape, chairInertia);
     rigidBody = new btRigidBody(chairRigidBodyCI);
-    rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
+    rigidBody->setCollisionFlags(rigidBody->getCollisionFlags());
     rigidBody->setRestitution(.2);
     printf("Made it to end of constructor\n");
 }
