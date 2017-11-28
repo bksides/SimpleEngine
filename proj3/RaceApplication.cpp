@@ -1,6 +1,8 @@
 #include "PlayerVehicle.h"
 #include "RaceApplication.h"
 #include "FloorTile.h"
+#include "TrackCreator.h"
+#include "Wall.h"
 #include <cstdlib>
 #include <iostream>
 #include <cmath>
@@ -53,25 +55,29 @@ void RaceApplication::createScene(void)
     raceWorld = new RaceWorld(mSceneMgr);
     raceWorld->playerVehicle = new PlayerVehicle(mSceneMgr);
 
+    Wall* wall = new Wall(mSceneMgr);
     raceWorld->addObject(new FloorTile(mSceneMgr));
+    raceWorld->addObject(new Wall(mSceneMgr), Ogre::Vector3::UNIT_Y*5, Ogre::Vector3::ZERO, Ogre::Vector3::UNIT_Z*(M_PI/4));
     raceWorld->addObject(raceWorld->playerVehicle, Ogre::Vector3::UNIT_Y*10);
     raceWorld->playerVehicle->cameraNode->attachObject(mCamera);
+
+    TrackCreator tc;
+    tc.createTrack();
 }
 
 //--------------------------------------------------------------------------------------
 bool RaceApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
-	mCamera->setPosition(raceWorld->playerVehicle->getPosition() + 100*raceWorld->cameraAngle + 40*Ogre::Vector3::UNIT_Y);
     mCamera->lookAt(raceWorld->playerVehicle->getPosition());
     if (pressedKeys.find(OIS::KC_W) != pressedKeys.end())
     {
         raceWorld->playerVehicle->getRigidBody()->activate(true);
-        raceWorld->playerVehicle->addVelocity(Ogre::Vector3::UNIT_Z*evt.timeSinceLastFrame*10);
+        raceWorld->playerVehicle->addVelocity(Ogre::Vector3(mCamera->getDerivedDirection().x, 0, mCamera->getDerivedDirection().z)*evt.timeSinceLastFrame*10);
     }
     if (pressedKeys.find(OIS::KC_S) != pressedKeys.end())
     {
         raceWorld->playerVehicle->getRigidBody()->activate(true);
-        raceWorld->playerVehicle->addVelocity(Ogre::Vector3::NEGATIVE_UNIT_Z*evt.timeSinceLastFrame*10);
+        raceWorld->playerVehicle->addVelocity(-1*Ogre::Vector3(mCamera->getDerivedDirection().x, 0, mCamera->getDerivedDirection().z)*evt.timeSinceLastFrame*10);
     }
     if (pressedKeys.find(OIS::KC_A) != pressedKeys.end())
     {
