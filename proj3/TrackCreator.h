@@ -8,17 +8,24 @@
 
 extern std::hash<std::string> hasher;
 
-enum TileType
+namespace DIRECTION
 {
-	STRAIGHT,
-	RIGHT,
-	LEFT
-};
+	enum DIRECTION
+	{
+		LEFT = 0,
+		DOWN = 1,
+		RIGHT = 2,
+		UP = 3,
+		FUCK = 4
+	};
+}
 
 class TrackCreator
 {
+private:
+	static std::list<DIRECTION::DIRECTION> randomListOfTurns(int x_bound, int y_bound);
 public:
-	std::list<TileType> createTrack(int x_bound = 11, int y_bound = 11, unsigned seed = (unsigned)(std::time(NULL)));//(int)hasher("gjrihtruie4wlohtfgurweightuirwe4htu5wi4hty"));
+	std::list<DIRECTION::DIRECTION> createTrack(int x_bound = 5, int y_bound = 7, unsigned seed = (unsigned)(std::time(NULL)));//(int)hasher("gjrihtruie4wlohtfgurweightuirwe4htu5wi4hty"));
 };
 
 #endif

@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <unordered_set>
+#include <cmath>
 
 std::hash<std::string> hasher;
 
@@ -27,23 +28,32 @@ namespace std {
     };
 }
 
-namespace DIRECTION
+std::list<DIRECTION::DIRECTION> TrackCreator::createTrack(int x_bound, int y_bound, unsigned seed)
 {
-	enum DIRECTION
+	srand(seed);
+	std::list<DIRECTION::DIRECTION> turns = randomListOfTurns(x_bound - 1, y_bound - 1);
+	turns.push_front(DIRECTION::DOWN);
+	turns.push_back(DIRECTION::RIGHT);
+	std::list<DIRECTION::DIRECTION> nextTurns = randomListOfTurns(x_bound - 1, y_bound - 1);
+	nextTurns.push_front(DIRECTION::DOWN);
+	nextTurns.push_back(DIRECTION::RIGHT);
+	for(DIRECTION::DIRECTION turn : nextTurns)
 	{
-		LEFT,
-		DOWN,
-		RIGHT,
-		UP,
-		FUCK
-	};
+		turn = (DIRECTION::DIRECTION)(((int)turn + 2) % 4);
+		turns.push_back(turn);
+	}
+
+	for(DIRECTION::DIRECTION turn : turns)
+	{
+		std::cout << turn << "\n";
+	}
+
+	return turns;
 }
 
-std::list<TileType> TrackCreator::createTrack(int x_bound, int y_bound, unsigned seed)
+std::list<DIRECTION::DIRECTION> TrackCreator::randomListOfTurns(int x_bound, int y_bound)
 {
 	float nodes[x_bound][y_bound][6];
-
-	srand(seed);
 
 	for(int i = 0; i < x_bound; ++i)
 	{
@@ -116,14 +126,14 @@ std::list<TileType> TrackCreator::createTrack(int x_bound, int y_bound, unsigned
 			nodes[cur.x][cur.y+1][5] = DIRECTION::UP;
 		}
 		std::cout << "Right edge: " << nodes[cur.x][cur.y][2] << "\n";
-		if( (cur.x == x_bound-1 && cur.y == y_bound-1 || cur.x+1 < cur.y) && nodes[cur.x+1][cur.y][4] > curcost + nodes[cur.x][cur.y][2] )
+		if(cur.y > (int)ceil(((float)(y_bound)/x_bound)*cur.x) && nodes[cur.x+1][cur.y][4] > curcost + nodes[cur.x][cur.y][2] )
 		{
 			std::cout << "Found a new shortest path RIGHT.\n";
 			nodes[cur.x+1][cur.y][4] = curcost + nodes[cur.x][cur.y][2];
 			nodes[cur.x+1][cur.y][5] = DIRECTION::LEFT;
 		}
 		std::cout << "Upper edge: " << nodes[cur.x][cur.y][3] << "\n";
-		if( cur.y-1 > cur.x && nodes[cur.x][cur.y-1][4] > curcost + nodes[cur.x][cur.y][3] )
+		if( cur.y > (int)ceil(((float)(y_bound)/x_bound)*cur.x) && nodes[cur.x][cur.y-1][4] > curcost + nodes[cur.x][cur.y][3] )
 		{
 			std::cout << "Found a new shortest path UP.\n";
 			nodes[cur.x][cur.y-1][4] = curcost + nodes[cur.x][cur.y][3];
@@ -144,31 +154,25 @@ std::list<TileType> TrackCreator::createTrack(int x_bound, int y_bound, unsigned
 	}
 	std::cout << "Made it past loop 2: cur = " << cur.x << ", " << cur.y << "\n";
 	std::cout << nodes[0][0][5] << "\n";
-	std::string route = "";
+	std::list<DIRECTION::DIRECTION> turns;
 	for(struct coord cur = {.x = x_bound-1, .y = y_bound-1}; nodes[cur.x][cur.y][5] != DIRECTION::FUCK;)
 	{
-		std::cout << cur.x << ", " << cur.y << ", " << nodes[cur.x][cur.y][5] << "\n";
-		switch(static_cast<int>(nodes[cur.x][cur.y][5]))
+		turns.push_front((DIRECTION::DIRECTION)((int)(nodes[cur.x][cur.y][5] + 2) % 4));
+		switch((int)nodes[cur.x][cur.y][5])
 		{
-			case DIRECTION::LEFT:
-				--(cur.x);
-				route = "right\n" + route;
-				break;
-			case DIRECTION::DOWN:
-				++(cur.y);
-				route = "up\n" + route;
+			case DIRECTION::UP:
+				--(cur.y);
 				break;
 			case DIRECTION::RIGHT:
 				++(cur.x);
-				route = "left\n" + route;
 				break;
-			case DIRECTION::UP:
-				--(cur.y);
-				route = "down\n" + route;
+			case DIRECTION::DOWN:
+				++(cur.y);
+				break;
+			case DIRECTION::LEFT:
+				--(cur.x);
 				break;
 		}
 	}
-	std::cout << route;
-
-	return std::list<TileType>();
+	return turns;
 }
