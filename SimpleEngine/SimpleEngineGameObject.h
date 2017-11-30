@@ -29,7 +29,8 @@ namespace SimpleEngine
         \brief The Ogre::SceneNode to which the mesh representing this object
         is attached.
         */
-        Ogre::SceneNode* node = NULL;
+        Ogre::SceneNode* rotnode = NULL;
+        Ogre::SceneNode* posnode = NULL;
         /*!
         \brief The Ogre::Entity mesh representing this object in the scene.
         */

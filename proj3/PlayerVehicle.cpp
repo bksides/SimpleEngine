@@ -7,10 +7,10 @@ void PlayerVehicle::setParentSceneNode(Ogre::SceneNode* node)
 	Vehicle::setParentSceneNode(node);
 	if(cameraNode)
 	{
-		this->node->addChild(cameraNode);
+		this->posnode->addChild(cameraNode);
 	}
 	else
 	{
-		cameraNode = this->node->createChildSceneNode();
+		cameraNode = this->posnode->createChildSceneNode();
 	}
 }

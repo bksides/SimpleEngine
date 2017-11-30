@@ -26,5 +26,5 @@ Vehicle::Vehicle(Ogre::SceneManager* mSceneManager)
 void Vehicle::setParentSceneNode(Ogre::SceneNode* node)
 {
     GameObject::setParentSceneNode(node);
-    this->node->scale(0.1, 0.1, 0.1);
+    this->posnode->scale(0.1, 0.1, 0.1);
 }

@@ -17,7 +17,7 @@ void GameObject::addVelocity(const Ogre::Vector3& vel)
 
 Ogre::SceneNode* GameObject::getSceneNode()
 {
-    return node;
+    return posnode;
 }
 
 void GameObject::setVelocity(const Ogre::Vector3& vel)
@@ -33,7 +33,7 @@ const Ogre::Vector3 GameObject::getVelocity()
 
 const Ogre::Vector3 GameObject::getPosition()
 {
-    return node->getPosition();
+    return posnode->getPosition();
 }
 
 void GameObject::translate(const Ogre::Vector3& vec)
@@ -43,7 +43,7 @@ void GameObject::translate(const Ogre::Vector3& vec)
 
 void GameObject::setPosition(const Ogre::Vector3& pos)
 {
-    node->setPosition(pos);
+    posnode->setPosition(pos);
 
     btTransform trans;
     rigidBody->getMotionState()->getWorldTransform(trans);
@@ -54,10 +54,10 @@ void GameObject::setPosition(const Ogre::Vector3& pos)
 
 void GameObject::setRotation(const Ogre::Vector3& rot)
 {
-    node->resetOrientation();
-    node->rotate(Ogre::Vector3::UNIT_X, Ogre::Radian(rot.x), Ogre::Node::TS_WORLD);
-    node->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(rot.y), Ogre::Node::TS_WORLD);
-    node->rotate(Ogre::Vector3::UNIT_Z, Ogre::Radian(rot.z), Ogre::Node::TS_WORLD);
+    rotnode->resetOrientation();
+    rotnode->rotate(Ogre::Vector3::UNIT_X, Ogre::Radian(rot.x), Ogre::Node::TS_WORLD);
+    rotnode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(rot.y), Ogre::Node::TS_WORLD);
+    rotnode->rotate(Ogre::Vector3::UNIT_Z, Ogre::Radian(rot.z), Ogre::Node::TS_WORLD);
 
     btTransform trans;
     rigidBody->getMotionState()->getWorldTransform(trans);
@@ -72,8 +72,8 @@ void GameObject::setRotation(const Ogre::Vector3& rot)
 
 void GameObject::setRotation(const Ogre::Quaternion& rot)
 {
-    node->resetOrientation();
-    node->setOrientation(rot);
+    rotnode->resetOrientation();
+    rotnode->setOrientation(rot);
 
     btTransform trans;
     rigidBody->getMotionState()->getWorldTransform(trans);
@@ -86,9 +86,9 @@ void GameObject::setRotation(const Ogre::Quaternion& rot)
 
 void GameObject::rotate(const Ogre::Vector3& rot)
 {
-    node->rotate(Ogre::Vector3::UNIT_X, Ogre::Radian(rot.x), Ogre::Node::TS_WORLD);
-    node->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(rot.y), Ogre::Node::TS_WORLD);
-    node->rotate(Ogre::Vector3::UNIT_Z, Ogre::Radian(rot.z), Ogre::Node::TS_WORLD);
+    rotnode->rotate(Ogre::Vector3::UNIT_X, Ogre::Radian(rot.x), Ogre::Node::TS_WORLD);
+    rotnode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(rot.y), Ogre::Node::TS_WORLD);
+    rotnode->rotate(Ogre::Vector3::UNIT_Z, Ogre::Radian(rot.z), Ogre::Node::TS_WORLD);
 
     btTransform trans;
     rigidBody->getMotionState()->getWorldTransform(trans);
@@ -123,15 +123,16 @@ void GameObject::onCollision(const CollisionEvent& evt) {}
 
 GameObject::~GameObject()
 {
-    node->getParentSceneNode()->removeChild((Ogre::Node*)node);
+    posnode->getParentSceneNode()->removeChild((Ogre::Node*)posnode);
     delete rigidBody->getMotionState();
     delete rigidBody;
 }
 
 void GameObject::setParentSceneNode(Ogre::SceneNode* sceneNode)
 {
-    node = sceneNode->createChildSceneNode();
-    node->attachObject(mesh);
+    posnode = sceneNode->createChildSceneNode();
+    rotnode = posnode->createChildSceneNode();
+    rotnode->attachObject(mesh);
 }
 
 GameObject::GameObject(Ogre::Entity* mesh, btRigidBody* rb) : mesh(mesh), rigidBody(rb) {}
