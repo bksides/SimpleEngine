@@ -16,7 +16,7 @@ FloorTile::FloorTile(Ogre::SceneManager* mSceneMgr)
         Ogre::Vector3::UNIT_Z);
 
     mesh = mSceneMgr->createEntity("floor");
-    mesh->setMaterialName("Examples/Rockwall");
+    mesh->setMaterialName("Terrain/Rockdirt");
 
     btCollisionShape* groundShape = new btBoxShape(btVector3(50, 0.1, 50));
 

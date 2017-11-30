@@ -1,0 +1,13 @@
+material Terrain/Rockdirt
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture frost.png
+			}
+		}
+	}
+}
