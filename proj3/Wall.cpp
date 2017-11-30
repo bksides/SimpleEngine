@@ -10,7 +10,7 @@ Wall::Wall(Ogre::SceneManager* mSceneMgr)
         "wall",
         Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
         wallPlane,
-        50,100,20,20,
+        100,100,20,20,
         true,
         1,5,5,
         Ogre::Vector3::UNIT_Z);
@@ -18,7 +18,7 @@ Wall::Wall(Ogre::SceneManager* mSceneMgr)
     mesh = mSceneMgr->createEntity("wall");
     mesh->setMaterialName("Examples/Rockwall");
 
-    btCollisionShape* groundShape = new btBoxShape(btVector3(25, 0.5, 50));
+    btCollisionShape* groundShape = new btBoxShape(btVector3(50, 0.5, 50));
 
     btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 0, 0)));
     btRigidBody::btRigidBodyConstructionInfo groundRigidBodyCI(0, groundMotionState, groundShape, btVector3(0, 0, 0));

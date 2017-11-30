@@ -40,29 +40,65 @@ void RaceApplication::createScene(void)
 
     //Create room light
     Ogre::Light* lamp = mSceneMgr->createLight("lamp");
-    lamp->setType(Ogre::Light::LT_POINT);
-    lamp->setPosition(0,49,0);
+    lamp->setType(Ogre::Light::LT_DIRECTIONAL);
+    lamp->setDirection(-40,-50,40);
     lamp->setDiffuseColour(1,1,1);
     lamp->setSpecularColour(1,1,1);
     lamp->setAttenuation(200, 0, 0, .0002);
 
     //Create ambient light
-    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.3,0.3,0.3));
+    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.6,0.6,0.6));
 
     //Set shadow rendering mode
     mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 
     raceWorld = new RaceWorld(mSceneMgr);
     raceWorld->playerVehicle = new PlayerVehicle(mSceneMgr);
-
-    Wall* wall = new Wall(mSceneMgr);
-    raceWorld->addObject(new FloorTile(mSceneMgr));
-    raceWorld->addObject(new Wall(mSceneMgr), Ogre::Vector3::UNIT_Y*5, Ogre::Vector3::ZERO, Ogre::Vector3::UNIT_Z*(M_PI/4));
     raceWorld->addObject(raceWorld->playerVehicle, Ogre::Vector3::UNIT_Y*10);
     raceWorld->playerVehicle->cameraNode->attachObject(mCamera);
 
     TrackCreator tc;
-    tc.createTrack();
+    std::list<DIRECTION::DIRECTION> turns = tc.createTrack();
+    int x = 0;
+    int z = 0;
+    DIRECTION::DIRECTION curdir = DIRECTION::LEFT;
+    //DIRECTION::DIRECTION turn = turns.front();
+    for(DIRECTION::DIRECTION turn : turns)
+    {
+        raceWorld->addObject(new FloorTile(mSceneMgr), Ogre::Vector3(x*100, 0, z*100), Ogre::Vector3::ZERO, Ogre::Vector3::ZERO);
+        if(curdir != DIRECTION::RIGHT && turn != DIRECTION::LEFT)
+        {
+            raceWorld->addObject(new Wall(mSceneMgr), Ogre::Vector3(x*100-50, 0, z*100), Ogre::Vector3::ZERO, Ogre::Vector3(0, M_PI/2, M_PI/-2));
+        }
+        if(curdir != DIRECTION::DOWN && turn != DIRECTION::UP)
+        {
+            raceWorld->addObject(new Wall(mSceneMgr), Ogre::Vector3(x*100, 0, z*100+50), Ogre::Vector3::ZERO, Ogre::Vector3(M_PI/-2, 0, 0));
+        }
+        if(curdir != DIRECTION::LEFT && turn != DIRECTION::RIGHT)
+        {
+            raceWorld->addObject(new Wall(mSceneMgr), Ogre::Vector3(x*100+50, 0, z*100), Ogre::Vector3::ZERO, Ogre::Vector3(0, M_PI/2, M_PI/2));
+        }
+        if(curdir != DIRECTION::UP && turn != DIRECTION::DOWN)
+        {
+            raceWorld->addObject(new Wall(mSceneMgr), Ogre::Vector3(x*100, 0, z*100-50), Ogre::Vector3::ZERO, Ogre::Vector3(M_PI/2, 0, 0));
+        }
+        curdir = turn;
+        switch(turn)
+        {
+            case DIRECTION::LEFT:
+                x -= 1;
+                break;
+            case DIRECTION::UP:
+                z += 1;
+                break;
+            case DIRECTION::RIGHT:
+                x += 1;
+                break;
+            case DIRECTION::DOWN:
+                z -= 1;
+                break;
+        }
+    }
 }
 
 //--------------------------------------------------------------------------------------
