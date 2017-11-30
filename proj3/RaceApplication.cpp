@@ -1,6 +1,7 @@
 #include "PlayerVehicle.h"
 #include "RaceApplication.h"
 #include "FloorTile.h"
+#include "StartTile.h"
 #include "TrackCreator.h"
 #include "Wall.h"
 #include <cstdlib>
@@ -61,11 +62,21 @@ void RaceApplication::createScene(void)
     std::list<DIRECTION::DIRECTION> turns = tc.createTrack();
     int x = 0;
     int z = 0;
+    bool start = true;
     DIRECTION::DIRECTION curdir = DIRECTION::LEFT;
     //DIRECTION::DIRECTION turn = turns.front();
     for(DIRECTION::DIRECTION turn : turns)
     {
-        raceWorld->addObject(new FloorTile(mSceneMgr), Ogre::Vector3(x*100, 0, z*100), Ogre::Vector3::ZERO, Ogre::Vector3::ZERO);
+        if(start)
+        {
+            raceWorld->addObject(new StartTile(mSceneMgr), Ogre::Vector3(x*100, 0, z*100), Ogre::Vector3::ZERO, Ogre::Vector3::ZERO);
+            raceWorld->trackcoords.insert(struct coord{.x = x, .y = z});
+            start = false;
+        }
+        else
+        {
+            raceWorld->addObject(new FloorTile(mSceneMgr), Ogre::Vector3(x*100, 0, z*100), Ogre::Vector3::ZERO, Ogre::Vector3::ZERO);
+        }
         if(curdir != DIRECTION::RIGHT && turn != DIRECTION::LEFT)
         {
             raceWorld->addObject(new Wall(mSceneMgr), Ogre::Vector3(x*100-50, 0, z*100), Ogre::Vector3::ZERO, Ogre::Vector3(0, M_PI/2, M_PI/-2));
@@ -109,11 +120,19 @@ bool RaceApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
     {
         raceWorld->playerVehicle->getRigidBody()->activate(true);
         raceWorld->playerVehicle->addVelocity(Ogre::Vector3(mCamera->getDerivedDirection().x, 0, mCamera->getDerivedDirection().z)*evt.timeSinceLastFrame*30);
+        if(raceWorld->playerVehicle->getVelocity().length() > 150)
+        {
+            raceWorld->playerVehicle->setVelocity(raceWorld->playerVehicle->getVelocity()*150/raceWorld->playerVehicle->getVelocity().length());
+        }
     }
     if (pressedKeys.find(OIS::KC_S) != pressedKeys.end())
     {
         raceWorld->playerVehicle->getRigidBody()->activate(true);
         raceWorld->playerVehicle->addVelocity(-1*Ogre::Vector3(mCamera->getDerivedDirection().x, 0, mCamera->getDerivedDirection().z).normalisedCopy()*evt.timeSinceLastFrame*30);
+        if(raceWorld->playerVehicle->getVelocity().length() > 150)
+        {
+            raceWorld->playerVehicle->setVelocity(raceWorld->playerVehicle->getVelocity()*150/raceWorld->playerVehicle->getVelocity().length());
+        }
     }
     if (pressedKeys.find(OIS::KC_A) != pressedKeys.end())
     {

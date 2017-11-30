@@ -1,4 +1,4 @@
-material Examples/Rockwall
+material Terrain/Checker
 {
 	technique
 	{
@@ -6,7 +6,7 @@ material Examples/Rockwall
 		{
 			texture_unit
 			{
-				texture IceWall.jpg
+				texture checker.png
 			}
 		}
 	}

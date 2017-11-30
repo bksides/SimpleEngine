@@ -6,7 +6,7 @@ material Terrain/Rockdirt
 		{
 			texture_unit
 			{
-				texture frost.png
+				texture ice.jpg
 			}
 		}
 	}

@@ -8,6 +8,12 @@
 
 extern std::hash<std::string> hasher;
 
+struct coord
+{
+	int x;
+	int y;
+};
+
 namespace DIRECTION
 {
 	enum DIRECTION
@@ -25,7 +31,7 @@ class TrackCreator
 private:
 	static std::list<DIRECTION::DIRECTION> randomListOfTurns(int x_bound, int y_bound);
 public:
-	std::list<DIRECTION::DIRECTION> createTrack(int x_bound = 25, int y_bound = 25, unsigned seed = (unsigned)(std::time(NULL)));//(int)hasher("gjrihtruie4wlohtfgurweightuirwe4htu5wi4hty"));
+	std::list<DIRECTION::DIRECTION> createTrack(int x_bound = 30, int y_bound = 30, unsigned seed = (unsigned)(std::time(NULL)));//(int)hasher("gjrihtruie4wlohtfgurweightuirwe4htu5wi4hty"));
 };
 
 #endif
