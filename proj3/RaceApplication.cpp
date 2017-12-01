@@ -25,9 +25,50 @@ RaceApplication::~RaceApplication(void)
     delete raceWorld;
 }
 
+void RaceApplication::CEGUI_Init()
+{
+    mRenderer = &CEGUI::OgreRenderer::bootstrapSystem();
+    CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagesets");
+    CEGUI::Font::setDefaultResourceGroup("Fonts");
+    CEGUI::Scheme::setDefaultResourceGroup("Schemes");
+    CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
+    CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
+
+    CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
+    CEGUI::SchemeManager::getSingleton().createFromFile("OgreTray.scheme");
+
+    CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("TaharezLook/MouseArrow");
+
+/*    CEGUI::WindowManager &wmgr = CEGUI::WindowManager::getSingleton();
+    CEGUI::Window *sheet = wmgr.createWindow("DefaultWindow", "CEGUIDemo/Sheet");
+    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);*/
+
+/*  Use this if you want a cool demo of what CEGUI can do with sheets
+    CEGUI::Window *guiRoot = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("TextDemo.layout");
+    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(guiRoot);
+*/
+    CEGUI::WindowManager &wmgr = CEGUI::WindowManager::getSingleton();
+    CEGUI::Window *sheet = wmgr.createWindow("DefaultWindow", "CEGUIDemo/Sheet");
+
+    pause_pop_up = wmgr.createWindow("TaharezLook/StaticText", "CEGUIDemo/PausePopUp");
+
+    //score_board->setProperty("HorzFormatting","HorzCentred");
+    pause_pop_up->setText("You Win!");
+    pause_pop_up->setPosition(CEGUI::UVector2(CEGUI::UDim(0.35, 0), CEGUI::UDim(.25, 0)));
+    pause_pop_up->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0), CEGUI::UDim(0.5, 0)));
+    pause_pop_up->setVisible(false);
+
+    sheet->addChild(pause_pop_up);
+    
+    //mult_menu->setSize(CEGUI::USize(CEGUI::UDim(1.0,0.0), CEGUI::UDim(1.0, 0.0)));
+    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
+}
+
 //-------------------------------------------------------------------------------------
 void RaceApplication::createScene(void)
 {
+
+    CEGUI_Init();
 
     /**
     ---SKYBOX---
@@ -70,12 +111,13 @@ void RaceApplication::createScene(void)
         if(start)
         {
             raceWorld->addObject(new StartTile(mSceneMgr), Ogre::Vector3(x*100, 0, z*100), Ogre::Vector3::ZERO, Ogre::Vector3::ZERO);
-            raceWorld->trackcoords.insert(struct coord{.x = x, .y = z});
+            raceWorld->trackcoords.insert(coord{.x = x, .y = z});
             start = false;
         }
         else
         {
             raceWorld->addObject(new FloorTile(mSceneMgr), Ogre::Vector3(x*100, 0, z*100), Ogre::Vector3::ZERO, Ogre::Vector3::ZERO);
+            raceWorld->trackcoords.insert(coord{.x = x, .y = z});
         }
         if(curdir != DIRECTION::RIGHT && turn != DIRECTION::LEFT)
         {
@@ -141,6 +183,14 @@ bool RaceApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
     if (pressedKeys.find(OIS::KC_D) != pressedKeys.end())
     {
         raceWorld->playerVehicle->cameraNode->yaw(Ogre::Radian(-1*M_PI * evt.timeSinceLastFrame), Ogre::Node::TS_WORLD);
+    }
+    raceWorld->playerVehicle->visitedTiles.insert(coord{(int)(floor((float)(raceWorld->playerVehicle->getPosition().x+50)/100)), (int)(floor((float)(raceWorld->playerVehicle->getPosition().z+50)/100))});
+    if((int)(floor((float)(raceWorld->playerVehicle->getPosition().x+50)/100)) == 0 && (int)(floor((float)(raceWorld->playerVehicle->getPosition().z+50)/100)) == 0)
+    {
+        if(raceWorld->playerVehicle->visitedTiles == raceWorld->trackcoords)
+        {
+            pause_pop_up->setVisible(true);
+        }
     }
     raceWorld->update(evt.timeSinceLastFrame);
     return BaseApplication::frameRenderingQueued(evt);

@@ -21,13 +21,18 @@ This source file is part of the
 #include "RaceWorld.h"
 
 #include <SDL/SDL_mixer.h>
+#include <CEGUI/CEGUI.h>
+#include <CEGUI/RendererModules/Ogre/Renderer.h>
 
 class RaceApplication : public BaseApplication
 {
 public:
     RaceApplication(void);
     virtual ~RaceApplication(void);
+    CEGUI::Window* pause_pop_up = NULL;
+    CEGUI::OgreRenderer* mRenderer;
 protected:
+    void CEGUI_Init();
     virtual void createScene(void);
     virtual void createCamera();
     virtual void createViewports();

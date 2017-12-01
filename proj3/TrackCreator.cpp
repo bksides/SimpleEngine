@@ -14,12 +14,8 @@ bool operator==(const struct coord lhs, const struct coord rhs)
 	return rhs.x == lhs.x && rhs.y == lhs.y;
 }
 
-namespace std {
-    template <> struct hash<coord> {
-        size_t operator()(const coord& x) const {
+size_t std::hash<coord>::operator()(const coord& x) const {
         	return (x.x + x.y)*2654435761 % 2^32;
-        }
-    };
 }
 
 std::list<DIRECTION::DIRECTION> TrackCreator::createTrack(int x_bound, int y_bound, unsigned seed)
