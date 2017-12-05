@@ -1,615 +1,615 @@
-30/11/2017 18:03:07 (Std) 	+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-30/11/2017 18:03:07 (Std) 	+                     Crazy Eddie's GUI System - Event log                    +
-30/11/2017 18:03:07 (Std) 	+                          (http://www.cegui.org.uk/)                         +
-30/11/2017 18:03:07 (Std) 	+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+05/12/2017 16:20:44 (Std) 	+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+05/12/2017 16:20:44 (Std) 	+                     Crazy Eddie's GUI System - Event log                    +
+05/12/2017 16:20:44 (Std) 	+                          (http://www.cegui.org.uk/)                         +
+05/12/2017 16:20:44 (Std) 	+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-30/11/2017 18:03:07 (Std) 	CEGUI::Logger singleton created. (0x2942fa0)
-30/11/2017 18:03:07 (Std) 	
-30/11/2017 18:03:07 (Std) 	********************************************************************************
-30/11/2017 18:03:07 (Std) 	* Important:                                                                   *
-30/11/2017 18:03:07 (Std) 	*     To get support at the CEGUI forums, you must post _at least_ the section *
-30/11/2017 18:03:07 (Std) 	*     of this log file indicated below.  Failure to do this will result in no  *
-30/11/2017 18:03:07 (Std) 	*     support being given; please do not waste our time.                       *
-30/11/2017 18:03:07 (Std) 	********************************************************************************
-30/11/2017 18:03:07 (Std) 	********************************************************************************
-30/11/2017 18:03:07 (Std) 	* -------- START OF ESSENTIAL SECTION TO BE POSTED ON THE FORUM       -------- *
-30/11/2017 18:03:07 (Std) 	********************************************************************************
-30/11/2017 18:03:07 (Std) 	---- Version: 0.8.7 (Build: Oct  6 2017 GNU/Linux g++ 5.4.0 20160609 64 bit) ----
-30/11/2017 18:03:07 (Std) 	---- Renderer module is: CEGUI::OgreRenderer - Official OGRE based 2nd generation renderer module. ----
-30/11/2017 18:03:07 (Std) 	---- XML Parser module is: CEGUI::ExpatParser - Official expat based parser module for CEGUI ----
-30/11/2017 18:03:07 (Std) 	---- Image Codec module is: OgreImageCodec - Integrated ImageCodec using the Ogre engine. ----
-30/11/2017 18:03:07 (Std) 	---- Scripting module is: None ----
-30/11/2017 18:03:07 (Std) 	********************************************************************************
-30/11/2017 18:03:07 (Std) 	* -------- END OF ESSENTIAL SECTION TO BE POSTED ON THE FORUM         -------- *
-30/11/2017 18:03:07 (Std) 	********************************************************************************
-30/11/2017 18:03:07 (Std) 	
-30/11/2017 18:03:07 (Std) 	---- Begining CEGUI System initialisation ----
-30/11/2017 18:03:07 (Std) 	[CEGUI::ImageManager] Singleton created (0x28cb040)
-30/11/2017 18:03:07 (Std) 	[CEGUI::ImageManager] Registered Image type: BasicImage
-30/11/2017 18:03:07 (Std) 	CEGUI::FontManager singleton created. (0x28ca3a0)
-30/11/2017 18:03:07 (Std) 	CEGUI::WindowFactoryManager singleton created
-30/11/2017 18:03:07 (Std) 	CEGUI::WindowManager singleton created (0x2943d20)
-30/11/2017 18:03:07 (Std) 	CEGUI::SchemeManager singleton created. (0x28ca4d0)
-30/11/2017 18:03:07 (Std) 	CEGUI::GlobalEventSet singleton created. (0x2943cd0)
-30/11/2017 18:03:07 (Std) 	CEGUI::AnimationManager singleton created (0x28ca190)
-30/11/2017 18:03:07 (Std) 	CEGUI::WidgetLookManager singleton created. (0x28d1240)
-30/11/2017 18:03:07 (Std) 	CEGUI::WindowRendererManager singleton created (0x28ca600)
-30/11/2017 18:03:07 (Std) 	CEGUI::RenderEffectManager singleton created (0x28ca680)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'DefaultWindow' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'DefaultWindow' windows added. (0x28d6470)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'DragContainer' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'DragContainer' windows added. (0x28d6610)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'ScrolledContainer' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'ScrolledContainer' windows added. (0x28d6820)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'ClippedContainer' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'ClippedContainer' windows added. (0x28d6a60)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/PushButton' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/PushButton' windows added. (0x28d6c00)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/RadioButton' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/RadioButton' windows added. (0x28d6da0)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/Combobox' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/Combobox' windows added. (0x28d6f40)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/ComboDropList' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/ComboDropList' windows added. (0x28d70e0)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/Editbox' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/Editbox' windows added. (0x28d7280)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/FrameWindow' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/FrameWindow' windows added. (0x28d74b0)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/ItemEntry' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/ItemEntry' windows added. (0x28d7650)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/Listbox' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/Listbox' windows added. (0x28d77f0)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/ListHeader' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/ListHeader' windows added. (0x28d7990)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/ListHeaderSegment' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/ListHeaderSegment' windows added. (0x28d7b30)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/Menubar' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/Menubar' windows added. (0x28d7cd0)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/PopupMenu' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/PopupMenu' windows added. (0x28d7e70)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/MenuItem' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/MenuItem' windows added. (0x28d8010)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/MultiColumnList' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/MultiColumnList' windows added. (0x28e4240)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/MultiLineEditbox' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/MultiLineEditbox' windows added. (0x28e43e0)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/ProgressBar' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/ProgressBar' windows added. (0x28e4580)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/ScrollablePane' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/ScrollablePane' windows added. (0x28e4720)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/Scrollbar' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/Scrollbar' windows added. (0x28e48c0)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/Slider' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/Slider' windows added. (0x28e4a60)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/Spinner' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/Spinner' windows added. (0x28e4c00)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/TabButton' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/TabButton' windows added. (0x28e4da0)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/TabControl' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/TabControl' windows added. (0x28e4f40)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/Thumb' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/Thumb' windows added. (0x28e50e0)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/Titlebar' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/Titlebar' windows added. (0x28e5280)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/ToggleButton' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/ToggleButton' windows added. (0x28e5420)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/Tooltip' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/Tooltip' windows added. (0x28e55c0)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/ItemListbox' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/ItemListbox' windows added. (0x28e5760)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/GroupBox' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/GroupBox' windows added. (0x28e5900)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'CEGUI/Tree' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'CEGUI/Tree' windows added. (0x28e5aa0)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'LayoutCell' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'LayoutCell' windows added. (0x28e4130)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'HorizontalLayoutContainer' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'HorizontalLayoutContainer' windows added. (0x28e5f30)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'VerticalLayoutContainer' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'VerticalLayoutContainer' windows added. (0x28e60d0)
-30/11/2017 18:03:07 (Std) 	Created WindowFactory for 'GridLayoutContainer' windows.
-30/11/2017 18:03:07 (Std) 	WindowFactory for 'GridLayoutContainer' windows added. (0x28e6270)
-30/11/2017 18:03:07 (Std) 	CEGUI::System singleton created. (0x2942bc0)
-30/11/2017 18:03:07 (Std) 	---- CEGUI System initialisation completed ----
-30/11/2017 18:03:07 (Std) 	
-30/11/2017 18:03:07 (Std) 	Started creation of Scheme from XML specification:
-30/11/2017 18:03:07 (Std) 	---- CEGUI GUIScheme name: TaharezLook
-30/11/2017 18:03:07 (Std) 	[ImageManager] Started creation of Imageset from XML specification:
-30/11/2017 18:03:07 (Std) 	[ImageManager] ---- CEGUI Imageset name: TaharezLook
-30/11/2017 18:03:07 (Std) 	[ImageManager] ---- Source texture file: TaharezLook.png
-30/11/2017 18:03:07 (Std) 	[ImageManager] ---- Source texture resource group: (Default)
-30/11/2017 18:03:07 (Std) 	[OgreRenderer] Created texture: TaharezLook
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ClientBrush' (0x29514d0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/GenericBrush' (0x29517a0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/WindowLeftEdge' (0x2952150) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/WindowRightEdge' (0x2952c30) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/WindowTopEdge' (0x28eb6c0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/WindowBottomEdge' (0x29512a0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/WindowTopLeft' (0x29522d0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/WindowTopRight' (0x29524e0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/WindowBottomLeft' (0x2950df0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/WindowBottomRight' (0x2951fc0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ButtonLeftNormal' (0x28e6410) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ButtonMiddleNormal' (0x28e6620) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ButtonRightNormal' (0x28e6830) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ButtonLeftPushed' (0x28e6a40) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ButtonMiddlePushed' (0x28e6c50) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ButtonRightPushed' (0x28e6e60) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ButtonLeftHighlight' (0x28e7070) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ButtonMiddleHighlight' (0x28e7410) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ButtonRightHighlight' (0x28e7740) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/CheckboxNormal' (0x2952a10) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/CheckboxHover' (0x28e7b00) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/CheckboxMark' (0x28e7d10) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/RadioButtonNormal' (0x28e7f20) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/RadioButtonHover' (0x28e8130) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/RadioButtonMark' (0x28e8340) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TitlebarLeft' (0x28e8550) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TitlebarMiddle' (0x28e8760) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TitlebarRight' (0x28e8970) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/NewTitlebarLeft' (0x28e8b80) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/NewTitlebarMiddle' (0x28e8d90) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/NewTitlebarRight' (0x28e8fa0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/SysAreaMiddle' (0x28e91b0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/SysAreaRight' (0x28e93c0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/StaticLeft' (0x2951ca0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/StaticRight' (0x28e98f0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/StaticTop' (0x2945e20) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/StaticBottom' (0x2946030) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/StaticTopLeft' (0x2946240) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/StaticTopRight' (0x2946450) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/StaticBottomLeft' (0x2946660) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/StaticBottomRight' (0x2946870) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/StaticBackdrop' (0x2946a80) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ProgressBarLeft' (0x2946c90) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ProgressBarMiddle' (0x2946ea0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ProgressBarRight' (0x29470b0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ProgressBarDimSegment' (0x29472c0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ProgressBarLitSegment' (0x2947680) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/EditBoxLeft' (0x29479b0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/EditBoxMiddle' (0x2947bc0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/EditBoxRight' (0x2947dd0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/EditBoxCaret' (0x2947fe0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/SpinnerUpNormal' (0x29481f0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/SpinnerDownNormal' (0x2948400) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/SpinnerUpHover' (0x2948610) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/SpinnerDownHover' (0x2948820) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TextSelectionBrush' (0x2948a30) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/VertScrollTop' (0x2948c40) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/VertScrollMiddle' (0x2948e50) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/VertScrollBottom' (0x2949060) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/VertScrollBarSegment' (0x2949270) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/VertScrollThumbNormal' (0x29495a0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/VertScrollThumbHover' (0x29498d0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/VertScrollUpNormal' (0x2949c00) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/VertScrollDownNormal' (0x2949e10) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/VertScrollUpHover' (0x294a140) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/VertScrollDownHover' (0x294a350) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollBarSegment' (0x294a6f0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollThumbNormal' (0x28eb210) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollThumbTopNormal' (0x2968970) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollThumbMiddleNormal' (0x2968d90) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollThumbBottomNormal' (0x29691e0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollThumbTopHover' (0x2969630) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollThumbMiddleHover' (0x2969a50) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollThumbBottomHover' (0x2969de0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollThumbHover' (0x296a170) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollUpNormal' (0x296a560) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollDownNormal' (0x296a8b0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollUpHover' (0x296ac00) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollDownHover' (0x296af30) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/VertSliderBody' (0x296b280) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/VertSliderThumbNormal' (0x296b490) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/VertSliderThumbHover' (0x296b7c0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollBarSegment' (0x296baf0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollThumbNormal' (0x296be40) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollThumbLeftNormal' (0x296c190) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollThumbMiddleNormal' (0x296c5b0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollThumbRightNormal' (0x296c940) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollThumbHover' (0x296ccd0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollThumbLeftHover' (0x296d020) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollThumbMiddleHover' (0x296d390) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollThumbRightHover' (0x296d720) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollLeftNormal' (0x296da90) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollRightNormal' (0x296dde0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollLeftHover' (0x296e130) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollRightHover' (0x296e480) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ListboxLeft' (0x296e7d0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ListboxRight' (0x296e9e0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ListboxTop' (0x296ebf0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ListboxBottom' (0x296ee00) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ListboxTopLeft' (0x296f010) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ListboxTopRight' (0x296f220) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ListboxBottomLeft' (0x296f430) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ListboxBottomRight' (0x296f640) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ListboxBackdrop' (0x296f850) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ListboxSelectionBrush' (0x296fa60) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxEditLeft' (0x296fd90) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxEditMiddle' (0x296ffa0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListButtonNormal' (0x29701b0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListButtonHover' (0x2970500) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListLeft' (0x2970850) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListRight' (0x2970a60) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListTop' (0x2970c70) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListBottom' (0x2970e80) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListTopLeft' (0x2971090) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListTopRight' (0x29712a0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListBottomLeft' (0x29715d0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListBottomRight' (0x2971920) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListBackdrop' (0x2971c70) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxSelectionBrush' (0x2971fa0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxDividerLeft' (0x29722f0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxDividerMiddle' (0x2972500) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxDividerRight' (0x2972830) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/HeaderBarBackdropNormal' (0x2972b60) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/HeaderBarBackdropHover' (0x2972eb0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/HeaderBarSplitterNormal' (0x2973200) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/HeaderBarSplitterHover' (0x2973550) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/HeaderBarSortUp' (0x29738a0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/HeaderBarSortDown' (0x2973ab0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiListLeft' (0x2973cc0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiListRight' (0x2973ed0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiListTop' (0x29740e0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiListBottom' (0x29742f0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiListTopLeft' (0x2974500) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiListTopRight' (0x2974710) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiListBottomLeft' (0x2974920) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiListBottomRight' (0x2974b30) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiListBackdrop' (0x2974e60) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiListSelectionBrush' (0x2975070) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLeft' (0x29753c0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressMiddle' (0x29755d0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressRight' (0x294ac70) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressQuarter' (0x29f59c0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressHalf' (0x29f5bd0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLight1' (0x29f5de0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLight2' (0x29f5ff0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLight3' (0x29f6200) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLight4' (0x29f6410) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLight5' (0x29f6620) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLight6' (0x29f6830) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLight7' (0x29f6a40) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLight8' (0x29f6c50) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLight9' (0x29f6e60) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLight10' (0x29f7070) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/CloseButtonNormal' (0x29f7280) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/CloseButtonHover' (0x29f7490) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/CloseButtonPressed' (0x29f76a0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/NewCloseButtonNormal' (0x29f78b0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/NewCloseButtonHover' (0x29f7ac0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/NewCloseButtonPressed' (0x29f7cd0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiLineEditboxLeft' (0x29f7ee0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiLineEditboxRight' (0x29f80f0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiLineEditboxTop' (0x29f8300) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiLineEditboxBottom' (0x29f8510) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiLineEditboxTopLeft' (0x29f8860) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiLineEditboxTopRight' (0x29f8bb0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiLineEditboxBottomLeft' (0x29f9220) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiLineEditboxBottomRight' (0x29f94e0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiLineEditboxBackdrop' (0x29f9850) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiLineEditboxSelectionBrush' (0x29f9d80) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MouseTarget' (0x29fa500) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MouseArrow' (0x28e9760) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MouseMoveCursor' (0x29faa30) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MouseNoSoCursor' (0x29fac40) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MouseEsWeCursor' (0x29fae50) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MouseNeSwCursor' (0x29fb060) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MouseNwSeCursor' (0x29fb270) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MouseTextBar' (0x29fb480) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabHorizontalFiller' (0x29fa710) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabContentPaneUpperLeft' (0x29fa140) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabContentPaneUpper' (0x29fb690) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabContentPaneUpperRight' (0x29fb7b0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabContentPaneLeft' (0x29fb9c0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabContentPaneRight' (0x29fbbd0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabContentPaneLower' (0x29fbde0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabContentPaneLowerLeft' (0x29fbff0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabContentPaneLowerRight' (0x29fc340) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabContentPaneMiddle' (0x29fc690) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonScrollLeftNormal' (0x29fca30) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonScrollRightNormal' (0x29fcf10) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonScrollLeftHover' (0x29f9bf0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonScrollRightHover' (0x29fd4c0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonLeftNormal' (0x29fd810) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonRightNormal' (0x29fda20) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonUpperNormal' (0x29fdc30) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonLowerNormal' (0x29fdf60) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonUpperLeftNormal' (0x29fe420) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonUpperLeft2Normal' (0x29fe810) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonUpperRightNormal' (0x29feb60) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonLowerLeftNormal' (0x29feeb0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonLowerRightNormal' (0x29ff200) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonLowerRight2Normal' (0x29ff6e0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonMiddleNormal' (0x2951aa0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonLeftSelected' (0x29ffbf0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonRightSelected' (0x29ffe00) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonUpperSelected' (0x2a001f0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonLowerSelected' (0x2a00540) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonUpperLeftSelected' (0x2a00a20) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonUpperRightSelected' (0x2a00e40) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonLowerLeftSelected' (0x2a011b0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonLowerRightSelected' (0x2a01520) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonMiddleSelected' (0x2a01890) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TooltipTopLeft' (0x2a01aa0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TooltipTopRight' (0x2a01cb0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TooltipBottomLeft' (0x2a01ec0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TooltipBottomRight' (0x2a020d0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TooltipLeftEdge' (0x2a022e0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TooltipRightEdge' (0x2a024f0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TooltipTopEdge' (0x2a02700) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TooltipBottomEdge' (0x2a02910) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TooltipMiddle' (0x2a02b20) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MenuTopLeft' (0x2a02d30) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MenuTopRight' (0x2a02f40) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MenuBottomLeft' (0x2a03150) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MenuBottomRight' (0x2a03360) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MenuLeft' (0x2a03570) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MenuRight' (0x2a03780) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MenuTop' (0x2a03990) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MenuBottom' (0x2a03ba0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/MenuMiddle' (0x2a03db0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuFrameTopLeft' (0x2a03fc0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuFrameTopRight' (0x2a041d0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuFrameBottomLeft' (0x2a045c0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuFrameBottomRight' (0x2a04910) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuFrameLeft' (0x2a04c60) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuFrameRight' (0x2a04e70) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuFrameTop' (0x2a05080) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuFrameBottom' (0x2a05290) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuMiddle' (0x2a054a0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuArrowRight' (0x2a056b0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuArrowLeft' (0x2a058c0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TreeListClosed' (0x2a05ad0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'TaharezLook/TreeListOpened' (0x2a05ce0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	===== Falagard 'root' element: look and feel parsing begins =====
-30/11/2017 18:03:07 (Std) 	===== Look and feel parsing completed =====
-30/11/2017 18:03:07 (Std) 	No window renderer factories specified for module 'CEGUICoreWindowRendererSet' - adding all available factories...
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/Button' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/Button' added. (0x2945130)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/Default' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/Default' added. (0x2945640)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/Editbox' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/Editbox' added. (0x29457e0)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/FrameWindow' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/FrameWindow' added. (0x2c85e80)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/ItemEntry' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/ItemEntry' added. (0x2c86020)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/ListHeader' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/ListHeader' added. (0x2c861c0)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/ListHeaderSegment' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/ListHeaderSegment' added. (0x2c38b80)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/Listbox' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/Listbox' added. (0x2c38d20)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/Menubar' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/Menubar' added. (0x2c38de0)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/MenuItem' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/MenuItem' added. (0x2be3290)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/MultiColumnList' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/MultiColumnList' added. (0x2c9f050)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/MultiLineEditbox' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/MultiLineEditbox' added. (0x2c9f1f0)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/PopupMenu' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/PopupMenu' added. (0x2c9f390)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/ProgressBar' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/ProgressBar' added. (0x2c92a90)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/ScrollablePane' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/ScrollablePane' added. (0x2c92c30)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/Scrollbar' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/Scrollbar' added. (0x2c92dd0)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/Slider' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/Slider' added. (0x2c722b0)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/Static' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/Static' added. (0x2c72560)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/StaticImage' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/StaticImage' added. (0x2c91cd0)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/StaticText' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/StaticText' added. (0x2c91e70)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/TabButton' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/TabButton' added. (0x2c92010)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/TabControl' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/TabControl' added. (0x2c921b0)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/Titlebar' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/Titlebar' added. (0x2c92350)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/ToggleButton' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/ToggleButton' added. (0x2c90a50)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/Tooltip' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/Tooltip' added. (0x2c90bf0)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/ItemListbox' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/ItemListbox' added. (0x2c90d90)
-30/11/2017 18:03:07 (Std) 	Created WindowRendererFactory for 'Core/Tree' WindowRenderers.
-30/11/2017 18:03:07 (Std) 	WindowRendererFactory 'Core/Tree' added. (0x2c90f30)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/Label' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'TaharezLook/Label' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/Button' using base type 'CEGUI/PushButton', window renderer 'Core/Button' Look'N'Feel 'TaharezLook/Button' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/Checkbox' using base type 'CEGUI/ToggleButton', window renderer 'Core/ToggleButton' Look'N'Feel 'TaharezLook/Checkbox' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/ImageButton' using base type 'CEGUI/PushButton', window renderer 'Core/Button' Look'N'Feel 'TaharezLook/ImageButton' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/RadioButton' using base type 'CEGUI/RadioButton', window renderer 'Core/ToggleButton' Look'N'Feel 'TaharezLook/RadioButton' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/FrameWindow' using base type 'CEGUI/FrameWindow', window renderer 'Core/FrameWindow' Look'N'Feel 'TaharezLook/FrameWindow' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/Titlebar' using base type 'CEGUI/Titlebar', window renderer 'Core/Titlebar' Look'N'Feel 'TaharezLook/Titlebar' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/Editbox' using base type 'CEGUI/Editbox', window renderer 'Core/Editbox' Look'N'Feel 'TaharezLook/Editbox' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/MultiLineEditbox' using base type 'CEGUI/MultiLineEditbox', window renderer 'Core/MultiLineEditbox' Look'N'Feel 'TaharezLook/MultiLineEditbox' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/Menubar' using base type 'CEGUI/Menubar', window renderer 'Core/Menubar' Look'N'Feel 'TaharezLook/Menubar' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/PopupMenu' using base type 'CEGUI/PopupMenu', window renderer 'Core/PopupMenu' Look'N'Feel 'TaharezLook/PopupMenu' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/MenuItem' using base type 'CEGUI/MenuItem', window renderer 'Core/MenuItem' Look'N'Feel 'TaharezLook/MenuItem' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/AlternateProgressBar' using base type 'CEGUI/ProgressBar', window renderer 'Core/ProgressBar' Look'N'Feel 'TaharezLook/AltProgressBar' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/ProgressBar' using base type 'CEGUI/ProgressBar', window renderer 'Core/ProgressBar' Look'N'Feel 'TaharezLook/ProgressBar' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/VUMeter' using base type 'CEGUI/ProgressBar', window renderer 'Core/ProgressBar' Look'N'Feel 'TaharezLook/VUMeter' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/VerticalScrollbar' using base type 'CEGUI/Scrollbar', window renderer 'Core/Scrollbar' Look'N'Feel 'TaharezLook/VerticalScrollbar' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/HorizontalScrollbar' using base type 'CEGUI/Scrollbar', window renderer 'Core/Scrollbar' Look'N'Feel 'TaharezLook/HorizontalScrollbar' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/VerticalScrollbarThumb' using base type 'CEGUI/Thumb', window renderer 'Core/Button' Look'N'Feel 'TaharezLook/VerticalScrollbarThumb' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/HorizontalScrollbarThumb' using base type 'CEGUI/Thumb', window renderer 'Core/Button' Look'N'Feel 'TaharezLook/HorizontalScrollbarThumb' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/LargeVerticalScrollbar' using base type 'CEGUI/Scrollbar', window renderer 'Core/Scrollbar' Look'N'Feel 'TaharezLook/LargeVerticalScrollbar' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/LargeVerticalScrollbarThumb' using base type 'CEGUI/Thumb', window renderer 'Core/Button' Look'N'Feel 'TaharezLook/LargeVerticalScrollbarThumb' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/TabButton' using base type 'CEGUI/TabButton', window renderer 'Core/TabButton' Look'N'Feel 'TaharezLook/TabButton' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/TabControl' using base type 'CEGUI/TabControl', window renderer 'Core/TabControl' Look'N'Feel 'TaharezLook/TabControl' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/TabContentPane' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'TaharezLook/TabContentPane' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/TabButtonPane' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'TaharezLook/TabButtonPane' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/ComboDropList' using base type 'CEGUI/ComboDropList', window renderer 'Core/Listbox' Look'N'Feel 'TaharezLook/ComboDropList' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/ComboEditbox' using base type 'CEGUI/Editbox', window renderer 'Core/Editbox' Look'N'Feel 'TaharezLook/ComboEditbox' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/Combobox' using base type 'CEGUI/Combobox', window renderer 'Core/Default' Look'N'Feel 'TaharezLook/Combobox' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/Listbox' using base type 'CEGUI/Listbox', window renderer 'Core/Listbox' Look'N'Feel 'TaharezLook/Listbox' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/ListHeader' using base type 'CEGUI/ListHeader', window renderer 'Core/ListHeader' Look'N'Feel 'TaharezLook/ListHeader' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/ListHeaderSegment' using base type 'CEGUI/ListHeaderSegment', window renderer 'Core/ListHeaderSegment' Look'N'Feel 'TaharezLook/ListHeaderSegment' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/MultiColumnList' using base type 'CEGUI/MultiColumnList', window renderer 'Core/MultiColumnList' Look'N'Feel 'TaharezLook/MultiColumnList' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/Slider' using base type 'CEGUI/Slider', window renderer 'Core/Slider' Look'N'Feel 'TaharezLook/Slider' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/SliderThumb' using base type 'CEGUI/Thumb', window renderer 'Core/Button' Look'N'Feel 'TaharezLook/SliderThumb' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/ScrollablePane' using base type 'CEGUI/ScrollablePane', window renderer 'Core/ScrollablePane' Look'N'Feel 'TaharezLook/ScrollablePane' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/Spinner' using base type 'CEGUI/Spinner', window renderer 'Core/Default' Look'N'Feel 'TaharezLook/Spinner' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/Tooltip' using base type 'CEGUI/Tooltip', window renderer 'Core/Tooltip' Look'N'Feel 'TaharezLook/Tooltip' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/StaticImage' using base type 'DefaultWindow', window renderer 'Core/StaticImage' Look'N'Feel 'TaharezLook/StaticImage' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/StaticText' using base type 'DefaultWindow', window renderer 'Core/StaticText' Look'N'Feel 'TaharezLook/StaticText' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/ItemListbox' using base type 'CEGUI/ItemListbox', window renderer 'Core/ItemListbox' Look'N'Feel 'TaharezLook/ItemListbox' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/ListboxItem' using base type 'CEGUI/ItemEntry', window renderer 'Core/ItemEntry' Look'N'Feel 'TaharezLook/ListboxItem' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/GroupBox' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'TaharezLook/GroupBox' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'TaharezLook/Tree' using base type 'CEGUI/Tree', window renderer 'Core/Tree' Look'N'Feel 'TaharezLook/Tree' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Started creation of Scheme from XML specification:
-30/11/2017 18:03:07 (Std) 	---- CEGUI GUIScheme name: OgreTray
-30/11/2017 18:03:07 (Std) 	[ImageManager] Started creation of Imageset from XML specification:
-30/11/2017 18:03:07 (Std) 	[ImageManager] ---- CEGUI Imageset name: OgreTrayImages
-30/11/2017 18:03:07 (Std) 	[ImageManager] ---- Source texture file: OgreTrayImages.png
-30/11/2017 18:03:07 (Std) 	[ImageManager] ---- Source texture resource group: (Default)
-30/11/2017 18:03:07 (Std) 	[OgreRenderer] Created texture: OgreTrayImages
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/Pulse' (0x2b91ea0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/Shade' (0x2b920b0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TrayB' (0x2b922c0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TrayL' (0x2b924d0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TrayM' (0x2b926e0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TrayR' (0x2b928f0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TrayT' (0x2b92b00) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/FrameB' (0x2b92d10) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/FrameL' (0x2b92f20) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/FrameM' (0x2b73390) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/FrameR' (0x2b932c0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/FrameT' (0x2b73730) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/Handle' (0x2b75780) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TrayBL' (0x2b93b10) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TrayBR' (0x2b73df0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TrayTL' (0x2b765e0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TrayTR' (0x2b767f0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/FrameBL' (0x2b76a00) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/FrameBR' (0x2b76c10) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/FrameTL' (0x2b76e20) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/FrameTR' (0x2b77030) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/CaptionL' (0x2b77240) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/CaptionM' (0x2b77450) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/CaptionR' (0x2b77660) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/OgreLogo' (0x2b77870) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TextBoxB' (0x2b77a80) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TextBoxL' (0x2b77c90) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TextBoxM' (0x2b77ea0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TextBoxR' (0x2b780b0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TextBoxT' (0x2b782c0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/BandsFull' (0x2b784d0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonUpB' (0x2b786e0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonUpL' (0x2b788f0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonUpM' (0x2b78b00) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonUpR' (0x2b78d10) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonUpT' (0x2b78f20) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTrayB' (0x2b79130) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTrayL' (0x2b79340) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTrayM' (0x2b79550) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTrayR' (0x2b79760) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTrayT' (0x2b79970) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TextBoxBL' (0x2b79b80) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TextBoxBR' (0x2b79d90) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TextBoxTL' (0x2b79fa0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TextBoxTR' (0x2b7a1b0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonUpBL' (0x2b7a3c0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonUpBR' (0x2b7a5d0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonUpTL' (0x2b7a7e0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonUpTR' (0x2b7a9f0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/HorzTrackL' (0x2b7ac00) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/HorzTrackM' (0x2b7ae10) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/HorzTrackR' (0x2b7b020) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTrayBL' (0x2b7b230) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTrayBR' (0x2b7b440) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTrayTL' (0x2b7b650) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTrayTR' (0x2b7b860) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MouseArrow' (0x2b7ba70) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/SeparatorL' (0x2b7bc80) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/SeparatorM' (0x2b7be90) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/SeparatorR' (0x2b7c0a0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/VertTrackB' (0x2b7c2b0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/VertTrackM' (0x2b7c4c0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/VertTrackT' (0x2b7c6d0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonDownB' (0x2b7c8e0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonDownL' (0x2b7caf0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonDownM' (0x2b7cd00) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonDownR' (0x2b7cf10) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonDownT' (0x2b7d120) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonOverB' (0x2b7d330) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonOverL' (0x2b7d540) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonOverM' (0x2b7d750) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonOverR' (0x2b7d960) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonOverT' (0x2b7db70) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonDownBL' (0x2b7dd80) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonDownBR' (0x2b7df90) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonDownTL' (0x2b7e1a0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonDownTR' (0x2b7e3b0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonOverBL' (0x2b7e5c0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonOverBR' (0x2b7e7d0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonOverTL' (0x2b7e9e0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonOverTR' (0x2b7ebf0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/GenericBrush' (0x2b7ee00) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxB' (0x2b7f010) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxL' (0x2b7f220) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxM' (0x2b7f430) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxR' (0x2b7f640) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxT' (0x2b7f850) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxBL' (0x2b7fa60) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxBR' (0x2b7fc70) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxTL' (0x2b7fe80) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxTR' (0x2b80090) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxOverB' (0x2b802a0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxOverL' (0x2b804b0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxOverM' (0x2b806c0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxOverR' (0x2b808d0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxOverT' (0x2b80ae0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxOverBL' (0x2b80cf0) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxOverBR' (0x2b80f00) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxOverTL' (0x2b81230) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxOverTR' (0x2b81560) of type: BasicImage
-30/11/2017 18:03:07 (Std) 	---- Returning existing instance of Font named 'DejaVuSans-12'.
-30/11/2017 18:03:07 (Std) 	===== Falagard 'root' element: look and feel parsing begins =====
-30/11/2017 18:03:07 (Std) 	===== Look and feel parsing completed =====
-30/11/2017 18:03:07 (Std) 	No window renderer factories specified for module 'CEGUICoreWindowRendererSet' - adding all available factories...
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/Label' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'OgreTray/Label' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/Button' using base type 'CEGUI/PushButton', window renderer 'Core/Button' Look'N'Feel 'OgreTray/PushButton' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/Titlebar' using base type 'CEGUI/Titlebar', window renderer 'Core/Titlebar' Look'N'Feel 'OgreTray/Titlebar' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/FrameWindow' using base type 'CEGUI/FrameWindow', window renderer 'Core/FrameWindow' Look'N'Feel 'OgreTray/FrameWindow' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/Thumb' using base type 'CEGUI/Thumb', window renderer 'Core/Button' Look'N'Feel 'OgreTray/Thumb' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/VerticalScrollbar' using base type 'CEGUI/Scrollbar', window renderer 'Core/Scrollbar' Look'N'Feel 'OgreTray/VerticalScrollbar' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/HorizontalScrollbar' using base type 'CEGUI/Scrollbar', window renderer 'Core/Scrollbar' Look'N'Feel 'OgreTray/HorizontalScrollbar' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/StaticText' using base type 'DefaultWindow', window renderer 'Core/StaticText' Look'N'Feel 'OgreTray/StaticText' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/Title' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'OgreTray/MiniTray' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/CaptionedStaticText' using base type 'DefaultWindow', window renderer 'Core/StaticText' Look'N'Feel 'OgreTray/CaptionedStaticText' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/ProgressBar' using base type 'CEGUI/ProgressBar', window renderer 'Core/ProgressBar' Look'N'Feel 'OgreTray/ProgressBar' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/Editbox' using base type 'CEGUI/Editbox', window renderer 'Core/Editbox' Look'N'Feel 'OgreTray/Editbox' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/MultiLineEditbox' using base type 'CEGUI/MultiLineEditbox', window renderer 'Core/MultiLineEditbox' Look'N'Feel 'OgreTray/MultiLineEditbox' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/Listbox' using base type 'CEGUI/Listbox', window renderer 'Core/Listbox' Look'N'Feel 'OgreTray/Listbox' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/ComboDropList' using base type 'CEGUI/ComboDropList', window renderer 'Core/Listbox' Look'N'Feel 'OgreTray/Listbox' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/Combobox' using base type 'CEGUI/Combobox', window renderer 'Core/Default' Look'N'Feel 'OgreTray/Combobox' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/DropDownMenu' using base type 'CEGUI/Combobox', window renderer 'Core/Default' Look'N'Feel 'OgreTray/DropDownMenu' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/Group' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'OgreTray/Group' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/Checkbox' using base type 'CEGUI/ToggleButton', window renderer 'Core/ToggleButton' Look'N'Feel 'OgreTray/Checkbox' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/RadioButton' using base type 'CEGUI/RadioButton', window renderer 'Core/ToggleButton' Look'N'Feel 'OgreTray/RadioButton' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/Slider' using base type 'CEGUI/Slider', window renderer 'Core/Slider' Look'N'Feel 'OgreTray/Slider' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/StaticImage' using base type 'DefaultWindow', window renderer 'Core/StaticImage' Look'N'Feel 'OgreTray/StaticImage' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/AltStaticImage' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'OgreTray/AltStaticImage' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/Tooltip' using base type 'CEGUI/Tooltip', window renderer 'Core/Tooltip' Look'N'Feel 'OgreTray/Tooltip' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/ItemListbox' using base type 'CEGUI/ItemListbox', window renderer 'Core/ItemListbox' Look'N'Feel 'OgreTray/ItemListbox' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/ListboxItem' using base type 'CEGUI/ItemEntry', window renderer 'Core/ItemEntry' Look'N'Feel 'OgreTray/ListboxItem' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/Spinner' using base type 'CEGUI/Spinner', window renderer 'Core/Default' Look'N'Feel 'OgreTray/Spinner' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/ScrollablePane' using base type 'CEGUI/ScrollablePane', window renderer 'Core/ScrollablePane' Look'N'Feel 'OgreTray/ScrollablePane' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/ListHeaderSegment' using base type 'CEGUI/ListHeaderSegment', window renderer 'Core/ListHeaderSegment' Look'N'Feel 'OgreTray/ListHeaderSegment' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/ListHeader' using base type 'CEGUI/ListHeader', window renderer 'Core/ListHeader' Look'N'Feel 'OgreTray/ListHeader' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/MultiColumnList' using base type 'CEGUI/MultiColumnList', window renderer 'Core/MultiColumnList' Look'N'Feel 'OgreTray/MultiColumnList' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/MenuItem' using base type 'CEGUI/MenuItem', window renderer 'Core/MenuItem' Look'N'Feel 'OgreTray/MenuItem' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/Menubar' using base type 'CEGUI/Menubar', window renderer 'Core/Menubar' Look'N'Feel 'OgreTray/Menubar' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/PopupMenu' using base type 'CEGUI/PopupMenu', window renderer 'Core/PopupMenu' Look'N'Feel 'OgreTray/PopupMenu' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/TabButton' using base type 'CEGUI/TabButton', window renderer 'Core/TabButton' Look'N'Feel 'OgreTray/TabButton' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/TabButtonPane' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'OgreTray/TabButtonPane' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/TabContentPane' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'OgreTray/TabContentPane' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/TabControl' using base type 'CEGUI/TabControl', window renderer 'Core/TabControl' Look'N'Feel 'OgreTray/TabControl' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:03:07 (Std) 	Creating falagard mapping for type 'OgreTray/BG' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'OgreTray/BGTest' and RenderEffect ''. (0x7ffcfef09b40)
-30/11/2017 18:05:14 (Std) 	[OgreRenderer] Created texture: DejaVuSans-12_auto_glyph_images_32
-30/11/2017 18:05:14 (Std) 	[OgreRenderer] Created texture: DejaVuSans-12_auto_glyph_images_249
+05/12/2017 16:20:44 (Std) 	CEGUI::Logger singleton created. (0x15a1440)
+05/12/2017 16:20:44 (Std) 	
+05/12/2017 16:20:44 (Std) 	********************************************************************************
+05/12/2017 16:20:44 (Std) 	* Important:                                                                   *
+05/12/2017 16:20:44 (Std) 	*     To get support at the CEGUI forums, you must post _at least_ the section *
+05/12/2017 16:20:44 (Std) 	*     of this log file indicated below.  Failure to do this will result in no  *
+05/12/2017 16:20:44 (Std) 	*     support being given; please do not waste our time.                       *
+05/12/2017 16:20:44 (Std) 	********************************************************************************
+05/12/2017 16:20:44 (Std) 	********************************************************************************
+05/12/2017 16:20:44 (Std) 	* -------- START OF ESSENTIAL SECTION TO BE POSTED ON THE FORUM       -------- *
+05/12/2017 16:20:44 (Std) 	********************************************************************************
+05/12/2017 16:20:44 (Std) 	---- Version: 0.8.7 (Build: Oct  6 2017 GNU/Linux g++ 5.4.0 20160609 64 bit) ----
+05/12/2017 16:20:44 (Std) 	---- Renderer module is: CEGUI::OgreRenderer - Official OGRE based 2nd generation renderer module. ----
+05/12/2017 16:20:44 (Std) 	---- XML Parser module is: CEGUI::ExpatParser - Official expat based parser module for CEGUI ----
+05/12/2017 16:20:44 (Std) 	---- Image Codec module is: OgreImageCodec - Integrated ImageCodec using the Ogre engine. ----
+05/12/2017 16:20:44 (Std) 	---- Scripting module is: None ----
+05/12/2017 16:20:44 (Std) 	********************************************************************************
+05/12/2017 16:20:44 (Std) 	* -------- END OF ESSENTIAL SECTION TO BE POSTED ON THE FORUM         -------- *
+05/12/2017 16:20:44 (Std) 	********************************************************************************
+05/12/2017 16:20:44 (Std) 	
+05/12/2017 16:20:44 (Std) 	---- Begining CEGUI System initialisation ----
+05/12/2017 16:20:44 (Std) 	[CEGUI::ImageManager] Singleton created (0x1610a60)
+05/12/2017 16:20:44 (Std) 	[CEGUI::ImageManager] Registered Image type: BasicImage
+05/12/2017 16:20:44 (Std) 	CEGUI::FontManager singleton created. (0x1610e00)
+05/12/2017 16:20:44 (Std) 	CEGUI::WindowFactoryManager singleton created
+05/12/2017 16:20:44 (Std) 	CEGUI::WindowManager singleton created (0x1610bf0)
+05/12/2017 16:20:44 (Std) 	CEGUI::SchemeManager singleton created. (0x1610f30)
+05/12/2017 16:20:44 (Std) 	CEGUI::GlobalEventSet singleton created. (0x15a18b0)
+05/12/2017 16:20:44 (Std) 	CEGUI::AnimationManager singleton created (0x1611060)
+05/12/2017 16:20:44 (Std) 	CEGUI::WidgetLookManager singleton created. (0x1610060)
+05/12/2017 16:20:44 (Std) 	CEGUI::WindowRendererManager singleton created (0x15a1900)
+05/12/2017 16:20:44 (Std) 	CEGUI::RenderEffectManager singleton created (0x15a71e0)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'DefaultWindow' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'DefaultWindow' windows added. (0x15ac340)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'DragContainer' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'DragContainer' windows added. (0x15ac4e0)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'ScrolledContainer' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'ScrolledContainer' windows added. (0x15ac780)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'ClippedContainer' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'ClippedContainer' windows added. (0x15ac9c0)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/PushButton' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/PushButton' windows added. (0x15acb60)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/RadioButton' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/RadioButton' windows added. (0x15acd00)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/Combobox' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/Combobox' windows added. (0x15acea0)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/ComboDropList' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/ComboDropList' windows added. (0x15ad040)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/Editbox' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/Editbox' windows added. (0x15ad1e0)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/FrameWindow' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/FrameWindow' windows added. (0x15ad410)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/ItemEntry' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/ItemEntry' windows added. (0x15ad5b0)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/Listbox' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/Listbox' windows added. (0x15ad750)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/ListHeader' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/ListHeader' windows added. (0x15ad8f0)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/ListHeaderSegment' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/ListHeaderSegment' windows added. (0x15ada90)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/Menubar' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/Menubar' windows added. (0x15adc30)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/PopupMenu' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/PopupMenu' windows added. (0x15addd0)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/MenuItem' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/MenuItem' windows added. (0x15adf70)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/MultiColumnList' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/MultiColumnList' windows added. (0x15ae220)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/MultiLineEditbox' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/MultiLineEditbox' windows added. (0x15ae3c0)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/ProgressBar' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/ProgressBar' windows added. (0x15ae560)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/ScrollablePane' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/ScrollablePane' windows added. (0x15ae700)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/Scrollbar' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/Scrollbar' windows added. (0x15ae8a0)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/Slider' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/Slider' windows added. (0x15aea40)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/Spinner' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/Spinner' windows added. (0x15aebe0)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/TabButton' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/TabButton' windows added. (0x15aed80)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/TabControl' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/TabControl' windows added. (0x15aef20)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/Thumb' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/Thumb' windows added. (0x15af0c0)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/Titlebar' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/Titlebar' windows added. (0x15af260)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/ToggleButton' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/ToggleButton' windows added. (0x15af400)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/Tooltip' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/Tooltip' windows added. (0x15af5a0)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/ItemListbox' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/ItemListbox' windows added. (0x15af740)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/GroupBox' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/GroupBox' windows added. (0x15af8e0)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'CEGUI/Tree' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'CEGUI/Tree' windows added. (0x15afa80)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'LayoutCell' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'LayoutCell' windows added. (0x15ae110)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'HorizontalLayoutContainer' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'HorizontalLayoutContainer' windows added. (0x15aff10)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'VerticalLayoutContainer' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'VerticalLayoutContainer' windows added. (0x15b00b0)
+05/12/2017 16:20:44 (Std) 	Created WindowFactory for 'GridLayoutContainer' windows.
+05/12/2017 16:20:44 (Std) 	WindowFactory for 'GridLayoutContainer' windows added. (0x15b0250)
+05/12/2017 16:20:44 (Std) 	CEGUI::System singleton created. (0x15a11f0)
+05/12/2017 16:20:44 (Std) 	---- CEGUI System initialisation completed ----
+05/12/2017 16:20:44 (Std) 	
+05/12/2017 16:20:44 (Std) 	Started creation of Scheme from XML specification:
+05/12/2017 16:20:44 (Std) 	---- CEGUI GUIScheme name: TaharezLook
+05/12/2017 16:20:44 (Std) 	[ImageManager] Started creation of Imageset from XML specification:
+05/12/2017 16:20:44 (Std) 	[ImageManager] ---- CEGUI Imageset name: TaharezLook
+05/12/2017 16:20:44 (Std) 	[ImageManager] ---- Source texture file: TaharezLook.png
+05/12/2017 16:20:44 (Std) 	[ImageManager] ---- Source texture resource group: (Default)
+05/12/2017 16:20:44 (Std) 	[OgreRenderer] Created texture: TaharezLook
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ClientBrush' (0x161eea0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/GenericBrush' (0x161f170) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/WindowLeftEdge' (0x161fb30) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/WindowRightEdge' (0x161fc70) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/WindowTopEdge' (0x16204c0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/WindowBottomEdge' (0x15b5830) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/WindowTopLeft' (0x161e220) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/WindowTopRight' (0x161e430) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/WindowBottomLeft' (0x161e640) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/WindowBottomRight' (0x161e850) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ButtonLeftNormal' (0x161ed80) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ButtonMiddleNormal' (0x161f9a0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ButtonRightNormal' (0x15b03f0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ButtonLeftPushed' (0x15b0600) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ButtonMiddlePushed' (0x15b0810) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ButtonRightPushed' (0x15b0a20) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ButtonLeftHighlight' (0x15b0c30) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ButtonMiddleHighlight' (0x15b0e40) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ButtonRightHighlight' (0x15b1200) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/CheckboxNormal' (0x15b15c0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/CheckboxHover' (0x15b17d0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/CheckboxMark' (0x15b19e0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/RadioButtonNormal' (0x15b1bf0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/RadioButtonHover' (0x15b1e00) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/RadioButtonMark' (0x15b2010) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TitlebarLeft' (0x15b2220) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TitlebarMiddle' (0x15b2430) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TitlebarRight' (0x15b2640) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/NewTitlebarLeft' (0x15b2850) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/NewTitlebarMiddle' (0x15b2a60) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/NewTitlebarRight' (0x15b2c70) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/SysAreaMiddle' (0x15b2e80) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/SysAreaRight' (0x15b3090) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/StaticLeft' (0x1620010) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/StaticRight' (0x15b35c0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/StaticTop' (0x1613a00) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/StaticBottom' (0x1613c10) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/StaticTopLeft' (0x1613e20) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/StaticTopRight' (0x1614030) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/StaticBottomLeft' (0x1614240) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/StaticBottomRight' (0x1614450) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/StaticBackdrop' (0x1614660) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ProgressBarLeft' (0x1614870) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ProgressBarMiddle' (0x1614a80) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ProgressBarRight' (0x1614c90) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ProgressBarDimSegment' (0x1614ea0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ProgressBarLitSegment' (0x16151d0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/EditBoxLeft' (0x1615500) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/EditBoxMiddle' (0x1615710) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/EditBoxRight' (0x1615920) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/EditBoxCaret' (0x1615b30) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/SpinnerUpNormal' (0x1615d40) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/SpinnerDownNormal' (0x1615f50) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/SpinnerUpHover' (0x1616160) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/SpinnerDownHover' (0x1616370) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TextSelectionBrush' (0x1616580) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/VertScrollTop' (0x1616790) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/VertScrollMiddle' (0x16169a0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/VertScrollBottom' (0x1616bb0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/VertScrollBarSegment' (0x1616dc0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/VertScrollThumbNormal' (0x16170f0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/VertScrollThumbHover' (0x1617420) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/VertScrollUpNormal' (0x1617750) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/VertScrollDownNormal' (0x1617960) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/VertScrollUpHover' (0x1617c90) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/VertScrollDownHover' (0x1617ea0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollBarSegment' (0x1618240) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollThumbNormal' (0x1618540) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollThumbTopNormal' (0x1636830) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollThumbMiddleNormal' (0x161f810) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollThumbBottomNormal' (0x1618890) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollThumbTopHover' (0x16372b0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollThumbMiddleHover' (0x16376d0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollThumbBottomHover' (0x1637b20) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollThumbHover' (0x1637eb0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollUpNormal' (0x1638200) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollDownNormal' (0x1638550) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollUpHover' (0x16388a0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniVertScrollDownHover' (0x1638bd0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/VertSliderBody' (0x1638f20) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/VertSliderThumbNormal' (0x1639130) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/VertSliderThumbHover' (0x1639460) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollBarSegment' (0x1639790) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollThumbNormal' (0x1639ae0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollThumbLeftNormal' (0x1639e30) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollThumbMiddleNormal' (0x163a250) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollThumbRightNormal' (0x163a5e0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollThumbHover' (0x163a970) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollThumbLeftHover' (0x163acc0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollThumbMiddleHover' (0x163b030) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollThumbRightHover' (0x163b3c0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollLeftNormal' (0x163b730) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollRightNormal' (0x163ba80) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollLeftHover' (0x163bdd0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MiniHorzScrollRightHover' (0x163c120) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ListboxLeft' (0x163c470) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ListboxRight' (0x163c680) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ListboxTop' (0x163c890) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ListboxBottom' (0x163caa0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ListboxTopLeft' (0x163ccb0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ListboxTopRight' (0x163cec0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ListboxBottomLeft' (0x163d0d0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ListboxBottomRight' (0x163d2e0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ListboxBackdrop' (0x163d4f0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ListboxSelectionBrush' (0x163d700) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxEditLeft' (0x163da30) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxEditMiddle' (0x163dc40) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListButtonNormal' (0x163de50) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListButtonHover' (0x163e1a0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListLeft' (0x163e4f0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListRight' (0x163e700) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListTop' (0x163e910) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListBottom' (0x163eb20) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListTopLeft' (0x163ed30) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListTopRight' (0x163ef40) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListBottomLeft' (0x163f270) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListBottomRight' (0x163f5c0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxListBackdrop' (0x163f910) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxSelectionBrush' (0x163fc40) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxDividerLeft' (0x163ff90) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxDividerMiddle' (0x16401a0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/ComboboxDividerRight' (0x16404d0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/HeaderBarBackdropNormal' (0x1640800) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/HeaderBarBackdropHover' (0x1640b50) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/HeaderBarSplitterNormal' (0x1640ea0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/HeaderBarSplitterHover' (0x16411f0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/HeaderBarSortUp' (0x1641540) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/HeaderBarSortDown' (0x1641750) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiListLeft' (0x1641960) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiListRight' (0x1641b70) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiListTop' (0x1641d80) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiListBottom' (0x1641f90) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiListTopLeft' (0x16421a0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiListTopRight' (0x16423b0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiListBottomLeft' (0x16425c0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiListBottomRight' (0x16427d0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiListBackdrop' (0x1642b00) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiListSelectionBrush' (0x1642d10) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLeft' (0x1643060) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressMiddle' (0x1643270) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressRight' (0x161f600) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressQuarter' (0x16c36f0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressHalf' (0x16c3810) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLight1' (0x16c3a20) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLight2' (0x16c3c30) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLight3' (0x16c3e40) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLight4' (0x16c4050) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLight5' (0x16c4260) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLight6' (0x16c4470) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLight7' (0x16c4680) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLight8' (0x16c4890) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLight9' (0x16c4aa0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/AltProgressLight10' (0x16c4cb0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/CloseButtonNormal' (0x16c4ec0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/CloseButtonHover' (0x16c50d0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/CloseButtonPressed' (0x16c52e0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/NewCloseButtonNormal' (0x16c54f0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/NewCloseButtonHover' (0x16c5700) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/NewCloseButtonPressed' (0x16c5910) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiLineEditboxLeft' (0x16c5b20) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiLineEditboxRight' (0x16c5d30) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiLineEditboxTop' (0x16c5f40) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiLineEditboxBottom' (0x16c6150) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiLineEditboxTopLeft' (0x16c6400) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiLineEditboxTopRight' (0x16c6750) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiLineEditboxBottomLeft' (0x16c6c30) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiLineEditboxBottomRight' (0x16c6fa0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiLineEditboxBackdrop' (0x16c7310) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MultiLineEditboxSelectionBrush' (0x16c7840) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MouseTarget' (0x16c7fc0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MouseArrow' (0x1620860) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MouseMoveCursor' (0x16c84f0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MouseNoSoCursor' (0x16c8700) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MouseEsWeCursor' (0x16c8910) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MouseNeSwCursor' (0x16c8b20) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MouseNwSeCursor' (0x16c8d30) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MouseTextBar' (0x16c8f40) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabHorizontalFiller' (0x16c81d0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabContentPaneUpperLeft' (0x16c7c00) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabContentPaneUpper' (0x16c9150) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabContentPaneUpperRight' (0x16c9270) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabContentPaneLeft' (0x16c9520) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabContentPaneRight' (0x16c9730) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabContentPaneLower' (0x16c9940) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabContentPaneLowerLeft' (0x16c9b50) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabContentPaneLowerRight' (0x16c9ea0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabContentPaneMiddle' (0x16ca1f0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonScrollLeftNormal' (0x16ca590) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonScrollRightNormal' (0x16caa70) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonScrollLeftHover' (0x16c76b0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonScrollRightHover' (0x16cb020) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonLeftNormal' (0x16cb370) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonRightNormal' (0x16cb580) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonUpperNormal' (0x16cb790) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonLowerNormal' (0x16cbac0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonUpperLeftNormal' (0x16cbf80) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonUpperLeft2Normal' (0x16cc370) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonUpperRightNormal' (0x16cc6c0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonLowerLeftNormal' (0x16cca10) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonLowerRightNormal' (0x16ccd60) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonLowerRight2Normal' (0x16cd240) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonMiddleNormal' (0x16206d0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonLeftSelected' (0x16cd750) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonRightSelected' (0x16cdaf0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonUpperSelected' (0x16cde40) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonLowerSelected' (0x16ce190) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonUpperLeftSelected' (0x16ce670) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonUpperRightSelected' (0x16cea90) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonLowerLeftSelected' (0x16cee00) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonLowerRightSelected' (0x16cf170) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TabButtonMiddleSelected' (0x16cf4e0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TooltipTopLeft' (0x16cf6f0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TooltipTopRight' (0x16cf900) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TooltipBottomLeft' (0x16cfb10) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TooltipBottomRight' (0x16cfd20) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TooltipLeftEdge' (0x16cff30) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TooltipRightEdge' (0x16d0140) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TooltipTopEdge' (0x16d0350) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TooltipBottomEdge' (0x16d0560) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TooltipMiddle' (0x16d0770) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MenuTopLeft' (0x16d0980) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MenuTopRight' (0x16d0b90) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MenuBottomLeft' (0x16d0da0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MenuBottomRight' (0x16d0fb0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MenuLeft' (0x16d11c0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MenuRight' (0x16d13d0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MenuTop' (0x16d15e0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MenuBottom' (0x16d17f0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/MenuMiddle' (0x16d1a00) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuFrameTopLeft' (0x16d1c10) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuFrameTopRight' (0x16d1e20) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuFrameBottomLeft' (0x16d2210) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuFrameBottomRight' (0x16d2560) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuFrameLeft' (0x16d28b0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuFrameRight' (0x16d2ac0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuFrameTop' (0x16d2cd0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuFrameBottom' (0x16d2ee0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuMiddle' (0x16d30f0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuArrowRight' (0x16d3300) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/PopupMenuArrowLeft' (0x16d3510) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TreeListClosed' (0x16d3720) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'TaharezLook/TreeListOpened' (0x16d3930) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	===== Falagard 'root' element: look and feel parsing begins =====
+05/12/2017 16:20:44 (Std) 	===== Look and feel parsing completed =====
+05/12/2017 16:20:44 (Std) 	No window renderer factories specified for module 'CEGUICoreWindowRendererSet' - adding all available factories...
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/Button' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/Button' added. (0x191c5e0)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/Default' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/Default' added. (0x191c6a0)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/Editbox' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/Editbox' added. (0x1612ea0)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/FrameWindow' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/FrameWindow' added. (0x193f3d0)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/ItemEntry' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/ItemEntry' added. (0x1939de0)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/ListHeader' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/ListHeader' added. (0x1939f80)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/ListHeaderSegment' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/ListHeaderSegment' added. (0x1942bf0)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/Listbox' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/Listbox' added. (0x18eb300)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/Menubar' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/Menubar' added. (0x18eb4a0)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/MenuItem' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/MenuItem' added. (0x18eb640)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/MultiColumnList' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/MultiColumnList' added. (0x18a3bb0)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/MultiLineEditbox' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/MultiLineEditbox' added. (0x18a3d50)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/PopupMenu' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/PopupMenu' added. (0x18a3e10)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/ProgressBar' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/ProgressBar' added. (0x1954100)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/ScrollablePane' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/ScrollablePane' added. (0x19542a0)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/Scrollbar' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/Scrollbar' added. (0x1954440)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/Slider' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/Slider' added. (0x19545e0)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/Static' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/Static' added. (0x15b4370)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/StaticImage' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/StaticImage' added. (0x15b4510)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/StaticText' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/StaticText' added. (0x15b46b0)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/TabButton' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/TabButton' added. (0x15b4850)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/TabControl' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/TabControl' added. (0x15b49f0)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/Titlebar' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/Titlebar' added. (0x15b4b90)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/ToggleButton' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/ToggleButton' added. (0x15b4d30)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/Tooltip' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/Tooltip' added. (0x15b4ed0)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/ItemListbox' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/ItemListbox' added. (0x15b5070)
+05/12/2017 16:20:44 (Std) 	Created WindowRendererFactory for 'Core/Tree' WindowRenderers.
+05/12/2017 16:20:44 (Std) 	WindowRendererFactory 'Core/Tree' added. (0x195f800)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/Label' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'TaharezLook/Label' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/Button' using base type 'CEGUI/PushButton', window renderer 'Core/Button' Look'N'Feel 'TaharezLook/Button' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/Checkbox' using base type 'CEGUI/ToggleButton', window renderer 'Core/ToggleButton' Look'N'Feel 'TaharezLook/Checkbox' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/ImageButton' using base type 'CEGUI/PushButton', window renderer 'Core/Button' Look'N'Feel 'TaharezLook/ImageButton' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/RadioButton' using base type 'CEGUI/RadioButton', window renderer 'Core/ToggleButton' Look'N'Feel 'TaharezLook/RadioButton' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/FrameWindow' using base type 'CEGUI/FrameWindow', window renderer 'Core/FrameWindow' Look'N'Feel 'TaharezLook/FrameWindow' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/Titlebar' using base type 'CEGUI/Titlebar', window renderer 'Core/Titlebar' Look'N'Feel 'TaharezLook/Titlebar' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/Editbox' using base type 'CEGUI/Editbox', window renderer 'Core/Editbox' Look'N'Feel 'TaharezLook/Editbox' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/MultiLineEditbox' using base type 'CEGUI/MultiLineEditbox', window renderer 'Core/MultiLineEditbox' Look'N'Feel 'TaharezLook/MultiLineEditbox' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/Menubar' using base type 'CEGUI/Menubar', window renderer 'Core/Menubar' Look'N'Feel 'TaharezLook/Menubar' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/PopupMenu' using base type 'CEGUI/PopupMenu', window renderer 'Core/PopupMenu' Look'N'Feel 'TaharezLook/PopupMenu' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/MenuItem' using base type 'CEGUI/MenuItem', window renderer 'Core/MenuItem' Look'N'Feel 'TaharezLook/MenuItem' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/AlternateProgressBar' using base type 'CEGUI/ProgressBar', window renderer 'Core/ProgressBar' Look'N'Feel 'TaharezLook/AltProgressBar' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/ProgressBar' using base type 'CEGUI/ProgressBar', window renderer 'Core/ProgressBar' Look'N'Feel 'TaharezLook/ProgressBar' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/VUMeter' using base type 'CEGUI/ProgressBar', window renderer 'Core/ProgressBar' Look'N'Feel 'TaharezLook/VUMeter' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/VerticalScrollbar' using base type 'CEGUI/Scrollbar', window renderer 'Core/Scrollbar' Look'N'Feel 'TaharezLook/VerticalScrollbar' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/HorizontalScrollbar' using base type 'CEGUI/Scrollbar', window renderer 'Core/Scrollbar' Look'N'Feel 'TaharezLook/HorizontalScrollbar' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/VerticalScrollbarThumb' using base type 'CEGUI/Thumb', window renderer 'Core/Button' Look'N'Feel 'TaharezLook/VerticalScrollbarThumb' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/HorizontalScrollbarThumb' using base type 'CEGUI/Thumb', window renderer 'Core/Button' Look'N'Feel 'TaharezLook/HorizontalScrollbarThumb' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/LargeVerticalScrollbar' using base type 'CEGUI/Scrollbar', window renderer 'Core/Scrollbar' Look'N'Feel 'TaharezLook/LargeVerticalScrollbar' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/LargeVerticalScrollbarThumb' using base type 'CEGUI/Thumb', window renderer 'Core/Button' Look'N'Feel 'TaharezLook/LargeVerticalScrollbarThumb' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/TabButton' using base type 'CEGUI/TabButton', window renderer 'Core/TabButton' Look'N'Feel 'TaharezLook/TabButton' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/TabControl' using base type 'CEGUI/TabControl', window renderer 'Core/TabControl' Look'N'Feel 'TaharezLook/TabControl' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/TabContentPane' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'TaharezLook/TabContentPane' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/TabButtonPane' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'TaharezLook/TabButtonPane' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/ComboDropList' using base type 'CEGUI/ComboDropList', window renderer 'Core/Listbox' Look'N'Feel 'TaharezLook/ComboDropList' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/ComboEditbox' using base type 'CEGUI/Editbox', window renderer 'Core/Editbox' Look'N'Feel 'TaharezLook/ComboEditbox' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/Combobox' using base type 'CEGUI/Combobox', window renderer 'Core/Default' Look'N'Feel 'TaharezLook/Combobox' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/Listbox' using base type 'CEGUI/Listbox', window renderer 'Core/Listbox' Look'N'Feel 'TaharezLook/Listbox' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/ListHeader' using base type 'CEGUI/ListHeader', window renderer 'Core/ListHeader' Look'N'Feel 'TaharezLook/ListHeader' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/ListHeaderSegment' using base type 'CEGUI/ListHeaderSegment', window renderer 'Core/ListHeaderSegment' Look'N'Feel 'TaharezLook/ListHeaderSegment' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/MultiColumnList' using base type 'CEGUI/MultiColumnList', window renderer 'Core/MultiColumnList' Look'N'Feel 'TaharezLook/MultiColumnList' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/Slider' using base type 'CEGUI/Slider', window renderer 'Core/Slider' Look'N'Feel 'TaharezLook/Slider' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/SliderThumb' using base type 'CEGUI/Thumb', window renderer 'Core/Button' Look'N'Feel 'TaharezLook/SliderThumb' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/ScrollablePane' using base type 'CEGUI/ScrollablePane', window renderer 'Core/ScrollablePane' Look'N'Feel 'TaharezLook/ScrollablePane' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/Spinner' using base type 'CEGUI/Spinner', window renderer 'Core/Default' Look'N'Feel 'TaharezLook/Spinner' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/Tooltip' using base type 'CEGUI/Tooltip', window renderer 'Core/Tooltip' Look'N'Feel 'TaharezLook/Tooltip' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/StaticImage' using base type 'DefaultWindow', window renderer 'Core/StaticImage' Look'N'Feel 'TaharezLook/StaticImage' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/StaticText' using base type 'DefaultWindow', window renderer 'Core/StaticText' Look'N'Feel 'TaharezLook/StaticText' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/ItemListbox' using base type 'CEGUI/ItemListbox', window renderer 'Core/ItemListbox' Look'N'Feel 'TaharezLook/ItemListbox' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/ListboxItem' using base type 'CEGUI/ItemEntry', window renderer 'Core/ItemEntry' Look'N'Feel 'TaharezLook/ListboxItem' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/GroupBox' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'TaharezLook/GroupBox' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'TaharezLook/Tree' using base type 'CEGUI/Tree', window renderer 'Core/Tree' Look'N'Feel 'TaharezLook/Tree' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Started creation of Scheme from XML specification:
+05/12/2017 16:20:44 (Std) 	---- CEGUI GUIScheme name: OgreTray
+05/12/2017 16:20:44 (Std) 	[ImageManager] Started creation of Imageset from XML specification:
+05/12/2017 16:20:44 (Std) 	[ImageManager] ---- CEGUI Imageset name: OgreTrayImages
+05/12/2017 16:20:44 (Std) 	[ImageManager] ---- Source texture file: OgreTrayImages.png
+05/12/2017 16:20:44 (Std) 	[ImageManager] ---- Source texture resource group: (Default)
+05/12/2017 16:20:44 (Std) 	[OgreRenderer] Created texture: OgreTrayImages
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/Pulse' (0x185fd30) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/Shade' (0x1841ad0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TrayB' (0x1860030) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TrayL' (0x1860240) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TrayM' (0x1860450) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TrayR' (0x1860660) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TrayT' (0x1860870) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/FrameB' (0x1860a80) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/FrameL' (0x1860c90) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/FrameM' (0x1860ea0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/FrameR' (0x1841300) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/FrameT' (0x18436d0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/Handle' (0x1843a70) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TrayBL' (0x1861560) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TrayBR' (0x18441f0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TrayTL' (0x1844400) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TrayTR' (0x1844610) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/FrameBL' (0x1844820) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/FrameBR' (0x1844a30) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/FrameTL' (0x1844c40) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/FrameTR' (0x1844e50) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/CaptionL' (0x1845060) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/CaptionM' (0x1845270) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/CaptionR' (0x1845480) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/OgreLogo' (0x1845690) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TextBoxB' (0x18458a0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TextBoxL' (0x1845ab0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TextBoxM' (0x1845cc0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TextBoxR' (0x1845ed0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TextBoxT' (0x18460e0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/BandsFull' (0x18462f0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonUpB' (0x1846500) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonUpL' (0x1846710) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonUpM' (0x1846920) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonUpR' (0x1846b30) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonUpT' (0x1846d40) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTrayB' (0x1846f50) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTrayL' (0x1847160) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTrayM' (0x1847370) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTrayR' (0x1847580) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTrayT' (0x1847790) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TextBoxBL' (0x18479a0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TextBoxBR' (0x1847bb0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TextBoxTL' (0x1847dc0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/TextBoxTR' (0x1847fd0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonUpBL' (0x18481e0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonUpBR' (0x18483f0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonUpTL' (0x1848600) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonUpTR' (0x1848810) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/HorzTrackL' (0x1848a20) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/HorzTrackM' (0x1848c30) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/HorzTrackR' (0x1848e40) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTrayBL' (0x1849050) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTrayBR' (0x1849260) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTrayTL' (0x1849470) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTrayTR' (0x1849680) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MouseArrow' (0x1849890) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/SeparatorL' (0x1849aa0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/SeparatorM' (0x1849cb0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/SeparatorR' (0x1849ec0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/VertTrackB' (0x184a0d0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/VertTrackM' (0x184a2e0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/VertTrackT' (0x184a4f0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonDownB' (0x184a700) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonDownL' (0x184a910) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonDownM' (0x184ab20) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonDownR' (0x184ad30) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonDownT' (0x184af40) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonOverB' (0x184b150) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonOverL' (0x184b360) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonOverM' (0x184b570) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonOverR' (0x184b780) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonOverT' (0x184b990) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonDownBL' (0x184bba0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonDownBR' (0x184bdb0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonDownTL' (0x184bfc0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonDownTR' (0x184c1d0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonOverBL' (0x184c3e0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonOverBR' (0x184c5f0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonOverTL' (0x184c800) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/ButtonOverTR' (0x184ca10) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/GenericBrush' (0x184cc20) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxB' (0x184ce30) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxL' (0x184d040) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxM' (0x184d250) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxR' (0x184d460) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxT' (0x184d670) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxBL' (0x184d880) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxBR' (0x184da90) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxTL' (0x184dca0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxTR' (0x184deb0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxOverB' (0x184e0c0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxOverL' (0x184e2d0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxOverM' (0x184e4e0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxOverR' (0x184e6f0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxOverT' (0x184e900) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxOverBL' (0x184eb10) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxOverBR' (0x184eed0) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxOverTL' (0x184f200) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	[ImageManager] Created image: 'OgreTrayImages/MiniTextBoxOverTR' (0x184f530) of type: BasicImage
+05/12/2017 16:20:44 (Std) 	---- Returning existing instance of Font named 'DejaVuSans-12'.
+05/12/2017 16:20:44 (Std) 	===== Falagard 'root' element: look and feel parsing begins =====
+05/12/2017 16:20:44 (Std) 	===== Look and feel parsing completed =====
+05/12/2017 16:20:44 (Std) 	No window renderer factories specified for module 'CEGUICoreWindowRendererSet' - adding all available factories...
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/Label' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'OgreTray/Label' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/Button' using base type 'CEGUI/PushButton', window renderer 'Core/Button' Look'N'Feel 'OgreTray/PushButton' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/Titlebar' using base type 'CEGUI/Titlebar', window renderer 'Core/Titlebar' Look'N'Feel 'OgreTray/Titlebar' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/FrameWindow' using base type 'CEGUI/FrameWindow', window renderer 'Core/FrameWindow' Look'N'Feel 'OgreTray/FrameWindow' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/Thumb' using base type 'CEGUI/Thumb', window renderer 'Core/Button' Look'N'Feel 'OgreTray/Thumb' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/VerticalScrollbar' using base type 'CEGUI/Scrollbar', window renderer 'Core/Scrollbar' Look'N'Feel 'OgreTray/VerticalScrollbar' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/HorizontalScrollbar' using base type 'CEGUI/Scrollbar', window renderer 'Core/Scrollbar' Look'N'Feel 'OgreTray/HorizontalScrollbar' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/StaticText' using base type 'DefaultWindow', window renderer 'Core/StaticText' Look'N'Feel 'OgreTray/StaticText' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/Title' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'OgreTray/MiniTray' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/CaptionedStaticText' using base type 'DefaultWindow', window renderer 'Core/StaticText' Look'N'Feel 'OgreTray/CaptionedStaticText' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/ProgressBar' using base type 'CEGUI/ProgressBar', window renderer 'Core/ProgressBar' Look'N'Feel 'OgreTray/ProgressBar' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/Editbox' using base type 'CEGUI/Editbox', window renderer 'Core/Editbox' Look'N'Feel 'OgreTray/Editbox' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/MultiLineEditbox' using base type 'CEGUI/MultiLineEditbox', window renderer 'Core/MultiLineEditbox' Look'N'Feel 'OgreTray/MultiLineEditbox' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/Listbox' using base type 'CEGUI/Listbox', window renderer 'Core/Listbox' Look'N'Feel 'OgreTray/Listbox' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/ComboDropList' using base type 'CEGUI/ComboDropList', window renderer 'Core/Listbox' Look'N'Feel 'OgreTray/Listbox' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/Combobox' using base type 'CEGUI/Combobox', window renderer 'Core/Default' Look'N'Feel 'OgreTray/Combobox' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/DropDownMenu' using base type 'CEGUI/Combobox', window renderer 'Core/Default' Look'N'Feel 'OgreTray/DropDownMenu' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/Group' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'OgreTray/Group' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/Checkbox' using base type 'CEGUI/ToggleButton', window renderer 'Core/ToggleButton' Look'N'Feel 'OgreTray/Checkbox' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/RadioButton' using base type 'CEGUI/RadioButton', window renderer 'Core/ToggleButton' Look'N'Feel 'OgreTray/RadioButton' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/Slider' using base type 'CEGUI/Slider', window renderer 'Core/Slider' Look'N'Feel 'OgreTray/Slider' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/StaticImage' using base type 'DefaultWindow', window renderer 'Core/StaticImage' Look'N'Feel 'OgreTray/StaticImage' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/AltStaticImage' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'OgreTray/AltStaticImage' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/Tooltip' using base type 'CEGUI/Tooltip', window renderer 'Core/Tooltip' Look'N'Feel 'OgreTray/Tooltip' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/ItemListbox' using base type 'CEGUI/ItemListbox', window renderer 'Core/ItemListbox' Look'N'Feel 'OgreTray/ItemListbox' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/ListboxItem' using base type 'CEGUI/ItemEntry', window renderer 'Core/ItemEntry' Look'N'Feel 'OgreTray/ListboxItem' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/Spinner' using base type 'CEGUI/Spinner', window renderer 'Core/Default' Look'N'Feel 'OgreTray/Spinner' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/ScrollablePane' using base type 'CEGUI/ScrollablePane', window renderer 'Core/ScrollablePane' Look'N'Feel 'OgreTray/ScrollablePane' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/ListHeaderSegment' using base type 'CEGUI/ListHeaderSegment', window renderer 'Core/ListHeaderSegment' Look'N'Feel 'OgreTray/ListHeaderSegment' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/ListHeader' using base type 'CEGUI/ListHeader', window renderer 'Core/ListHeader' Look'N'Feel 'OgreTray/ListHeader' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/MultiColumnList' using base type 'CEGUI/MultiColumnList', window renderer 'Core/MultiColumnList' Look'N'Feel 'OgreTray/MultiColumnList' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/MenuItem' using base type 'CEGUI/MenuItem', window renderer 'Core/MenuItem' Look'N'Feel 'OgreTray/MenuItem' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/Menubar' using base type 'CEGUI/Menubar', window renderer 'Core/Menubar' Look'N'Feel 'OgreTray/Menubar' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/PopupMenu' using base type 'CEGUI/PopupMenu', window renderer 'Core/PopupMenu' Look'N'Feel 'OgreTray/PopupMenu' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/TabButton' using base type 'CEGUI/TabButton', window renderer 'Core/TabButton' Look'N'Feel 'OgreTray/TabButton' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/TabButtonPane' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'OgreTray/TabButtonPane' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/TabContentPane' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'OgreTray/TabContentPane' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/TabControl' using base type 'CEGUI/TabControl', window renderer 'Core/TabControl' Look'N'Feel 'OgreTray/TabControl' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	Creating falagard mapping for type 'OgreTray/BG' using base type 'DefaultWindow', window renderer 'Core/Default' Look'N'Feel 'OgreTray/BGTest' and RenderEffect ''. (0x7ffdf1438760)
+05/12/2017 16:20:44 (Std) 	[OgreRenderer] Created texture: _ogre_tt_tex_0
+05/12/2017 16:20:44 (Std) 	[OgreRenderer] Created texture: DejaVuSans-12_auto_glyph_images_32

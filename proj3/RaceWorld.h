@@ -1,3 +1,6 @@
+#ifndef RACE_WORLD_H
+#define RACE_WORLD_H
+
 #include "../SimpleEngine/SimpleEngineWorld.h"
 #include "PlayerVehicle.h"
 #include <OgreSceneManager.h>
@@ -11,3 +14,5 @@ public:
 	Ogre::Vector3 cameraAngle = Ogre::Vector3::UNIT_Z;
 	RaceWorld(Ogre::SceneManager* mSceneMgr);
 };
+
+#endif

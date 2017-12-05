@@ -26,6 +26,8 @@ http://www.ogre3d.org/wiki/
 #include <OgreSceneManager.h>
 #include <OgreRenderWindow.h>
 #include <OgreConfigFile.h>
+#include <CEGUI/CEGUI.h>
+#include <CEGUI/RendererModules/Ogre/Renderer.h>
 
 #include <OgreWindowEventUtilities.h>
 #include <OgreFrameListener.h>
@@ -91,7 +93,7 @@ protected:
     virtual void createResourceListener(void);
     virtual void loadResources(void);
     virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
-
+    virtual void CEGUI_Init() = 0;
     virtual bool keyPressed(const OIS::KeyEvent &arg);
     virtual bool keyReleased(const OIS::KeyEvent &arg);
     virtual bool mouseMoved(const OIS::MouseEvent &arg);
@@ -119,8 +121,6 @@ protected:
     OIS::InputManager*          mInputManager;
     OIS::Mouse*                 mMouse;
     OIS::Keyboard*              mKeyboard;
-	
-	std::set<OIS::KeyCode>	pressedKeys;
 
     // Added for Mac compatibility
     Ogre::String                 m_ResourcePath;

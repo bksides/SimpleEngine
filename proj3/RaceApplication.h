@@ -19,6 +19,7 @@ This source file is part of the
 
 #include "BaseApplication.h"
 #include "RaceWorld.h"
+#include "Game.h"
 
 #include <SDL/SDL_mixer.h>
 #include <CEGUI/CEGUI.h>
@@ -30,15 +31,30 @@ public:
     RaceApplication(void);
     virtual ~RaceApplication(void);
     CEGUI::Window* pause_pop_up = NULL;
+    CEGUI::Window* start_menu = NULL;
+    CEGUI::Window *mult_menu = NULL;
+    CEGUI::Window* mult_info = NULL;
+    CEGUI::Window* join_menu = NULL;
+    CEGUI::RadioButton* hostOption = NULL;
+    CEGUI::Editbox* toConnect;
     CEGUI::OgreRenderer* mRenderer;
+    void createStartMenu(CEGUI::WindowManager& wmgr);
 protected:
     void CEGUI_Init();
     virtual void createScene(void);
     virtual void createCamera();
     virtual void createViewports();
     virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
+    bool keyPressed( const OIS::KeyEvent &arg );
+    bool keyReleased( const OIS::KeyEvent &arg );
+    void createMultiPlayerMenu(CEGUI::WindowManager& wmgr);
+    void showMultiPlayerOptions(void);
+    void backToMenu(void);
+    void createJoinMenu(CEGUI::WindowManager& wmgr);
+    void showJoinMenu(void);
 private:
-    RaceWorld* raceWorld;
+    Game* game = NULL;
+    CEGUI::Window* player_slots[16];
 };
 
 #endif // #ifndef __RaceApplication_h_

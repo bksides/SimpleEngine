@@ -1,9 +1,7 @@
-#include "PlayerVehicle.h"
+
+#include "SinglePlayerGame.h"
 #include "RaceApplication.h"
-#include "FloorTile.h"
-#include "StartTile.h"
-#include "TrackCreator.h"
-#include "Wall.h"
+#include "NetworkServer.h"
 #include <cstdlib>
 #include <iostream>
 #include <cmath>
@@ -14,15 +12,17 @@
 #include <OgreMath.h>
 #include <OISKeyboard.h>
 
+bool startgame = false;
+
 //-------------------------------------------------------------------------------------
 RaceApplication::RaceApplication(void)
 {
-    
+    //game = new SinglePlayerGame(mCamera, mSceneMgr, mShutDown, pause_pop_up);
 }
 //-------------------------------------------------------------------------------------
 RaceApplication::~RaceApplication(void)
 {
-    delete raceWorld;
+    delete game;
 }
 
 void RaceApplication::CEGUI_Init()
@@ -38,6 +38,7 @@ void RaceApplication::CEGUI_Init()
     CEGUI::SchemeManager::getSingleton().createFromFile("OgreTray.scheme");
 
     CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("TaharezLook/MouseArrow");
+    CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setVisible(true);
 
 /*    CEGUI::WindowManager &wmgr = CEGUI::WindowManager::getSingleton();
     CEGUI::Window *sheet = wmgr.createWindow("DefaultWindow", "CEGUIDemo/Sheet");
@@ -51,7 +52,11 @@ void RaceApplication::CEGUI_Init()
     CEGUI::Window *sheet = wmgr.createWindow("DefaultWindow", "CEGUIDemo/Sheet");
 
     pause_pop_up = wmgr.createWindow("TaharezLook/StaticText", "CEGUIDemo/PausePopUp");
-
+    
+    createStartMenu(wmgr);
+    createMultiPlayerMenu(wmgr);
+    createJoinMenu(wmgr);
+    
     //score_board->setProperty("HorzFormatting","HorzCentred");
     pause_pop_up->setText("You Win!");
     pause_pop_up->setPosition(CEGUI::UVector2(CEGUI::UDim(0.35, 0), CEGUI::UDim(.25, 0)));
@@ -59,150 +64,263 @@ void RaceApplication::CEGUI_Init()
     pause_pop_up->setVisible(false);
 
     sheet->addChild(pause_pop_up);
+    sheet->addChild(start_menu);
+    sheet->addChild(mult_menu);
+    sheet->addChild(join_menu);
     
     //mult_menu->setSize(CEGUI::USize(CEGUI::UDim(1.0,0.0), CEGUI::UDim(1.0, 0.0)));
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(sheet);
 }
 
+bool RaceApplication::keyPressed( const OIS::KeyEvent &arg )
+{
+    if(game != NULL)
+    {
+        return game->keyPressed(arg);
+    }
+}
+
+bool RaceApplication::keyReleased( const OIS::KeyEvent &arg)
+{
+    if(game != NULL)
+    {
+        return game->keyReleased(arg);
+    }
+}
+
+void RaceApplication::createMultiPlayerMenu(CEGUI::WindowManager& wmgr)
+{
+    mult_menu = wmgr.createWindow("TaharezLook/StaticImage", "CEGUIDemo/MPBackground");
+
+    //CEGUI::Imageset* MenuImageset = CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("Background","MenuBackground.jpg");
+    //MenuImageset->defineImage("Background", CEGUI::Point(0.0f,0.0f), CEGUI::Size( 1.0f, 1.0f ), Point(0.0f,0.0f));
+    
+    //start_menu->setProperty("Image", "menuBackground/menuBackground");
+
+    mult_menu->setProperty("Image", "TaharezLook/ClientBrush");
+    
+    mult_menu->setPosition(CEGUI::UVector2(CEGUI::UDim(0,0), CEGUI::UDim(0,0)));
+    mult_menu->setSize(CEGUI::USize(CEGUI::UDim(1, 0), CEGUI::UDim(1, 0)));
+
+
+
+    CEGUI::Window* menu = wmgr.createWindow("TaharezLook/StaticImage", "CEGUIDemo/MPMenu");
+    mult_menu->addChild(menu);
+    menu->setProperty("Image","OgreTrayImages/BandsFull");
+    menu->setRiseOnClickEnabled(false);
+
+    menu->setPosition(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.1,0)));
+    menu->setSize(CEGUI::USize(CEGUI::UDim(0.8, 0), CEGUI::UDim(0.8, 0)));
+
+    mult_info = wmgr.createWindow("TaharezLook/StaticText","CEGUIDemo/MPMenuTitle");
+    mult_menu->addChild(mult_info);
+    mult_info->setText("Select if you're hosting or joining a game.\n\nIf you're joining, enter the address of the host you want to connect to.");
+    mult_info->setPosition(CEGUI::UVector2(CEGUI::UDim(0.15, 0.0), CEGUI::UDim(0.15, 0.0)));
+    mult_info->setSize(CEGUI::USize(CEGUI::UDim(0.7,0.0), CEGUI::UDim(0.15, 0.0)));
+
+    CEGUI::FrameWindow* window = (CEGUI::FrameWindow*)wmgr.createWindow("TaharezLook/FrameWindow", "CEGUIDemo/MPWindow");
+    mult_menu->addChild(window);
+    window->setPosition(CEGUI::UVector2(CEGUI::UDim(0.2,0), CEGUI::UDim(0.35,0)));
+    window->setSize(CEGUI::USize(CEGUI::UDim(0.6,0.0), CEGUI::UDim(0.5, 0.0)));
+    window->setRiseOnClickEnabled(false);
+    window->setRollupEnabled(false);
+    window->setDragMovingEnabled(false);
+    window->setSizingEnabled(false);
+
+    hostOption = (CEGUI::RadioButton*)wmgr.createWindow("TaharezLook/RadioButton", "CEGUIDemo/MPHostOption");
+    window->addChild(hostOption);
+    hostOption->setPosition(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.2,0)));
+    hostOption->setSize(CEGUI::USize(CEGUI::UDim(0.1,0.0), CEGUI::UDim(0.1, 0.0)));
+    hostOption->setText("Host");
+    hostOption->setGroupID(1);
+    hostOption->setSelected(true);
+    hostOption->setID(0);
+//  hostOption->subscribeEvent(CEGUI::RadioButton::EventSelectStateChanged, CEGUI::Event::Subscriber(&PongApplication::testRadios(hostOption), this));
+
+    CEGUI::RadioButton* clientOption = (CEGUI::RadioButton*)wmgr.createWindow("TaharezLook/RadioButton", "CEGUIDemo/MPClientOption");
+    window->addChild(clientOption);
+    clientOption->setPosition(CEGUI::UVector2(CEGUI::UDim(0.3,0), CEGUI::UDim(0.2,0)));
+    clientOption->setSize(CEGUI::USize(CEGUI::UDim(0.1,0.0), CEGUI::UDim(0.1, 0.0)));
+    clientOption->setText("Client");
+    clientOption->setGroupID(1);
+    clientOption->setID(1);
+    //hostOption->subscribeEvent(CEGUI::RadioButton::EventSelectStateChanged, CEGUI::Event::Subscriber(&PongApplication::toggleIP(), this));
+
+    toConnect = (CEGUI::Editbox*)wmgr.createWindow("TaharezLook/Editbox", "CEGUIDemo/MPhostname");
+    window->addChild(toConnect);
+    toConnect->setPosition(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.4,0)));
+    toConnect->setSize(CEGUI::USize(CEGUI::UDim(0.8,0.0), CEGUI::UDim(0.2, 0.0)));
+    toConnect->setReadOnly(false);
+    toConnect->setTextMasked(false);
+
+    CEGUI::PushButton* startGame = (CEGUI::PushButton*)wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/MPStartGame");
+    window->addChild(startGame);
+    startGame->setPosition(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.7,0)));
+    startGame->setSize(CEGUI::USize(CEGUI::UDim(0.8,0.0), CEGUI::UDim(0.2, 0.0)));
+    startGame->setText("Start multiplayer game");
+    startGame->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&RaceApplication::showJoinMenu, this));
+    //add editable text field -- should only be able to edit if clientOption is selected
+    //add button to go back to main menu
+
+    CEGUI::PushButton* backToStartMenu = (CEGUI::PushButton*)wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/MPBackToStart");
+    window->addChild(backToStartMenu);
+    backToStartMenu->setPosition(CEGUI::UVector2(CEGUI::UDim(0.05,0), CEGUI::UDim(0.02,0)));
+    backToStartMenu->setSize(CEGUI::USize(CEGUI::UDim(0.2,0.0), CEGUI::UDim(0.15, 0.0)));
+    backToStartMenu->setText("Back");
+    backToStartMenu->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&RaceApplication::backToMenu, this));
+
+
+    mult_menu->setVisible(false);
+}
+
+void RaceApplication::showMultiPlayerOptions(void)
+{
+    start_menu->setVisible(false);
+    mult_menu->setVisible(true);
+}
+
+void RaceApplication::backToMenu(void)
+{
+    mult_menu->setVisible(false);
+    mult_info->setText("Select if you're hosting or joining a game.\n\nIf you're joining, enter the address of the host you want to connect to.");
+    start_menu->setVisible(true);
+}
+
 //-------------------------------------------------------------------------------------
 void RaceApplication::createScene(void)
 {
+    start_menu->setVisible(false);
+    mult_menu->setVisible(false);
+    //score_board->setVisible(true);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().hide();
 
-    CEGUI_Init();
+    game = new SinglePlayerGame(mCamera, mSceneMgr, mShutDown, pause_pop_up);
 
-    /**
-    ---SKYBOX---
-    **/
-
-    mSceneMgr->setSkyBox(true, "Examples/SpaceSkyBox");
-
-    /**
-    ---LIGHTING---
-    **/
-
-    //Create room light
-    Ogre::Light* lamp = mSceneMgr->createLight("lamp");
-    lamp->setType(Ogre::Light::LT_DIRECTIONAL);
-    lamp->setDirection(-40,-50,40);
-    lamp->setDiffuseColour(1,1,1);
-    lamp->setSpecularColour(1,1,1);
-    lamp->setAttenuation(200, 0, 0, .0002);
-
-    //Create ambient light
-    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.6,0.6,0.6));
-
-    //Set shadow rendering mode
-    mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
-
-    raceWorld = new RaceWorld(mSceneMgr);
-    raceWorld->playerVehicle = new PlayerVehicle(mSceneMgr);
-    raceWorld->addObject(raceWorld->playerVehicle, Ogre::Vector3::UNIT_Y*10);
-    raceWorld->playerVehicle->cameraNode->attachObject(mCamera);
-
-    TrackCreator tc;
-    std::list<DIRECTION::DIRECTION> turns = tc.createTrack();
-    int x = 0;
-    int z = 0;
-    bool start = true;
-    DIRECTION::DIRECTION curdir = DIRECTION::LEFT;
-    //DIRECTION::DIRECTION turn = turns.front();
-    for(DIRECTION::DIRECTION turn : turns)
+    if(game != NULL)
     {
-        if(start)
-        {
-            raceWorld->addObject(new StartTile(mSceneMgr), Ogre::Vector3(x*100, 0, z*100), Ogre::Vector3::ZERO, Ogre::Vector3::ZERO);
-            raceWorld->trackcoords.insert(coord{.x = x, .y = z});
-            start = false;
-        }
-        else
-        {
-            raceWorld->addObject(new FloorTile(mSceneMgr), Ogre::Vector3(x*100, 0, z*100), Ogre::Vector3::ZERO, Ogre::Vector3::ZERO);
-            raceWorld->trackcoords.insert(coord{.x = x, .y = z});
-        }
-        if(curdir != DIRECTION::RIGHT && turn != DIRECTION::LEFT)
-        {
-            raceWorld->addObject(new Wall(mSceneMgr), Ogre::Vector3(x*100-50, 0, z*100), Ogre::Vector3::ZERO, Ogre::Vector3(0, M_PI/2, M_PI/-2));
-        }
-        if(curdir != DIRECTION::DOWN && turn != DIRECTION::UP)
-        {
-            raceWorld->addObject(new Wall(mSceneMgr), Ogre::Vector3(x*100, 0, z*100+50), Ogre::Vector3::ZERO, Ogre::Vector3(M_PI/-2, 0, 0));
-        }
-        if(curdir != DIRECTION::LEFT && turn != DIRECTION::RIGHT)
-        {
-            raceWorld->addObject(new Wall(mSceneMgr), Ogre::Vector3(x*100+50, 0, z*100), Ogre::Vector3::ZERO, Ogre::Vector3(0, M_PI/2, M_PI/2));
-        }
-        if(curdir != DIRECTION::UP && turn != DIRECTION::DOWN)
-        {
-            raceWorld->addObject(new Wall(mSceneMgr), Ogre::Vector3(x*100, 0, z*100-50), Ogre::Vector3::ZERO, Ogre::Vector3(M_PI/2, 0, 0));
-        }
-        curdir = turn;
-        switch(turn)
-        {
-            case DIRECTION::LEFT:
-                x -= 1;
-                break;
-            case DIRECTION::UP:
-                z += 1;
-                break;
-            case DIRECTION::RIGHT:
-                x += 1;
-                break;
-            case DIRECTION::DOWN:
-                z -= 1;
-                break;
-        }
+        createCamera();
+        createViewports();
+        game->createScene();
     }
+
+    startgame = true;
+}
+
+void RaceApplication::createStartMenu(CEGUI::WindowManager& wmgr)
+{
+    //start_menu = wmgr.createWindow("TaharezLook/FrameWindow","CEGUIDemo/StartMenu");
+    
+    start_menu = wmgr.createWindow("TaharezLook/StaticImage", "CEGUIDemo/Background");
+
+    //CEGUI::Imageset* MenuImageset = CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("Background","MenuBackground.jpg");
+    //MenuImageset->defineImage("Background", CEGUI::Point(0.0f,0.0f), CEGUI::Size( 1.0f, 1.0f ), Point(0.0f,0.0f));
+    
+    //start_menu->setProperty("Image", "menuBackground/menuBackground");
+
+    start_menu->setProperty("Image", "TaharezLook/ClientBrush");
+    
+    start_menu->setPosition(CEGUI::UVector2(CEGUI::UDim(0,0), CEGUI::UDim(0,0)));
+    start_menu->setSize(CEGUI::USize(CEGUI::UDim(1, 0), CEGUI::UDim(1, 0)));
+
+    //CEGUI::FrameWindow* menu = (CEGUI::FrameWindow*)wmgr.createWindow("TaharezLook/FrameWindow","CEGUIDemo/Menu");
+    CEGUI::Window* menu = wmgr.createWindow("TaharezLook/StaticImage", "CEGUIDemo/Menu");
+    start_menu->addChild(menu);
+    menu->setProperty("Image","OgreTrayImages/TrayTR");
+    menu->setRiseOnClickEnabled(false);
+    //menu->setRollupEnabled(false);
+    //menu->setDragMovingEnabled(false);
+    menu->setPosition(CEGUI::UVector2(CEGUI::UDim(0.1,0), CEGUI::UDim(0.1,0)));
+    menu->setSize(CEGUI::USize(CEGUI::UDim(0.8, 0), CEGUI::UDim(0.8, 0)));
+
+    CEGUI::Window* title = wmgr.createWindow("TaharezLook/StaticText","CEGUIDemo/menuTitle");
+    start_menu->addChild(title);
+    title->setText("Welcome to Penguin Racing! \nChoose a mode to start playing.");
+    title->setPosition(CEGUI::UVector2(CEGUI::UDim(0.15, 0.0), CEGUI::UDim(0.15, 0.0)));
+    title->setSize(CEGUI::USize(CEGUI::UDim(0.7,0.0), CEGUI::UDim(0.15, 0.0)));
+
+    //when a mode is selected, the handler should hide the start menu
+    //and start the mode they picked
+    //also the cursor should be hidden
+    CEGUI::PushButton* singPlayer = (CEGUI::PushButton*)wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/SingPlayer");
+    start_menu->addChild(singPlayer);
+    singPlayer->setPosition(CEGUI::UVector2(CEGUI::UDim(0.3, 0.0), CEGUI::UDim(0.5, 0.0)));
+    singPlayer->setSize(CEGUI::USize(CEGUI::UDim(0.4,0.0), CEGUI::UDim(0.15, 0.0)));
+    singPlayer->setText("Single Player");
+    singPlayer->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&RaceApplication::createScene, this));
+
+    CEGUI::PushButton* multiPlayer = (CEGUI::PushButton*)wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/MultiPlayer");
+    start_menu->addChild(multiPlayer);
+    multiPlayer->setPosition(CEGUI::UVector2(CEGUI::UDim(0.3, 0.0), CEGUI::UDim(0.7, 0.0)));
+    multiPlayer->setSize(CEGUI::USize(CEGUI::UDim(0.4,0.0), CEGUI::UDim(0.15, 0.0)));
+    multiPlayer->setText("Multiplayer");
+    //multiPlayer->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&RaceApplication::createScene, this));
+    multiPlayer->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&RaceApplication::showMultiPlayerOptions, this));
+}
+
+void RaceApplication::createJoinMenu(CEGUI::WindowManager& wmgr)
+{
+    join_menu = wmgr.createWindow("TaharezLook/StaticImage", "CEGUIDemo/Background");
+    join_menu->setProperty("Image", "TaharezLook/ClientBrush");
+    
+    join_menu->setPosition(CEGUI::UVector2(CEGUI::UDim(0,0), CEGUI::UDim(0,0)));
+    join_menu->setSize(CEGUI::USize(CEGUI::UDim(1, 0), CEGUI::UDim(1, 0)));
+
+    CEGUI::Window* title = wmgr.createWindow("TaharezLook/StaticText","CEGUIDemo/menuTitle");
+    join_menu->addChild(title);
+    title->setText("Multiplayer Lobby");
+    title->setPosition(CEGUI::UVector2(CEGUI::UDim(0.15, 0.0), CEGUI::UDim(0.15, 0.0)));
+    title->setSize(CEGUI::USize(CEGUI::UDim(0.7,0.0), CEGUI::UDim(0.15, 0.0)));
+
+    for(int i = 0; i < 16; ++i)
+    {
+        player_slots[i] = wmgr.createWindow("TaharezLook/StaticText", "CEGUIDemo/ScoreBoard");
+        player_slots[i]->setProperty("HorzFormatting","HorzCentred");
+        player_slots[i]->setText("--");
+        player_slots[i]->setPosition(CEGUI::UVector2(CEGUI::UDim(0.2 * (i / 4) + 0.125, 0), CEGUI::UDim(0.1 * (i%4) + .4, 0)));
+        player_slots[i]->setSize(CEGUI::USize(CEGUI::UDim(0.15, 0), CEGUI::UDim(0.05, 0)));
+
+        join_menu->addChild(player_slots[i]);
+    }
+
+    join_menu->setVisible(false);
+}
+
+void RaceApplication::showJoinMenu(void)
+{
+    mult_menu->setVisible(false);
+    join_menu->setVisible(true);
+    NetworkServer* server = new NetworkServer(2800);
+    CEGUI::Window** player_slots = this->player_slots;
+    server->accept = [player_slots](TCPsocket sock) {
+        static int num = 1;
+        IPaddress* addr = SDLNet_TCP_GetPeerAddress(sock);
+        const char* addrstr = SDLNet_ResolveIP(addr);
+        //std::string addrstdstr(addrstr);
+        std::cout << addrstr << "\n\n\n";
+        //std::cout << addrstdstr << "\n\n\n";
+        player_slots[num]->setText(addrstr);
+        ++num;
+    };
+    server->go();
 }
 
 //--------------------------------------------------------------------------------------
 bool RaceApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
-    mCamera->lookAt(raceWorld->playerVehicle->getPosition());
-    if (pressedKeys.find(OIS::KC_W) != pressedKeys.end())
+    if(game != NULL)
     {
-        raceWorld->playerVehicle->getRigidBody()->activate(true);
-        raceWorld->playerVehicle->addVelocity(Ogre::Vector3(mCamera->getDerivedDirection().x, 0, mCamera->getDerivedDirection().z)*evt.timeSinceLastFrame*30);
-        if(raceWorld->playerVehicle->getVelocity().length() > 150)
-        {
-            raceWorld->playerVehicle->setVelocity(raceWorld->playerVehicle->getVelocity()*150/raceWorld->playerVehicle->getVelocity().length());
-        }
+        game->frameRenderingQueued(evt);
     }
-    if (pressedKeys.find(OIS::KC_S) != pressedKeys.end())
-    {
-        raceWorld->playerVehicle->getRigidBody()->activate(true);
-        raceWorld->playerVehicle->addVelocity(-1*Ogre::Vector3(mCamera->getDerivedDirection().x, 0, mCamera->getDerivedDirection().z).normalisedCopy()*evt.timeSinceLastFrame*30);
-        if(raceWorld->playerVehicle->getVelocity().length() > 150)
-        {
-            raceWorld->playerVehicle->setVelocity(raceWorld->playerVehicle->getVelocity()*150/raceWorld->playerVehicle->getVelocity().length());
-        }
-    }
-    if (pressedKeys.find(OIS::KC_A) != pressedKeys.end())
-    {
-        raceWorld->playerVehicle->cameraNode->yaw(Ogre::Radian(M_PI * evt.timeSinceLastFrame), Ogre::Node::TS_WORLD);
-    }
-    if (pressedKeys.find(OIS::KC_D) != pressedKeys.end())
-    {
-        raceWorld->playerVehicle->cameraNode->yaw(Ogre::Radian(-1*M_PI * evt.timeSinceLastFrame), Ogre::Node::TS_WORLD);
-    }
-    raceWorld->playerVehicle->visitedTiles.insert(coord{(int)(floor((float)(raceWorld->playerVehicle->getPosition().x+50)/100)), (int)(floor((float)(raceWorld->playerVehicle->getPosition().z+50)/100))});
-    if((int)(floor((float)(raceWorld->playerVehicle->getPosition().x+50)/100)) == 0 && (int)(floor((float)(raceWorld->playerVehicle->getPosition().z+50)/100)) == 0)
-    {
-        if(raceWorld->playerVehicle->visitedTiles == raceWorld->trackcoords)
-        {
-            pause_pop_up->setVisible(true);
-        }
-    }
-    raceWorld->update(evt.timeSinceLastFrame);
     return BaseApplication::frameRenderingQueued(evt);
 }
 
 //--------------------------------------------------------------------------------------
 void RaceApplication::createCamera()
 {
-    mCamera = mSceneMgr->createCamera("PlayerCam");
-    mCamera->setPosition(0,40,100);
-    mCamera->lookAt(Ogre::Vector3(0,0,0));
-    mCamera->setNearClipDistance(5);
+    if(game != NULL)
+    {
+        game->createCamera();
+    }
 }
 
 //--------------------------------------------------------------------------------------
@@ -230,6 +348,18 @@ extern "C" {
     int main(int argc, char *argv[])
 #endif
     {
+        if(argc > 1)
+        {
+            std::cout << "\n\n\nTRYING TO CONNECT\n\n\n";
+            IPaddress ip;
+            SDLNet_ResolveHost(&ip, "cancer.cs.utexas.edu", 2800);
+            TCPsocket sock = SDLNet_TCP_Open(&ip);
+            if(!sock)
+            {
+                std::cout << "\n\n\nCONNECTION ERROR\n\n\n";
+            }
+        }
+
         // Create application object
         RaceApplication app;
 
