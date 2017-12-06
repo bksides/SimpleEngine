@@ -43,10 +43,13 @@ void clientLobbyMode(RaceApplication* app)
     IPaddress ip;
     SDLNet_ResolveHost(&ip, app->toConnect->getText().c_str(), 2800);
     TCPsocket sock = SDLNet_TCP_Open(&ip);
-    char* msg = "Connected\n";
+    int i;
+    char playername[100];
     while(true)
     {
-        SDLNet_TCP_Send(sock, (void*)msg, 10);
+        SDLNet_TCP_Recv(sock, (void*)&i, 1);
+        SDLNet_TCP_Recv(sock, (void*)&playername, 100);
+        app->player_slots[i]->setText(std::string(playername));
     }
 }
 
@@ -366,7 +369,17 @@ void RaceApplication::serverLobbyMode()
         ++num;
     };
 
-    server->handle = [](TCPsocket sock) {
+    server->handle = [player_slots](TCPsocket sock) {
+        static std::string players[16];
+        for(uint8_t i = 0; i < 16; ++i)
+        {
+            if(player_slots[i]->getText() != players[i])
+            {
+                players[i] = player_slots[i]->getText().c_str();
+                SDLNet_TCP_Send(sock, &i, 1);
+                SDLNet_TCP_Send(sock, (void*)players[i].c_str(), players[i].length());
+            }
+        }
         char msg[100];
         SDLNet_TCP_Recv(sock, &msg, 100);
         std::cout << msg;

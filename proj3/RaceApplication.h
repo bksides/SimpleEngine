@@ -39,6 +39,7 @@ public:
     CEGUI::Editbox* toConnect;
     CEGUI::OgreRenderer* mRenderer;
     void createStartMenu(CEGUI::WindowManager& wmgr);
+    CEGUI::Window* player_slots[16];
 protected:
     void CEGUI_Init();
     virtual void createScene(void);
@@ -56,7 +57,6 @@ protected:
     //void clientLobbyMode();
 private:
     Game* game = NULL;
-    CEGUI::Window* player_slots[16];
 };
 
 #endif // #ifndef __RaceApplication_h_
