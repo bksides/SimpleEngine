@@ -38,6 +38,18 @@ CEGUI::Key InjectOISKey(OIS::KeyEvent inKey, bool bButtonDown)
     }
 }
 
+void clientLobbyMode(RaceApplication* app)
+{
+    IPaddress ip;
+    SDLNet_ResolveHost(&ip, app->toConnect->getText().c_str(), 2800);
+    TCPsocket sock = SDLNet_TCP_Open(&ip);
+    char* msg = "Connected\n";
+    while(true)
+    {
+        SDLNet_TCP_Send(sock, (void*)msg, 10);
+    }
+}
+
 void RaceApplication::CEGUI_Init()
 {
     mRenderer = &CEGUI::OgreRenderer::bootstrapSystem();
@@ -331,7 +343,7 @@ void RaceApplication::showJoinMenu(void)
 
     if(client)
     {
-        clientLobbyMode();
+        std::thread* newthread = new std::thread(clientLobbyMode, this);
     }
     else
     {
@@ -361,18 +373,6 @@ void RaceApplication::serverLobbyMode()
     };
 
     server->go();
-}
-
-void RaceApplication::clientLobbyMode()
-{
-    IPaddress ip;
-    SDLNet_ResolveHost(&ip, toConnect->getText().c_str(), 2800);
-    TCPsocket sock = SDLNet_TCP_Open(&ip);
-    char* msg = "Connected\n";
-    while(true)
-    {
-        SDLNet_TCP_Send(sock, (void*)msg, 10);
-    }
 }
 
 //--------------------------------------------------------------------------------------
