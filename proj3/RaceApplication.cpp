@@ -25,6 +25,19 @@ RaceApplication::~RaceApplication(void)
     delete game;
 }
 
+CEGUI::Key InjectOISKey(OIS::KeyEvent inKey, bool bButtonDown)
+{
+    if (bButtonDown)
+    {
+        CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyDown((CEGUI::Key::Scan)inKey.key);
+        CEGUI::System::getSingleton().getDefaultGUIContext().injectChar(inKey.text);
+    }
+    else
+    {
+        CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyUp((CEGUI::Key::Scan)inKey.key);
+    }
+}
+
 void RaceApplication::CEGUI_Init()
 {
     mRenderer = &CEGUI::OgreRenderer::bootstrapSystem();
@@ -74,6 +87,7 @@ void RaceApplication::CEGUI_Init()
 
 bool RaceApplication::keyPressed( const OIS::KeyEvent &arg )
 {
+    InjectOISKey(arg, true);
     if(game != NULL)
     {
         return game->keyPressed(arg);
@@ -82,6 +96,7 @@ bool RaceApplication::keyPressed( const OIS::KeyEvent &arg )
 
 bool RaceApplication::keyReleased( const OIS::KeyEvent &arg)
 {
+    InjectOISKey(arg, false);
     if(game != NULL)
     {
         return game->keyReleased(arg);
@@ -287,8 +302,45 @@ void RaceApplication::createJoinMenu(CEGUI::WindowManager& wmgr)
 
 void RaceApplication::showJoinMenu(void)
 {
+    bool client = (hostOption->getSelectedButtonInGroup()->getID()==1) ? true : false;
+    //printf("Here's what was typed: %s\n", toConnect->getText().c_str());
+    char* typedText = const_cast<char *>(toConnect->getText().c_str());
+    //printf("The selected type was %s.\n", client?"client":"host");
+    char* hostname = NULL;
+    if(client)
+        hostname = typedText;
+    else
+        hostname = NULL;
+    //error checking
+    if(client && strcmp(typedText, "")==0)
+    {
+        mult_info->setText("ERROR: You must enter the hostname of who you're connecting to if you're not hosting!!");
+        //Mix_PlayChannel(-1, error, 0);
+        return;
+    }
+    if(!client && strcmp(typedText, "")!=0)
+    {
+        mult_info->setText("ERROR: If you're hosting, you shouldn't enter anything in the textbox.");
+        //Mix_PlayChannel(-1, error, 0);
+        return;       
+    }
+    mult_info->setText("PLEASE WAIT\n\nWaiting for someone to connect...");
     mult_menu->setVisible(false);
+
     join_menu->setVisible(true);
+
+    if(client)
+    {
+        clientLobbyMode();
+    }
+    else
+    {
+        serverLobbyMode();
+    }
+}
+
+void RaceApplication::serverLobbyMode()
+{
     NetworkServer* server = new NetworkServer(2800);
     CEGUI::Window** player_slots = this->player_slots;
     server->accept = [player_slots](TCPsocket sock) {
@@ -301,7 +353,26 @@ void RaceApplication::showJoinMenu(void)
         player_slots[num]->setText(addrstr);
         ++num;
     };
+
+    server->handle = [](TCPsocket sock) {
+        char msg[100];
+        SDLNet_TCP_Recv(sock, &msg, 100);
+        std::cout << msg;
+    };
+
     server->go();
+}
+
+void RaceApplication::clientLobbyMode()
+{
+    IPaddress ip;
+    SDLNet_ResolveHost(&ip, toConnect->getText().c_str(), 2800);
+    TCPsocket sock = SDLNet_TCP_Open(&ip);
+    char* msg = "Connected\n";
+    while(true)
+    {
+        SDLNet_TCP_Send(sock, (void*)msg, 10);
+    }
 }
 
 //--------------------------------------------------------------------------------------

@@ -35,10 +35,44 @@ void threadloop(NetworkServer* server)
         if(SDLNet_SocketReady(server->sock))
 		{
 			std::cout << "GOT A CONNECTION\n";
-			server->accept(SDLNet_TCP_Accept(server->sock));
+			TCPsocket handlersock = SDLNet_TCP_Accept(server->sock);
+			server->accept(handlersock);
+			server->addClientSock(handlersock);
+			std::thread* handlethread = new std::thread([server](TCPsocket sock) {
+				while(true)
+				{
+					server->handle(sock);
+					if(server->readyToTerminateClientSock(sock))
+					{
+						break;
+					}
+				}
+			}, handlersock);
 		}
 	}
 	std::cout << "\n\n\nTHREAD FINISHED EXECUTION\n\n\n";
+}
+
+void NetworkServer::addClientSock(TCPsocket sock)
+{
+	clientSockMutex.lock();
+	clientsockets[sock] = false;
+	clientSockMutex.unlock();
+}
+
+bool NetworkServer::readyToTerminateClientSock(TCPsocket sock)
+{
+	clientSockMutex.lock();
+	bool ret = clientsockets[sock];
+	clientSockMutex.unlock();
+	return ret;
+}
+
+void NetworkServer::terminateClientSock(TCPsocket sock)
+{
+	clientSockMutex.lock();
+	clientsockets[sock] = true;
+	clientSockMutex.unlock();
 }
 
 NetworkServer::NetworkServer(int portnum,

@@ -124,7 +124,9 @@ OgreApp-NetworkServer.o: NetworkServer.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/5/ext/aligned_buffer.h \
  /usr/include/c++/5/bits/shared_ptr_atomic.h \
  /usr/include/c++/5/bits/atomic_base.h \
- /usr/include/c++/5/backward/auto_ptr.h /usr/include/c++/5/iostream \
+ /usr/include/c++/5/backward/auto_ptr.h /usr/include/c++/5/map \
+ /usr/include/c++/5/bits/stl_tree.h /usr/include/c++/5/bits/stl_map.h \
+ /usr/include/c++/5/bits/stl_multimap.h /usr/include/c++/5/iostream \
  /usr/include/c++/5/ostream /usr/include/c++/5/ios \
  /usr/include/c++/5/bits/ios_base.h \
  /usr/include/c++/5/bits/locale_classes.h \
@@ -506,6 +508,14 @@ NetworkServer.h:
 /usr/include/c++/5/bits/atomic_base.h:
 
 /usr/include/c++/5/backward/auto_ptr.h:
+
+/usr/include/c++/5/map:
+
+/usr/include/c++/5/bits/stl_tree.h:
+
+/usr/include/c++/5/bits/stl_map.h:
+
+/usr/include/c++/5/bits/stl_multimap.h:
 
 /usr/include/c++/5/iostream:
 

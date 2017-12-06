@@ -52,6 +52,8 @@ protected:
     void backToMenu(void);
     void createJoinMenu(CEGUI::WindowManager& wmgr);
     void showJoinMenu(void);
+    void serverLobbyMode();
+    void clientLobbyMode();
 private:
     Game* game = NULL;
     CEGUI::Window* player_slots[16];
