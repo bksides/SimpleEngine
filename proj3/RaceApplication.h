@@ -22,6 +22,7 @@ This source file is part of the
 #include "Game.h"
 
 #include <SDL/SDL_mixer.h>
+#include <SDL/SDL_net.h>
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 
@@ -40,6 +41,7 @@ public:
     CEGUI::OgreRenderer* mRenderer;
     void createStartMenu(CEGUI::WindowManager& wmgr);
     CEGUI::Window* player_slots[16];
+    std::map<TCPsocket, int> socket_to_player_slot;
 protected:
     void CEGUI_Init();
     virtual void createScene(void);
