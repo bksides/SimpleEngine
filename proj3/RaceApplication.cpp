@@ -58,7 +58,7 @@ void clientLobbyMode(RaceApplication* app)
         }
         if(!strcmp(messageType, "start"))
         {
-            std::cout << "STARTING GAME";
+            std::cout << "STARTING GAME\n";
         }
         else if(!strcmp(messageType, "playername"))
         {
