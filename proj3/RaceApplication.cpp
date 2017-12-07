@@ -370,15 +370,10 @@ void RaceApplication::serverLobbyMode()
     };
 
     server->handle = [player_slots](TCPsocket sock) {
-        static std::string players[16];
         for(uint8_t i = 0; i < 16; ++i)
         {
-            if(player_slots[i]->getText() != players[i])
-            {
-                players[i] = player_slots[i]->getText().c_str();
-                SDLNet_TCP_Send(sock, &i, 1);
-                SDLNet_TCP_Send(sock, (void*)players[i].c_str(), players[i].length());
-            }
+            SDLNet_TCP_Send(sock, &i, 1);
+            SDLNet_TCP_Send(sock, (void*)player_slots[i]->getText().c_str(), player_slots[i]->getText().length());
         }
         char msg[100];
         SDLNet_TCP_Recv(sock, &msg, 100);
