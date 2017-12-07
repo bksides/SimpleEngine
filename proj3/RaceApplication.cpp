@@ -419,7 +419,7 @@ void RaceApplication::serverLobbyMode()
                 this->player_slots[this->socket_to_player_slot[sock]]->setText("--");
                 return;
             }
-            this->startgame = false;
+            //this->startgame = false;
         }
         else
         {
