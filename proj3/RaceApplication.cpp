@@ -12,7 +12,6 @@
 #include <OgreMath.h>
 #include <OISKeyboard.h>
 
-bool startgame = false;
 const char ack[4] = "ack";
 
 //-------------------------------------------------------------------------------------
@@ -48,7 +47,8 @@ void clientLobbyMode(RaceApplication* app)
     char playername[100];
     while(true)
     {
-        if(SDLNet_TCP_Recv(sock, (void*)&i, 1) <= 0)
+        char messageType[11];
+        if(SDLNet_TCP_Recv(sock, (void*)&messageType, 11) <= 0)
         {
             /*
                 Eventually kick the client back to the main menu
@@ -56,16 +56,31 @@ void clientLobbyMode(RaceApplication* app)
             */
             break;
         }
-        std::cout << i << ": ";
-        if(SDLNet_TCP_Recv(sock, (void*)&playername, 100) <= 0)
+        if(!strcmp(messageType, "start"))
         {
-            break;
+            std::cout << "STARTING GAME";
         }
-        std::cout << playername << "\n";
-        app->player_slots[i]->setText(std::string(playername));
-        if(SDLNet_TCP_Send(sock, (void*)&ack, 3) < 3)
+        else if(!strcmp(messageType, "playername"))
         {
-            break;
+            if(SDLNet_TCP_Recv(sock, (void*)&i, 1) <= 0)
+            {
+                /*
+                    Eventually kick the client back to the main menu
+                    upon failed connection.
+                */
+                break;
+            }
+            std::cout << i << ": ";
+            if(SDLNet_TCP_Recv(sock, (void*)&playername, 100) <= 0)
+            {
+                break;
+            }
+            std::cout << playername << "\n";
+            app->player_slots[i]->setText(std::string(playername));
+            if(SDLNet_TCP_Send(sock, (void*)&ack, 3) < 3)
+            {
+                break;
+            }
         }
     }
 }
@@ -384,36 +399,62 @@ void RaceApplication::serverLobbyMode()
         std::cout << addrstr << "\n\n\n";
         //std::cout << addrstdstr << "\n\n\n";
         this->player_slots[num]->setText(addrstr);
+        if(num == 2)
+        {
+            this->startgame = true;
+        }
         ++num;
         num %= 16;
     };
 
     server->handle = [this, server](TCPsocket sock) {
-        static uint8_t i = 0;
         char clientack[4];
-        if(SDLNet_TCP_Send(sock, &i, 1) < 1)
+        char* messageTypes[2] = {"playername", "start"};
+        if(this->startgame)
         {
-            //SDLNet_TCP_Close(sock);
-            server->terminateClientSock(sock);
-            this->player_slots[this->socket_to_player_slot[sock]]->setText("--");
-            return;
+            if(SDLNet_TCP_Send(sock, messageTypes[1], 6) < 6)
+            {
+                //SDLNet_TCP_Close(sock);
+                server->terminateClientSock(sock);
+                this->player_slots[this->socket_to_player_slot[sock]]->setText("--");
+                return;
+            }
+            this->startgame = false;
         }
-        if(SDLNet_TCP_Send(sock, (void*)(this->player_slots[i])->getText().c_str(), this->player_slots[i]->getText().length() + 1) < this->player_slots[i]->getText().length() + 1)
+        else
         {
-            //SDLNet_TCP_Close(sock);
-            server->terminateClientSock(sock);
-            this->player_slots[this->socket_to_player_slot[sock]]->setText("--");
-            return;
+            for(int i = 0; i < 16; ++i)
+            {
+                if(SDLNet_TCP_Send(sock, messageTypes[0], 11) < 11)
+                {
+                    //SDLNet_TCP_Close(sock);
+                    server->terminateClientSock(sock);
+                    this->player_slots[this->socket_to_player_slot[sock]]->setText("--");
+                    return;
+                }
+                if(SDLNet_TCP_Send(sock, &i, 1) < 1)
+                {
+                    //SDLNet_TCP_Close(sock);
+                    server->terminateClientSock(sock);
+                    this->player_slots[this->socket_to_player_slot[sock]]->setText("--");
+                    return;
+                }
+                if(SDLNet_TCP_Send(sock, (void*)(this->player_slots[i])->getText().c_str(), this->player_slots[i]->getText().length() + 1) < this->player_slots[i]->getText().length() + 1)
+                {
+                    //SDLNet_TCP_Close(sock);
+                    server->terminateClientSock(sock);
+                    this->player_slots[this->socket_to_player_slot[sock]]->setText("--");
+                    return;
+                }
+                if(SDLNet_TCP_Recv(sock, &clientack, 4) <= 0)
+                {
+                    //SDLNet_TCP_Close(sock);
+                    server->terminateClientSock(sock);
+                    this->player_slots[this->socket_to_player_slot[sock]]->setText("--");
+                    return;
+                }
+            }
         }
-        if(SDLNet_TCP_Recv(sock, &clientack, 4) <= 0)
-        {
-            //SDLNet_TCP_Close(sock);
-            server->terminateClientSock(sock);
-            this->player_slots[this->socket_to_player_slot[sock]]->setText("--");
-            return;
-        }
-        ++i;
-        i %= 16;
     };
 
     server->go();

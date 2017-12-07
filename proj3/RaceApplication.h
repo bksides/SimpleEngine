@@ -37,6 +37,7 @@ public:
     CEGUI::Window* mult_info = NULL;
     CEGUI::Window* join_menu = NULL;
     CEGUI::RadioButton* hostOption = NULL;
+    bool startgame = false;
     CEGUI::Editbox* toConnect;
     CEGUI::OgreRenderer* mRenderer;
     void createStartMenu(CEGUI::WindowManager& wmgr);
