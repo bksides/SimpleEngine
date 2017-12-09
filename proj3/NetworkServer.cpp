@@ -1,4 +1,5 @@
 #include "NetworkServer.h"
+#include "NetworkProtocol.h"
 #include <thread>
 #include <iostream>
 
@@ -41,7 +42,12 @@ void threadloop(NetworkServer* server)
 			std::thread* handlethread = new std::thread([server](TCPsocket sock) {
 				while(true)
 				{
-					server->handle(sock);
+					int identifier;
+					if(SDLNet_TCP_Recv(server->sock, &identifier, sizeof(int)) <= 0)
+					{
+						break;
+					}
+					server->protocol->call(identifier, sock);
 					if(server->readyToTerminateClientSock(sock))
 					{
 						break;
@@ -76,7 +82,7 @@ void NetworkServer::terminateClientSock(TCPsocket sock)
 }
 
 NetworkServer::NetworkServer(int portnum,
-	std::function<void(TCPsocket)> accept) : accept(accept)
+	NetworkProtocol* protocol) : protocol(protocol)
 {
 	IPaddress ip;
 	SDLNet_ResolveHost(&ip, NULL, portnum);

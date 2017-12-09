@@ -8,6 +8,8 @@
 #include <thread>
 #include <map>
 
+#include "NetworkProtocol.h"
+
 class NetworkServer
 {
 private:
@@ -17,6 +19,7 @@ private:
 	std::mutex terminatemutex;
 	std::mutex clientSockMutex;
 public:
+	NetworkProtocol* protocol;
 	bool readyToTerminate();
 	void terminate();
 	void addClientSock(TCPsocket sock);
@@ -24,8 +27,8 @@ public:
 	void terminateClientSock(TCPsocket sock);
 	TCPsocket sock;
 	std::function<void(TCPsocket)> accept;
-	std::function<void(TCPsocket)> handle;
-	NetworkServer(int portnum, std::function<void(TCPsocket)> accept = [](TCPsocket sock){});
+	std::function<void(TCPsocket, NetworkServer*)> handle;
+	NetworkServer(int portnum, NetworkProtocol* protocol);
 	void go();
 };
 

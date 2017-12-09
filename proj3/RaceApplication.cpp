@@ -2,6 +2,7 @@
 #include "SinglePlayerGame.h"
 #include "RaceApplication.h"
 #include "NetworkServer.h"
+#include "NetworkProtocol.h"
 #include <cstdlib>
 #include <iostream>
 #include <cmath>
@@ -11,6 +12,7 @@
 #include <OgreQuaternion.h>
 #include <OgreMath.h>
 #include <OISKeyboard.h>
+#include <utility>
 
 const char ack[4] = "ack";
 
@@ -388,8 +390,19 @@ void RaceApplication::showJoinMenu(void)
 
 void RaceApplication::serverLobbyMode()
 {
-    NetworkServer* server = new NetworkServer(2800);
-    CEGUI::Window** player_slots = this->player_slots;
+    NetworkProtocol* protocol = new NetworkProtocol();
+    NetworkServer* server = new NetworkServer(2800, protocol);
+    std::function<std::pair<char*, int>(int*)> playerName = [this](int* n) -> std::pair<char*, int> {
+        if(n != NULL)
+        {
+            return std::pair<char*, int>(const_cast<char*>(this->player_slots[*n]->getText().c_str()), this->player_slots[*n]->getText().length());
+        }
+        else
+        {
+            return std::pair<char*, int>("--", 2);
+        }
+    };
+    protocol->addFunction<char, int>(0, playerName);
     server->accept = [this](TCPsocket sock) {
         static int num = 1;
         this->socket_to_player_slot[sock] = num;
@@ -407,7 +420,7 @@ void RaceApplication::serverLobbyMode()
         num %= 16;
     };
 
-    server->handle = [this, server](TCPsocket sock) {
+    server->handle = [this](TCPsocket sock, NetworkServer* server) {
         char clientack[4];
         char* messageTypes[2] = {"playername", "start"};
         if(this->startgame)
