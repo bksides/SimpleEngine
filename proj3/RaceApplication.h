@@ -36,6 +36,7 @@ public:
     CEGUI::Window *mult_menu = NULL;
     CEGUI::Window* mult_info = NULL;
     CEGUI::Window* join_menu = NULL;
+    CEGUI::PushButton* startGame = NULL;
     CEGUI::RadioButton* hostOption = NULL;
     bool startgame = false;
     CEGUI::Editbox* toConnect;

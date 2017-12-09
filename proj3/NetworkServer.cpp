@@ -42,9 +42,12 @@ void threadloop(NetworkServer* server)
 			std::thread* handlethread = new std::thread([server](TCPsocket sock) {
 				while(true)
 				{
+					printf("Waiting for function call...\n");
 					int identifier;
-					if(SDLNet_TCP_Recv(server->sock, &identifier, sizeof(int)) <= 0)
+					if(SDLNet_TCP_Recv(sock, &identifier, sizeof(int)) <= 0)
 					{
+						std::cout << "\n\nERROR!!!\n\n" << SDLNet_GetError() << "\n\n";
+						server->socketDisconnected(sock);
 						break;
 					}
 					std::cout << "Received function call: " << identifier << "\n";

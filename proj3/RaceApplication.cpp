@@ -42,6 +42,7 @@ CEGUI::Key InjectOISKey(OIS::KeyEvent inKey, bool bButtonDown)
 
 void clientLobbyMode(RaceApplication* app)
 {
+    app->startGame->setVisible(false);
     IPaddress ip;
     SDLNet_ResolveHost(&ip, app->toConnect->getText().c_str(), 2800);
     TCPsocket sock = SDLNet_TCP_Open(&ip);
@@ -335,6 +336,15 @@ void RaceApplication::createJoinMenu(CEGUI::WindowManager& wmgr)
         join_menu->addChild(player_slots[i]);
     }
 
+    startGame = (CEGUI::PushButton*)wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/MultiPlayer");
+    join_menu->addChild(startGame);
+    startGame->setPosition(CEGUI::UVector2(CEGUI::UDim(0.125, 0.0), CEGUI::UDim(0.85, 0.0)));
+    startGame->setSize(CEGUI::USize(CEGUI::UDim(0.75,0.0), CEGUI::UDim(0.15, 0.0)));
+    startGame->setText("Start Game");
+    startGame->setVisible(false);
+    //multiPlayer->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&RaceApplication::createScene, this));
+    //multiPlayer->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&RaceApplication::showMultiPlayerOptions, this));
+
     join_menu->setVisible(false);
 }
 
@@ -379,8 +389,12 @@ void RaceApplication::showJoinMenu(void)
 
 void RaceApplication::serverLobbyMode()
 {
+    startGame->setVisible(true);
     NetworkProtocol* protocol = new NetworkProtocol();
     NetworkServer* server = new NetworkServer(2800, protocol);
+    server->socketDisconnected = [this](TCPsocket sock) {
+        this->player_slots[socket_to_player_slot[sock]]->setText("--");
+    };
     std::function<std::pair<char*, int>(int*)> playerName = [this](int* n) -> std::pair<char*, int> {
         if(n != NULL)
         {

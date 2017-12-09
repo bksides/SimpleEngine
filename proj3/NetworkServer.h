@@ -28,6 +28,7 @@ public:
 	TCPsocket sock;
 	std::function<void(TCPsocket)> accept;
 	std::function<void(TCPsocket, NetworkServer*)> handle;
+	std::function<void(TCPsocket)> socketDisconnected;
 	NetworkServer(int portnum, NetworkProtocol* protocol);
 	void go();
 };
