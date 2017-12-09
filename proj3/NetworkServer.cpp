@@ -47,6 +47,7 @@ void threadloop(NetworkServer* server)
 					{
 						break;
 					}
+					std::cout << "Received function call: " << identifier << "\n";
 					server->protocol->call(identifier, sock);
 					if(server->readyToTerminateClientSock(sock))
 					{

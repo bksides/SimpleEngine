@@ -47,27 +47,32 @@ void clientLobbyMode(RaceApplication* app)
     TCPsocket sock = SDLNet_TCP_Open(&ip);
     char playername[100];
     int playerNameIdentifier = 0;
-    for(int i = 0; i < 16; ++i)
+    while(true)
     {
-        if(SDLNet_TCP_Send(sock, &playerNameIdentifier, sizeof(int)) < sizeof(int))
+        for(int i = 0; i < 16; ++i)
         {
-            break;
+            std::cout << "Getting player name at " << i << "\n";
+            if(SDLNet_TCP_Send(sock, &playerNameIdentifier, sizeof(int)) < sizeof(int))
+            {
+                break;
+            }
+            if(SDLNet_TCP_Send(sock, &i, sizeof(int)) < sizeof(int))
+            {
+                break;
+            }
+            int len;
+            if(SDLNet_TCP_Recv(sock, &len, sizeof(int)) <= 0)
+            {
+                break;
+            }
+            char* playername = (char*)calloc(len + 1, sizeof(char));
+            if(SDLNet_TCP_Recv(sock, playername, len * sizeof(char)) <= 0)
+            {
+                break;
+            }
+            app->player_slots[i]->setText(playername);
+            std::cout << "Player name: " << playername << "\n";
         }
-        if(SDLNet_TCP_Send(sock, &i, sizeof(int)) < sizeof(int))
-        {
-            break;
-        }
-        int len;
-        if(SDLNet_TCP_Recv(sock, &len, sizeof(int)) <= 0)
-        {
-            break;
-        }
-        char* playername = (char*)calloc(len + 1, sizeof(char));
-        if(SDLNet_TCP_Recv(sock, playername, len * sizeof(char)) <= 0)
-        {
-            break;
-        }
-        app->player_slots[i]->setText(playername);
     }
 }
 
