@@ -45,45 +45,29 @@ void clientLobbyMode(RaceApplication* app)
     IPaddress ip;
     SDLNet_ResolveHost(&ip, app->toConnect->getText().c_str(), 2800);
     TCPsocket sock = SDLNet_TCP_Open(&ip);
-    int i;
     char playername[100];
-    while(true)
+    int playerNameIdentifier = 0;
+    for(int i = 0; i < 16; ++i)
     {
-        char messageType[11];
-        if(SDLNet_TCP_Recv(sock, (void*)&messageType, 11) <= 0)
+        if(SDLNet_TCP_Send(sock, &playerNameIdentifier, sizeof(int)) < sizeof(int))
         {
-            /*
-                Eventually kick the client back to the main menu
-                upon failed connection.
-            */
             break;
         }
-        if(!strcmp(messageType, "start"))
+        if(SDLNet_TCP_Send(sock, &i, sizeof(int)) < sizeof(int))
         {
-            std::cout << "STARTING GAME\n";
+            break;
         }
-        else if(!strcmp(messageType, "playername"))
+        int len;
+        if(SDLNet_TCP_Recv(sock, &len, sizeof(int)) <= 0)
         {
-            if(SDLNet_TCP_Recv(sock, (void*)&i, 1) <= 0)
-            {
-                /*
-                    Eventually kick the client back to the main menu
-                    upon failed connection.
-                */
-                break;
-            }
-            std::cout << i << ": ";
-            if(SDLNet_TCP_Recv(sock, (void*)&playername, 100) <= 0)
-            {
-                break;
-            }
-            std::cout << playername << "\n";
-            app->player_slots[i]->setText(std::string(playername));
-            if(SDLNet_TCP_Send(sock, (void*)&ack, 3) < 3)
-            {
-                break;
-            }
+            break;
         }
+        char* playername = (char*)calloc(len + 1, sizeof(char));
+        if(SDLNet_TCP_Recv(sock, playername, len * sizeof(char)) <= 0)
+        {
+            break;
+        }
+        app->player_slots[i]->setText(playername);
     }
 }
 
