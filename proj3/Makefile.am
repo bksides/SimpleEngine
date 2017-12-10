@@ -1,9 +1,9 @@
 ACLOCAL_AMFLAGS= -I m4
-noinst_HEADERS= BaseApplication.h RaceApplication.h RaceWorld.h FloorTile.h Vehicle.h PlayerVehicle.h Wall.h TrackCreator.h StartTile.h Game.h SinglePlayerGame.h NetworkServer.h NetworkProtocol.h ../SimpleEngine/SimpleEngineWorld.h ../SimpleEngine/SimpleEngineGameObject.h ../SimpleEngine/SimpleEngineCollisionEvent.h
+noinst_HEADERS= BaseApplication.h RaceApplication.h RaceWorld.h FloorTile.h Vehicle.h PlayerVehicle.h Wall.h TrackCreator.h StartTile.h Game.h SinglePlayerGame.h MultiPlayerServerGame.h NetworkServer.h NetworkProtocol.h NetworkClient.h ../SimpleEngine/SimpleEngineWorld.h ../SimpleEngine/SimpleEngineGameObject.h ../SimpleEngine/SimpleEngineCollisionEvent.h
 
 bin_PROGRAMS= OgreApp
 OgreApp_CPPFLAGS= -std=c++11 -I$(top_srcdir)
-OgreApp_SOURCES= BaseApplication.cpp RaceApplication.cpp RaceWorld.cpp FloorTile.cpp Vehicle.cpp PlayerVehicle.cpp Wall.cpp TrackCreator.cpp StartTile.cpp Game.cpp SinglePlayerGame.cpp NetworkServer.cpp NetworkProtocol.cpp ../SimpleEngine/SimpleEngineWorld.cpp ../SimpleEngine/SimpleEngineGameObject.cpp ../SimpleEngine/SimpleEngineCollisionEvent.cpp
+OgreApp_SOURCES= BaseApplication.cpp RaceApplication.cpp RaceWorld.cpp FloorTile.cpp Vehicle.cpp PlayerVehicle.cpp Wall.cpp TrackCreator.cpp StartTile.cpp Game.cpp SinglePlayerGame.cpp MultiPlayerServerGame.cpp NetworkServer.cpp NetworkProtocol.cpp NetworkClient.cpp ../SimpleEngine/SimpleEngineWorld.cpp ../SimpleEngine/SimpleEngineGameObject.cpp ../SimpleEngine/SimpleEngineCollisionEvent.cpp
 OgreApp_CXXFLAGS= -I/usr/include/OGRE -pthread $(OIS_CFLAGS) $(CEGUI_CFLAGS) $(CEGUI_OGRE_CFLAGS) $(CEGUIOGRE_CFLAGS) $(BULLET_CFLAGS)
 OgreApp_LDADD= -L/usr/lib/x86_64-linux-gnu/OGRE-1.9.0 -lOgreMain -lSDL -lSDL_mixer -lSDL_net -lpthread $(OIS_LIBS) $(CEGUI_LIBS) $(CEGUI_OGRE_LIBS) $(CEGUIOGRE_LIBS) $(BULLET_LIBS)
 OgreApp_LDFLAGS= -lOgreOverlay -lboost_system

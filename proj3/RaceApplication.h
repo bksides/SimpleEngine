@@ -20,6 +20,7 @@ This source file is part of the
 #include "BaseApplication.h"
 #include "RaceWorld.h"
 #include "Game.h"
+#include "NetworkServer.h"
 
 #include <SDL/SDL_mixer.h>
 #include <SDL/SDL_net.h>
@@ -38,12 +39,15 @@ public:
     CEGUI::Window* join_menu = NULL;
     CEGUI::PushButton* startGame = NULL;
     CEGUI::RadioButton* hostOption = NULL;
+    NetworkServer* server = NULL;
     bool startgame = false;
+    bool startmultgame = false;
     CEGUI::Editbox* toConnect;
     CEGUI::OgreRenderer* mRenderer;
     void createStartMenu(CEGUI::WindowManager& wmgr);
     CEGUI::Window* player_slots[16];
     std::map<TCPsocket, int> socket_to_player_slot;
+    void beginMultiPlayerAsClient(void);
 protected:
     void CEGUI_Init();
     virtual void createScene(void);
@@ -57,6 +61,7 @@ protected:
     void backToMenu(void);
     void createJoinMenu(CEGUI::WindowManager& wmgr);
     void showJoinMenu(void);
+    void beginMultiPlayer(void);
     void serverLobbyMode();
     //void clientLobbyMode();
 private:

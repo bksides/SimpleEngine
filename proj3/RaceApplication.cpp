@@ -1,8 +1,10 @@
 
 #include "SinglePlayerGame.h"
+#include "MultiPlayerServerGame.h"
 #include "RaceApplication.h"
 #include "NetworkServer.h"
 #include "NetworkProtocol.h"
+#include "NetworkClient.h"
 #include <cstdlib>
 #include <iostream>
 #include <cmath>
@@ -13,6 +15,12 @@
 #include <OgreMath.h>
 #include <OISKeyboard.h>
 #include <utility>
+
+enum FuncIdentifiers
+{
+    PlayerName,
+    GameStarted
+};
 
 const char ack[4] = "ack";
 
@@ -43,37 +51,41 @@ CEGUI::Key InjectOISKey(OIS::KeyEvent inKey, bool bButtonDown)
 void clientLobbyMode(RaceApplication* app)
 {
     app->startGame->setVisible(false);
-    IPaddress ip;
-    SDLNet_ResolveHost(&ip, app->toConnect->getText().c_str(), 2800);
-    TCPsocket sock = SDLNet_TCP_Open(&ip);
-    char playername[100];
-    int playerNameIdentifier = 0;
+    NetworkClient client(app->toConnect->getText().c_str(), 2800);
     while(true)
     {
+        usleep(10000);
         for(int i = 0; i < 16; ++i)
         {
             std::cout << "Getting player name at " << i << "\n";
-            if(SDLNet_TCP_Send(sock, &playerNameIdentifier, sizeof(int)) < sizeof(int))
-            {
-                break;
-            }
-            if(SDLNet_TCP_Send(sock, &i, sizeof(int)) < sizeof(int))
-            {
-                break;
-            }
-            int len;
-            if(SDLNet_TCP_Recv(sock, &len, sizeof(int)) <= 0)
-            {
-                break;
-            }
-            char* playername = (char*)calloc(len + 1, sizeof(char));
-            if(SDLNet_TCP_Recv(sock, playername, len * sizeof(char)) <= 0)
-            {
-                break;
-            }
-            app->player_slots[i]->setText(playername);
-            std::cout << "Player name: " << playername << "\n";
+            std::pair<char*, int> playername = client.call<char, int>((int)FuncIdentifiers::PlayerName, &i);
+            app->player_slots[i]->setText(playername.first);
+            std::cout << "Player name: " << playername.first << "\n";
         }
+        std::cout << "Checking if game is started...\n";
+        std::pair<bool*, int> started = client.call<bool>((int)FuncIdentifiers::GameStarted);
+        if(*(started.first))
+        {
+            app->startmultgame = true;
+        }
+    }
+}
+
+void RaceApplication::beginMultiPlayerAsClient(void)
+{
+    start_menu->setVisible(false);
+    mult_menu->setVisible(false);
+    join_menu->setVisible(false);
+    //score_board->setVisible(true);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().hide();
+
+    game = new SinglePlayerGame(mCamera, mSceneMgr, mShutDown, pause_pop_up);
+
+    if(game != NULL)
+    {
+        createCamera();
+        createViewports();
+        game->createScene();
     }
 }
 
@@ -245,10 +257,43 @@ void RaceApplication::createScene(void)
 {
     start_menu->setVisible(false);
     mult_menu->setVisible(false);
+    join_menu->setVisible(false);
     //score_board->setVisible(true);
     CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().hide();
 
     game = new SinglePlayerGame(mCamera, mSceneMgr, mShutDown, pause_pop_up);
+
+    if(game != NULL)
+    {
+        createCamera();
+        createViewports();
+        game->createScene();
+    }
+
+    startgame = true;
+}
+
+void RaceApplication::beginMultiPlayer(void)
+{
+    server->terminate();
+
+    start_menu->setVisible(false);
+    mult_menu->setVisible(false);
+    join_menu->setVisible(false);
+    //score_board->setVisible(true);
+    CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().hide();
+
+    std::list<TCPsocket> sockets;
+
+    for(std::pair<TCPsocket, int> playerslotpair : socket_to_player_slot)
+    {
+        if(player_slots[playerslotpair.second]->getText() != "--")
+        {
+            sockets.push_front(playerslotpair.first);
+        }
+    }
+
+    game = new MultiPlayerServerGame(mCamera, mSceneMgr, mShutDown, sockets);
 
     if(game != NULL)
     {
@@ -338,11 +383,11 @@ void RaceApplication::createJoinMenu(CEGUI::WindowManager& wmgr)
 
     startGame = (CEGUI::PushButton*)wmgr.createWindow("TaharezLook/Button", "CEGUIDemo/MultiPlayer");
     join_menu->addChild(startGame);
-    startGame->setPosition(CEGUI::UVector2(CEGUI::UDim(0.125, 0.0), CEGUI::UDim(0.85, 0.0)));
-    startGame->setSize(CEGUI::USize(CEGUI::UDim(0.75,0.0), CEGUI::UDim(0.15, 0.0)));
+    startGame->setPosition(CEGUI::UVector2(CEGUI::UDim(0.125, 0.0), CEGUI::UDim(0.8, 0.0)));
+    startGame->setSize(CEGUI::USize(CEGUI::UDim(0.75,0.0), CEGUI::UDim(0.1, 0.0)));
     startGame->setText("Start Game");
     startGame->setVisible(false);
-    //multiPlayer->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&RaceApplication::createScene, this));
+    startGame->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&RaceApplication::beginMultiPlayer, this));
     //multiPlayer->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&RaceApplication::showMultiPlayerOptions, this));
 
     join_menu->setVisible(false);
@@ -391,21 +436,8 @@ void RaceApplication::serverLobbyMode()
 {
     startGame->setVisible(true);
     NetworkProtocol* protocol = new NetworkProtocol();
-    NetworkServer* server = new NetworkServer(2800, protocol);
-    server->socketDisconnected = [this](TCPsocket sock) {
-        this->player_slots[socket_to_player_slot[sock]]->setText("--");
-    };
-    std::function<std::pair<char*, int>(int*)> playerName = [this](int* n) -> std::pair<char*, int> {
-        if(n != NULL)
-        {
-            return std::pair<char*, int>(const_cast<char*>(this->player_slots[*n]->getText().c_str()), this->player_slots[*n]->getText().length());
-        }
-        else
-        {
-            return std::pair<char*, int>("--", 2);
-        }
-    };
-    protocol->addFunction<char, int>(0, playerName);
+    server = new NetworkServer(2800, protocol);
+
     server->accept = [this](TCPsocket sock) {
         static int num = 1;
         this->socket_to_player_slot[sock] = num;
@@ -423,6 +455,27 @@ void RaceApplication::serverLobbyMode()
         num %= 16;
     };
 
+    server->socketDisconnected = [this](TCPsocket sock) {
+        this->player_slots[socket_to_player_slot[sock]]->setText("--");
+    };
+
+    std::function<std::pair<char*, int>(int*)> playerName = [this](int* n) -> std::pair<char*, int> {
+        if(n != NULL)
+        {
+            return std::pair<char*, int>(const_cast<char*>(this->player_slots[*n]->getText().c_str()), this->player_slots[*n]->getText().length());
+        }
+        else
+        {
+            return std::pair<char*, int>("--", 2);
+        }
+    };
+    protocol->addFunction<char, int>((int)FuncIdentifiers::PlayerName, playerName);
+
+    std::function<std::pair<bool*, int>()> gameStarted = [this]() -> std::pair<bool*, int> {
+        return std::pair<bool*, int>(&(this->startgame), 1);
+    };
+    protocol->addFunction<bool>((int)FuncIdentifiers::GameStarted, gameStarted);
+    /*
     server->handle = [this](TCPsocket sock, NetworkServer* server) {
         char clientack[4];
         char* messageTypes[2] = {"playername", "start"};
@@ -472,6 +525,7 @@ void RaceApplication::serverLobbyMode()
             }
         }
     };
+    */
 
     server->go();
 }
@@ -479,6 +533,10 @@ void RaceApplication::serverLobbyMode()
 //--------------------------------------------------------------------------------------
 bool RaceApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
+    if(startmultgame)
+    {
+        beginMultiPlayerAsClient();
+    }
     if(game != NULL)
     {
         game->frameRenderingQueued(evt);
