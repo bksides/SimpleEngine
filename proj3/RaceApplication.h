@@ -39,15 +39,22 @@ public:
     CEGUI::Window* join_menu = NULL;
     CEGUI::PushButton* startGame = NULL;
     CEGUI::RadioButton* hostOption = NULL;
+    unsigned int clientSeed;
     NetworkServer* server = NULL;
     bool startgame = false;
     bool startmultgame = false;
+    bool stopAsking = false;
+    std::mutex startmultgamemutex;
+    std::list<struct VehicleInfo*> vehicleList;
+    std::map<Vehicle*, struct VehicleInfo*> vehicles;
+    std::map<TCPsocket, Vehicle*> playerVehicles;
     CEGUI::Editbox* toConnect;
     CEGUI::OgreRenderer* mRenderer;
     void createStartMenu(CEGUI::WindowManager& wmgr);
     CEGUI::Window* player_slots[16];
     std::map<TCPsocket, int> socket_to_player_slot;
     void beginMultiPlayerAsClient(void);
+    Game* game = NULL;
 protected:
     void CEGUI_Init();
     virtual void createScene(void);
@@ -64,8 +71,6 @@ protected:
     void beginMultiPlayer(void);
     void serverLobbyMode();
     //void clientLobbyMode();
-private:
-    Game* game = NULL;
 };
 
 #endif // #ifndef __RaceApplication_h_

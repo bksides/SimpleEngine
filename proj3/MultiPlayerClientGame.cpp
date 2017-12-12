@@ -1,24 +1,24 @@
-#include "MultiPlayerServerGame.h"
-
+#include "MultiPlayerClientGame.h"
+#include <btBulletDynamicsCommon.h>
 #include "StartTile.h"
 #include "FloorTile.h"
 #include "Wall.h"
 
-MultiPlayerServerGame::MultiPlayerServerGame(Ogre::Camera*& mCamera,
-	Ogre::SceneManager*& mSceneMgr,
-	bool& mShutDown,
-	std::list<TCPsocket> clients,
-    unsigned int clientSeed,
-    RaceApplication* app) : Game(mCamera, mSceneMgr, mShutDown),
-    clientSeed(clientSeed), app(app)
+MultiPlayerClientGame::MultiPlayerClientGame(Ogre::Camera*& mCamera,
+			Ogre::SceneManager*& mSceneMgr,
+			bool& mShutDown,
+			unsigned int seed, RaceApplication* app) : Game(mCamera, mSceneMgr, mShutDown), seed(seed),
+            app(app)
 {
-	for(TCPsocket client : clients)
+	for(struct VehicleInfo* info : app->vehicleList)
 	{
-		app->playerVehicles[client] = new Vehicle(mSceneMgr);
+        Vehicle* veh = new Vehicle(mSceneMgr);
+		app->vehicles[veh] = info;
+        veh->getRigidBody()->setCollisionFlags(veh->getRigidBody()->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
 	}
 }
 
-void MultiPlayerServerGame::createScene(void)
+void MultiPlayerClientGame::createScene(void)
 {
 	/**
     ---SKYBOX---
@@ -49,13 +49,15 @@ void MultiPlayerServerGame::createScene(void)
     raceWorld->addObject(raceWorld->playerVehicle, Ogre::Vector3::UNIT_Y*10);
     raceWorld->playerVehicle->cameraNode->attachObject(mCamera);
 
-    for(std::pair<TCPsocket, Vehicle*> remotePlayerPair : app->playerVehicles)
+    for(std::pair<Vehicle*, struct VehicleInfo*> mappair : app->vehicles)
     {
-    	raceWorld->addObject(remotePlayerPair.second, Ogre::Vector3::UNIT_Y*10);
+    	struct VehicleInfo* info = mappair.second;
+    	raceWorld->addObject(mappair.first, info->location, info->velocity, Ogre::Vector3::ZERO);
+        mappair.first->setRotation(info->rotation);
     }
 
     TrackCreator tc;
-    std::list<DIRECTION::DIRECTION> turns = tc.createTrack(25, 25, clientSeed);
+    std::list<DIRECTION::DIRECTION> turns = tc.createTrack(25, 25, seed);
     int x = 0;
     int z = 0;
     bool start = true;
@@ -106,25 +108,19 @@ void MultiPlayerServerGame::createScene(void)
                 z -= 1;
                 break;
         }
-
-        for(std::pair<Vehicle*, struct VehicleInfo*> infomapelement : app->vehicles)
-        {
-            infomapelement.first->setPosition(infomapelement.second->location);
-            infomapelement.first->setVelocity(infomapelement.second->velocity);
-            infomapelement.first->setRotation(infomapelement.second->rotation);
-        }
     }
 }
 
-void MultiPlayerServerGame::createCamera(void)
+void MultiPlayerClientGame::createCamera(void)
 {
+    std::cout << "\n\n\n\n\nCREATING CAMERA\n\n\n\n\n";
     mCamera = mSceneMgr->createCamera("PlayerCam");
     mCamera->setPosition(0,40,100);
     mCamera->lookAt(Ogre::Vector3(0,0,0));
     mCamera->setNearClipDistance(5);
 }
 
-bool MultiPlayerServerGame::frameRenderingQueued(const Ogre::FrameEvent& evt)
+bool MultiPlayerClientGame::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
     mCamera->lookAt(raceWorld->playerVehicle->getPosition());
     if (pressedKeys.find(OIS::KC_W) != pressedKeys.end())
@@ -154,11 +150,28 @@ bool MultiPlayerServerGame::frameRenderingQueued(const Ogre::FrameEvent& evt)
         raceWorld->playerVehicle->cameraNode->yaw(Ogre::Radian(-1*M_PI * evt.timeSinceLastFrame), Ogre::Node::TS_WORLD);
     }
     raceWorld->playerVehicle->visitedTiles.insert(coord{(int)(floor((float)(raceWorld->playerVehicle->getPosition().x+50)/100)), (int)(floor((float)(raceWorld->playerVehicle->getPosition().z+50)/100))});
+    /*
+    if((int)(floor((float)(raceWorld->playerVehicle->getPosition().x+50)/100)) == 0 && (int)(floor((float)(raceWorld->playerVehicle->getPosition().z+50)/100)) == 0)
+    {
+        if(raceWorld->playerVehicle->visitedTiles == raceWorld->trackcoords)
+        {
+            pause_pop_up->setVisible(true);
+        }
+    }
+    */
+
+    for(std::pair<Vehicle*, struct VehicleInfo*> mappair : app->vehicles)
+    {
+        mappair.first->setPosition(mappair.second->location);
+        mappair.first->setVelocity(mappair.second->velocity);
+        mappair.first->setRotation(mappair.second->rotation);
+    }
+
     raceWorld->update(evt.timeSinceLastFrame);
     return true;
 }
 
-bool MultiPlayerServerGame::keyPressed( const OIS::KeyEvent &arg )
+bool MultiPlayerClientGame::keyPressed( const OIS::KeyEvent &arg )
 {
   if (arg.key == OIS::KC_ESCAPE) {
     mShutDown = true;
@@ -171,14 +184,14 @@ bool MultiPlayerServerGame::keyPressed( const OIS::KeyEvent &arg )
   return true;
 }
 
-bool MultiPlayerServerGame::keyReleased(const OIS::KeyEvent &arg)
+bool MultiPlayerClientGame::keyReleased(const OIS::KeyEvent &arg)
 {
 	pressedKeys.erase(arg.key);
 
     return true;
 }
 
-MultiPlayerServerGame::~MultiPlayerServerGame()
+MultiPlayerClientGame::~MultiPlayerClientGame()
 {
 	delete raceWorld;
 }

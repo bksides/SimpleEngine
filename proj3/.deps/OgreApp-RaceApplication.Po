@@ -1390,9 +1390,10 @@ OgreApp-RaceApplication.o: RaceApplication.cpp /usr/include/stdc-predef.h \
  NetworkServer.h /usr/include/c++/5/mutex /usr/include/c++/5/chrono \
  /usr/include/c++/5/ratio /usr/include/c++/5/bits/parse_numbers.h \
  /usr/include/c++/5/thread NetworkProtocol.h /usr/include/SDL/SDL_mixer.h \
- /usr/include/SDL/SDL_types.h NetworkClient.h /usr/include/SDL/SDL.h \
- /usr/include/OGRE/OgreMeshManager.h /usr/include/OGRE/OgrePatchMesh.h \
- /usr/include/OGRE/OgrePatchSurface.h /usr/include/OGRE/OgreMath.h
+ /usr/include/SDL/SDL_types.h MultiPlayerClientGame.h NetworkClient.h \
+ /usr/include/SDL/SDL.h /usr/include/OGRE/OgreMeshManager.h \
+ /usr/include/OGRE/OgrePatchMesh.h /usr/include/OGRE/OgrePatchSurface.h \
+ /usr/include/OGRE/OgreMath.h
 
 /usr/include/stdc-predef.h:
 
@@ -4555,6 +4556,8 @@ NetworkProtocol.h:
 /usr/include/SDL/SDL_mixer.h:
 
 /usr/include/SDL/SDL_types.h:
+
+MultiPlayerClientGame.h:
 
 NetworkClient.h:
 

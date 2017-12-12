@@ -82,6 +82,8 @@ void GameObject::setRotation(const Ogre::Quaternion& rot)
     rot.ToAngleAxis(angle, axis);
 
     trans.setRotation(btQuaternion(btVector3(axis.x, axis.y, axis.z), angle.valueRadians()));
+    rigidBody->setWorldTransform(trans);
+    rigidBody->getMotionState()->setWorldTransform(trans);
 }
 
 void GameObject::rotate(const Ogre::Vector3& rot)

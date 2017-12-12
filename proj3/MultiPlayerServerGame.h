@@ -11,6 +11,7 @@
 #include "Game.h"
 #include "Vehicle.h"
 #include "RaceWorld.h"
+#include "RaceApplication.h"
 
 class MultiPlayerServerGame : public Game
 {
@@ -18,10 +19,14 @@ private:
 	std::map<TCPsocket, Vehicle*> remotePlayers;
 	std::set<OIS::KeyCode> pressedKeys;
     RaceWorld* raceWorld;
+    unsigned int clientSeed;
+    RaceApplication* app;
 public:
 	MultiPlayerServerGame(Ogre::Camera*& mCamera,
 			Ogre::SceneManager*& mSceneMgr,
-			bool& mShutDown, std::list<TCPsocket> clients);
+			bool& mShutDown, std::list<TCPsocket> clients,
+			unsigned int clientSeed,
+			RaceApplication* app);
     void createScene(void);
     void createCamera(void);
     bool frameRenderingQueued(const Ogre::FrameEvent& evt);

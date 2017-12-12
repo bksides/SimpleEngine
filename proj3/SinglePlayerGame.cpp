@@ -100,6 +100,7 @@ void SinglePlayerGame::createScene(void)
 
 void SinglePlayerGame::createCamera(void)
 {
+    std::cout << "\n\n\n\n\nCREATING CAMERA\n\n\n\n\n";
     mCamera = mSceneMgr->createCamera("PlayerCam");
     mCamera->setPosition(0,40,100);
     mCamera->lookAt(Ogre::Vector3(0,0,0));

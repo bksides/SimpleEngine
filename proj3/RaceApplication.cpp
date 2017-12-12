@@ -1,6 +1,7 @@
 
 #include "SinglePlayerGame.h"
 #include "MultiPlayerServerGame.h"
+#include "MultiPlayerClientGame.h"
 #include "RaceApplication.h"
 #include "NetworkServer.h"
 #include "NetworkProtocol.h"
@@ -19,7 +20,9 @@
 enum FuncIdentifiers
 {
     PlayerName,
-    GameStarted
+    GameStarted,
+    GetSeed,
+    GetVehicles
 };
 
 const char ack[4] = "ack";
@@ -54,35 +57,70 @@ void clientLobbyMode(RaceApplication* app)
     NetworkClient client(app->toConnect->getText().c_str(), 2800);
     while(true)
     {
-        usleep(10000);
-        for(int i = 0; i < 16; ++i)
+        //usleep(100000);
+        if(!app->stopAsking)
         {
-            std::cout << "Getting player name at " << i << "\n";
-            std::pair<char*, int> playername = client.call<char, int>((int)FuncIdentifiers::PlayerName, &i);
-            app->player_slots[i]->setText(playername.first);
-            std::cout << "Player name: " << playername.first << "\n";
+            for(int i = 0; i < 16; ++i)
+            {
+                std::cout << "Getting player name at " << i << "\n";
+                std::pair<char*, int> playername = client.call<char, int>((int)FuncIdentifiers::PlayerName, &i);
+                app->player_slots[i]->setText(playername.first);
+                std::cout << "Player name: " << playername.first << "\n";
+            }
+            std::cout << "Checking if game is started...\n";
+            std::pair<bool*, int> started = client.call<bool>((int)FuncIdentifiers::GameStarted);
+            if(*(started.first))
+            {
+                std::cout << "Game started!  Getting seed...\n";
+                std::pair<unsigned int*, int> seedpair = client.call<unsigned int>((int)FuncIdentifiers::GetSeed);
+                app->clientSeed = *seedpair.first;
+                std::cout << "\n\n\nGot seed: " << app->clientSeed << "  Getting players...\n\n\n";
+                std::pair<struct VehicleInfo*, int> vehiclesResponse = client.call<struct VehicleInfo>((int)FuncIdentifiers::GetVehicles);
+                std::cout << "Number of players: " << vehiclesResponse.second << "\n";
+                for(int i = 0; i < vehiclesResponse.second; ++i)
+                {
+                    app->vehicleList.push_back(vehiclesResponse.first+i);
+                    std::cout << "Player" << i << "\n";
+                    std::cout << "\tLocation: " << vehiclesResponse.first[i].location << "\n";
+                    std::cout << "\tVelocity: " << vehiclesResponse.first[i].velocity << "\n";
+                    std::cout << "\tRotation: " << vehiclesResponse.first[i].rotation << "\n";
+                }
+                app->stopAsking = true;
+                app->startmultgame = true;
+            }
         }
-        std::cout << "Checking if game is started...\n";
-        std::pair<bool*, int> started = client.call<bool>((int)FuncIdentifiers::GameStarted);
-        if(*(started.first))
+        if(app->game != NULL)
         {
-            app->startmultgame = true;
+            std::pair<struct VehicleInfo*, int> vehiclesResponse = client.call<struct VehicleInfo>((int)FuncIdentifiers::GetVehicles);
+            int index = 0;
+            for(std::pair<Vehicle*, struct VehicleInfo*> mapelement : app->vehicles)
+            {
+                app->vehicles[mapelement.first] = vehiclesResponse.first + index;
+                std::cout << "Player" << index << "\n";
+                std::cout << "\tLocation: " << vehiclesResponse.first[index].location << "\n";
+                std::cout << "\tVelocity: " << vehiclesResponse.first[index].velocity << "\n";
+                std::cout << "\tRotation: " << vehiclesResponse.first[index].rotation << "\n";
+                ++index;
+            }
         }
     }
 }
 
 void RaceApplication::beginMultiPlayerAsClient(void)
 {
+    std::cout << "Beginning client game...\n";
     start_menu->setVisible(false);
     mult_menu->setVisible(false);
     join_menu->setVisible(false);
+    std::cout << "Supposedly set join menu visibility to false...\n";
     //score_board->setVisible(true);
     CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().hide();
 
-    game = new SinglePlayerGame(mCamera, mSceneMgr, mShutDown, pause_pop_up);
+    game = new MultiPlayerClientGame(mCamera, mSceneMgr, mShutDown, clientSeed, this);
 
     if(game != NULL)
     {
+        std::cout << "\n\n\n\n\nCALLING RaceApplication::createCamera FROM RaceApplication::beginMultiPlayerAsClient\n\n\n\n\n";
         createCamera();
         createViewports();
         game->createScene();
@@ -265,6 +303,7 @@ void RaceApplication::createScene(void)
 
     if(game != NULL)
     {
+        std::cout << "\n\n\n\n\nCALLING RaceApplication::createCamera FROM RaceApplication::createScene\n\n\n\n\n";
         createCamera();
         createViewports();
         game->createScene();
@@ -293,10 +332,13 @@ void RaceApplication::beginMultiPlayer(void)
         }
     }
 
-    game = new MultiPlayerServerGame(mCamera, mSceneMgr, mShutDown, sockets);
+    clientSeed = (unsigned)(std::time(NULL));
+    std::cout << "Generated seed: " << clientSeed << "\n\n\n";
+    game = new MultiPlayerServerGame(mCamera, mSceneMgr, mShutDown, sockets, clientSeed, this);
 
     if(game != NULL)
     {
+        std::cout << "\n\n\n\n\nCALLING RaceApplication::createCamera\nFROM RaceApplication::beginMultiPlayer\n\n\n\n\n";
         createCamera();
         createViewports();
         game->createScene();
@@ -475,6 +517,26 @@ void RaceApplication::serverLobbyMode()
         return std::pair<bool*, int>(&(this->startgame), 1);
     };
     protocol->addFunction<bool>((int)FuncIdentifiers::GameStarted, gameStarted);
+
+    std::function<std::pair<unsigned int*, int>()> getSeed = [this]() -> std::pair<unsigned int*, int> {
+        return std::pair<unsigned int*, int>(&clientSeed, 1);
+    };
+    protocol->addFunction<unsigned int>((int)FuncIdentifiers::GetSeed, getSeed);
+
+    std::function<std::pair<struct VehicleInfo*, int>()> getVehicles = [this]() -> std::pair<struct VehicleInfo*, int> {
+        struct VehicleInfo* infoarr = (VehicleInfo*)malloc(playerVehicles.size() * sizeof(struct VehicleInfo));
+        int index = 0;
+        std::cout <<"Called getVehicles\n";
+        for(std::pair<TCPsocket, Vehicle*> info : playerVehicles)
+        {
+            std::cout << "Getting a vehicle...\n";
+            infoarr[index] = VehicleInfo(info.second->getPosition(), info.second->getVelocity(), info.second->getRotation());
+            ++index;
+        }
+        std::cout << "Finished.  Returning...";
+        return std::pair<struct VehicleInfo*, int>(infoarr, playerVehicles.size());
+    };
+    protocol->addFunction<struct VehicleInfo>((int)FuncIdentifiers::GetVehicles, getVehicles);
     /*
     server->handle = [this](TCPsocket sock, NetworkServer* server) {
         char clientack[4];
@@ -533,10 +595,13 @@ void RaceApplication::serverLobbyMode()
 //--------------------------------------------------------------------------------------
 bool RaceApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
+    startmultgamemutex.lock();
     if(startmultgame)
     {
         beginMultiPlayerAsClient();
+        startmultgame = false;
     }
+    startmultgamemutex.unlock();
     if(game != NULL)
     {
         game->frameRenderingQueued(evt);
@@ -549,6 +614,7 @@ void RaceApplication::createCamera()
 {
     if(game != NULL)
     {
+        std::cout << "\n\n\n\n\nCALLING Game::createCamera\nFROM RaceApplication::createCamera\n\n\n\n\n";
         game->createCamera();
     }
 }

@@ -21,6 +21,7 @@ size_t std::hash<coord>::operator()(const coord& x) const {
 std::list<DIRECTION::DIRECTION> TrackCreator::createTrack(int x_bound, int y_bound, unsigned seed)
 {
 	srand(seed);
+	std::cout << "TRACK CREATION CALLED WITH SEED: " << seed << "\n\n\n\n";
 	std::list<DIRECTION::DIRECTION> turns = randomListOfTurns(x_bound - 1, y_bound - 1);
 	turns.push_front(DIRECTION::DOWN);
 	turns.push_back(DIRECTION::RIGHT);

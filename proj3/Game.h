@@ -6,6 +6,18 @@
 #include <OgreFrameListener.h>
 #include <OISKeyboard.h>
 
+struct VehicleInfo {
+	Ogre::Vector3 location;
+	Ogre::Vector3 velocity;
+	Ogre::Quaternion rotation;
+	VehicleInfo(Ogre::Vector3 location,
+		Ogre::Vector3 velocity,
+		Ogre::Quaternion rotation) : location(location),
+									velocity(velocity),
+									rotation(rotation)
+	{}
+};
+
 class Game
 {
 protected:
