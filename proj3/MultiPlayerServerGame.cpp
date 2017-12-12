@@ -14,7 +14,8 @@ MultiPlayerServerGame::MultiPlayerServerGame(Ogre::Camera*& mCamera,
 {
 	for(TCPsocket client : clients)
 	{
-		app->playerVehicles[client] = new Vehicle(mSceneMgr);
+        Vehicle* veh = new Vehicle(mSceneMgr);
+		app->playerVehicles[client] = veh;
 	}
 }
 

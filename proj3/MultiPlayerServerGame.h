@@ -18,7 +18,6 @@ class MultiPlayerServerGame : public Game
 private:
 	std::map<TCPsocket, Vehicle*> remotePlayers;
 	std::set<OIS::KeyCode> pressedKeys;
-    RaceWorld* raceWorld;
     unsigned int clientSeed;
     RaceApplication* app;
 public:

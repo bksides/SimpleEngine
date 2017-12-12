@@ -21,7 +21,6 @@ public:
 	bool keyReleased(const OIS::KeyEvent &arg );
 	~SinglePlayerGame();
 private:
-    RaceWorld* raceWorld;
     CEGUI::Window* pause_pop_up;
 	std::set<OIS::KeyCode>	pressedKeys;
 };

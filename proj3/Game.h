@@ -5,6 +5,7 @@
 #include <OgreSceneManager.h>
 #include <OgreFrameListener.h>
 #include <OISKeyboard.h>
+#include "RaceWorld.h"
 
 struct VehicleInfo {
 	Ogre::Vector3 location;
@@ -34,6 +35,7 @@ public:
 	virtual bool keyPressed( const OIS::KeyEvent &arg );
 	virtual bool keyReleased(const OIS::KeyEvent &arg );
     virtual ~Game() = 0;
+    RaceWorld* raceWorld;
 };
 
 #endif

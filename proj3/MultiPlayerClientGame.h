@@ -10,7 +10,6 @@ class MultiPlayerClientGame : public Game
 {
 private:
 	std::set<OIS::KeyCode> pressedKeys;
-	RaceWorld* raceWorld;
 	std::vector<Vehicle*> otherPenguins;
 	unsigned int seed;
 	RaceApplication* app;

@@ -24,10 +24,10 @@ public:
 	}
 
 	template <typename T, typename... Args>
-	void addFunction(int identifier, std::function<std::pair<T*, int>(Args*...)> func)
+	void addFunction(int identifier, std::function<std::pair<T*, int>(TCPsocket, Args*...)> func)
 	{
 	    funcs[identifier] = [func](TCPsocket sock) {
-	        std::pair<T*, int> result = func(read<Args>(sock)...);
+	        std::pair<T*, int> result = func(sock, read<Args>(sock)...);
 	        int size = result.second;
 	        T* ret = result.first;
 	        if(SDLNet_TCP_Send(sock, &size, sizeof(size)) < sizeof(size))

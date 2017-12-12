@@ -497,7 +497,7 @@ void RaceApplication::serverLobbyMode()
         this->player_slots[socket_to_player_slot[sock]]->setText("--");
     };
 
-    std::function<std::pair<char*, int>(int*)> playerName = [this](int* n) -> std::pair<char*, int> {
+    std::function<std::pair<char*, int>(TCPsocket, int*)> playerName = [this](TCPsocket sock, int* n) -> std::pair<char*, int> {
         if(n != NULL)
         {
             return std::pair<char*, int>(const_cast<char*>(this->player_slots[*n]->getText().c_str()), this->player_slots[*n]->getText().length());
@@ -509,28 +509,36 @@ void RaceApplication::serverLobbyMode()
     };
     protocol->addFunction<char, int>((int)FuncIdentifiers::PlayerName, playerName);
 
-    std::function<std::pair<bool*, int>()> gameStarted = [this]() -> std::pair<bool*, int> {
+    std::function<std::pair<bool*, int>(TCPsocket)> gameStarted = [this](TCPsocket sock) -> std::pair<bool*, int> {
         return std::pair<bool*, int>(&(this->startgame), 1);
     };
     protocol->addFunction<bool>((int)FuncIdentifiers::GameStarted, gameStarted);
 
-    std::function<std::pair<unsigned int*, int>()> getSeed = [this]() -> std::pair<unsigned int*, int> {
+    std::function<std::pair<unsigned int*, int>(TCPsocket)> getSeed = [this](TCPsocket sock) -> std::pair<unsigned int*, int> {
         return std::pair<unsigned int*, int>(&clientSeed, 1);
     };
     protocol->addFunction<unsigned int>((int)FuncIdentifiers::GetSeed, getSeed);
 
-    std::function<std::pair<struct VehicleInfo*, int>()> getVehicles = [this]() -> std::pair<struct VehicleInfo*, int> {
+    std::function<std::pair<struct VehicleInfo*, int>(TCPsocket)> getVehicles = [this](TCPsocket sock) -> std::pair<struct VehicleInfo*, int> {
         struct VehicleInfo* infoarr = (VehicleInfo*)malloc(playerVehicles.size() * sizeof(struct VehicleInfo));
         int index = 0;
         std::cout <<"Called getVehicles\n";
         for(std::pair<TCPsocket, Vehicle*> info : playerVehicles)
         {
-            std::cout << "Getting a vehicle...\n";
-            infoarr[index] = VehicleInfo(info.second->getPosition(), info.second->getVelocity(), info.second->getRotation());
-            ++index;
+            if(info.first != sock)
+            {
+                std::cout << "Getting a vehicle...\n";
+                infoarr[index] = VehicleInfo(info.second->getPosition(), info.second->getVelocity(), info.second->getRotation());
+                ++index;
+            }
         }
+        std::cout << "Adding server vehicle...";
+        infoarr[index] = VehicleInfo(this->game->raceWorld->playerVehicle->getPosition(),
+            this->game->raceWorld->playerVehicle->getVelocity(),
+            this->game->raceWorld->playerVehicle->getRotation());
+        ++index;
         std::cout << "Finished.  Returning...";
-        return std::pair<struct VehicleInfo*, int>(infoarr, playerVehicles.size());
+        return std::pair<struct VehicleInfo*, int>(infoarr, index);
     };
     protocol->addFunction<struct VehicleInfo>((int)FuncIdentifiers::GetVehicles, getVehicles);
     /*
