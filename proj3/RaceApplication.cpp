@@ -489,10 +489,6 @@ void RaceApplication::serverLobbyMode()
         std::cout << addrstr << "\n\n\n";
         //std::cout << addrstdstr << "\n\n\n";
         this->player_slots[num]->setText(addrstr);
-        if(num == 2)
-        {
-            this->startgame = true;
-        }
         ++num;
         num %= 16;
     };
