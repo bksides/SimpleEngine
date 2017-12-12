@@ -155,6 +155,12 @@ bool MultiPlayerServerGame::frameRenderingQueued(const Ogre::FrameEvent& evt)
         raceWorld->playerVehicle->cameraNode->yaw(Ogre::Radian(-1*M_PI * evt.timeSinceLastFrame), Ogre::Node::TS_WORLD);
     }
     raceWorld->playerVehicle->visitedTiles.insert(coord{(int)(floor((float)(raceWorld->playerVehicle->getPosition().x+50)/100)), (int)(floor((float)(raceWorld->playerVehicle->getPosition().z+50)/100))});
+    for(std::pair<Vehicle*, struct VehicleInfo*> mappair : app->vehicles)
+    {
+        mappair.first->setPosition(mappair.second->location);
+        mappair.first->setVelocity(mappair.second->velocity);
+        mappair.first->setRotation(mappair.second->rotation);
+    }
     raceWorld->update(evt.timeSinceLastFrame);
     return true;
 }

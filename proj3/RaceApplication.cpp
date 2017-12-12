@@ -22,7 +22,8 @@ enum FuncIdentifiers
     PlayerName,
     GameStarted,
     GetSeed,
-    GetVehicles
+    GetVehicles,
+    SendPlayerInfo
 };
 
 const char ack[4] = "ack";
@@ -101,6 +102,15 @@ void clientLobbyMode(RaceApplication* app)
                 std::cout << "\tVelocity: " << vehiclesResponse.first[index].velocity << "\n";
                 std::cout << "\tRotation: " << vehiclesResponse.first[index].rotation << "\n";
                 ++index;
+            }
+            if(app->game->raceWorld && app->game->raceWorld->playerVehicle)
+            {
+                struct VehicleInfo* cliinf = new VehicleInfo(app->game->raceWorld->playerVehicle->getPosition(),
+                    app->game->raceWorld->playerVehicle->getVelocity(), app->game->raceWorld->playerVehicle->getRotation());
+                std::cout << "Sending client info to server...\n";
+                client.call<int, struct VehicleInfo>((int)FuncIdentifiers::SendPlayerInfo, cliinf);
+                std::cout << "Sent info.\n";
+                delete cliinf;
             }
         }
     }
@@ -541,6 +551,14 @@ void RaceApplication::serverLobbyMode()
         return std::pair<struct VehicleInfo*, int>(infoarr, index);
     };
     protocol->addFunction<struct VehicleInfo>((int)FuncIdentifiers::GetVehicles, getVehicles);
+
+    std::function< std::pair<int*, int>(TCPsocket, struct VehicleInfo*) > sendPlayerInfo = [this](TCPsocket sock, struct VehicleInfo* inf) -> std::pair<int*, int> {
+        struct VehicleInfo* previnf = vehicles[playerVehicles[sock]];
+        vehicles[playerVehicles[sock]] = inf;
+        delete previnf;
+        return std::pair<int*, int>((int*)&clientSeed, 1);
+    };
+    protocol->addFunction<int, struct VehicleInfo>((int)FuncIdentifiers::SendPlayerInfo, sendPlayerInfo);
     /*
     server->handle = [this](TCPsocket sock, NetworkServer* server) {
         char clientack[4];

@@ -14,7 +14,7 @@ MultiPlayerClientGame::MultiPlayerClientGame(Ogre::Camera*& mCamera,
 	{
         Vehicle* veh = new Vehicle(mSceneMgr);
 		app->vehicles[veh] = info;
-        veh->getRigidBody()->setCollisionFlags(veh->getRigidBody()->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
+        veh->getRigidBody()->setCollisionFlags(veh->getRigidBody()->getCollisionFlags());
 	}
 }
 
