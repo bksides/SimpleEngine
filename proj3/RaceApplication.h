@@ -27,6 +27,13 @@ This source file is part of the
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 
+enum WinStates
+{
+    WON,
+    LOST,
+    INCOMPLETE
+};
+
 class RaceApplication : public BaseApplication
 {
 public:
@@ -45,10 +52,15 @@ public:
     bool startmultgame = false;
     bool startclientgame = false;
     bool stopAsking = false;
+    bool winnerFound = false;
+    bool winnerIsMe = false;
+    TCPsocket winner = NULL;
+    WinStates winState = WinStates::INCOMPLETE;
     std::mutex startmultgamemutex;
     std::list<struct VehicleInfo*> vehicleList;
     std::map<Vehicle*, struct VehicleInfo*> vehicles;
     std::map<TCPsocket, Vehicle*> playerVehicles;
+    std::map<Vehicle*, bool> finished;
     CEGUI::Editbox* toConnect;
     CEGUI::OgreRenderer* mRenderer;
     void createStartMenu(CEGUI::WindowManager& wmgr);

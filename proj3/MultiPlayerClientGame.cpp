@@ -170,6 +170,17 @@ bool MultiPlayerClientGame::frameRenderingQueued(const Ogre::FrameEvent& evt)
         mappair.first->setRotation(mappair.second->rotation);
     }
 
+    if(app->winState == WinStates::WON)
+    {
+        app->pause_pop_up->setText("You Won!");
+        app->pause_pop_up->setVisible(true);
+    }
+    if(app->winState == WinStates::LOST)
+    {
+        app->pause_pop_up->setText("You Lost!");
+        app->pause_pop_up->setVisible(true);
+    }
+
     raceWorld->update(evt.timeSinceLastFrame);
     return true;
 }

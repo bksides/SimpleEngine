@@ -157,6 +157,10 @@ bool MultiPlayerServerGame::frameRenderingQueued(const Ogre::FrameEvent& evt)
     {
         raceWorld->playerVehicle->cameraNode->yaw(Ogre::Radian(-1*M_PI * evt.timeSinceLastFrame), Ogre::Node::TS_WORLD);
     }
+    for(std::pair<Vehicle*, struct VehicleInfo*> vehiclePair : app->vehicles)
+    {
+        vehiclePair.first->visitedTiles.insert(coord{(int)(floor((float)(vehiclePair.first->getPosition().x+50)/100)), (int)(floor((float)(vehiclePair.first->getPosition().z+50)/100))});
+    }
     raceWorld->playerVehicle->visitedTiles.insert(coord{(int)(floor((float)(raceWorld->playerVehicle->getPosition().x+50)/100)), (int)(floor((float)(raceWorld->playerVehicle->getPosition().z+50)/100))});
     for(std::pair<Vehicle*, struct VehicleInfo*> mappair : app->vehicles)
     {
@@ -164,6 +168,42 @@ bool MultiPlayerServerGame::frameRenderingQueued(const Ogre::FrameEvent& evt)
         mappair.first->setVelocity(mappair.second->velocity);
         mappair.first->setRotation(mappair.second->rotation);
     }
+
+    for(std::pair<TCPsocket, Vehicle*> mappair : app->playerVehicles)
+    {
+        if((int)(floor((float)(mappair.second->getPosition().x+50)/100)) == 0 && (int)(floor((float)(mappair.second->getPosition().z+50)/100)) == 0)
+        {
+            if(mappair.second->visitedTiles == raceWorld->trackcoords)
+            {
+                app->finished[mappair.second] = true;
+                if(!app->winnerFound)
+                {
+                    app->winnerFound = true;
+                    app->winner = mappair.first;
+                }
+            }
+        }
+    }
+
+    if((int)(floor((float)(raceWorld->playerVehicle->getPosition().x+50)/100)) == 0 && (int)(floor((float)(raceWorld->playerVehicle->getPosition().z+50)/100)) == 0)
+    {
+        if(raceWorld->playerVehicle->visitedTiles == raceWorld->trackcoords)
+        {
+            if(app->winnerFound && !app->winnerIsMe)
+            {
+                app->pause_pop_up->setText("You Lost!");
+                app->pause_pop_up->setVisible(true);
+            }
+            else
+            {
+                app->pause_pop_up->setText("You Won!");
+                app->pause_pop_up->setVisible(true);
+                app->winnerFound = true;
+                app->winnerIsMe = true;
+            }
+        }
+    }
+
     raceWorld->update(evt.timeSinceLastFrame);
     return true;
 }

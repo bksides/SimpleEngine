@@ -23,7 +23,8 @@ enum FuncIdentifiers
     GameStarted,
     GetSeed,
     GetVehicles,
-    SendPlayerInfo
+    SendPlayerInfo,
+    DidIWin
 };
 
 const char ack[4] = "ack";
@@ -112,6 +113,9 @@ void clientLobbyMode(RaceApplication* app)
                 //std::cout << "Sent info.\n";
                 delete cliinf;
             }
+
+            std::pair<WinStates*, int> won = client.call<WinStates>(FuncIdentifiers::DidIWin);
+            app->winState = *(won.first);
         }
     }
 }
@@ -563,6 +567,22 @@ void RaceApplication::serverLobbyMode()
         return std::pair<int*, int>((int*)&clientSeed, 1);
     };
     protocol->addFunction<int, struct VehicleInfo>((int)FuncIdentifiers::SendPlayerInfo, sendPlayerInfo);
+    
+    std::function< std::pair< WinStates*, int >(TCPsocket) > didIWin = [this](TCPsocket sock) -> std::pair< WinStates*, int > {
+        WinStates win = WinStates::INCOMPLETE;
+        if(!this->finished[playerVehicles[sock]])
+        {
+            return std::pair< WinStates*, int >(&win, 1);
+        }
+        if(this->winner == sock)
+        {
+            win = WinStates::WON;
+            return std::pair< WinStates*, int >(&win, 1);
+        }
+        win = WinStates::LOST;
+        return std::pair< WinStates*, int >(&win, 1);
+    };
+    protocol->addFunction<WinStates>((int)FuncIdentifiers::DidIWin, didIWin);
     /*
     server->handle = [this](TCPsocket sock, NetworkServer* server) {
         char clientack[4];
