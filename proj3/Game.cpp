@@ -1,7 +1,7 @@
 #include "Game.h"
 
-Game::Game(Ogre::Camera*& mCamera, Ogre::SceneManager*& mSceneMgr,
-			bool& mShutDown) : mCamera(mCamera), mSceneMgr(mSceneMgr),
+Game::Game(Ogre::Camera*& mCamera, Ogre::Camera*& mTopCamera, Ogre::SceneManager*& mSceneMgr,
+			bool& mShutDown) : mTopCamera(mTopCamera), mCamera(mCamera), mSceneMgr(mSceneMgr),
 			mShutDown(mShutDown) {}
 
 void Game::createScene(void) {}

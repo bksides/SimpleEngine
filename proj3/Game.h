@@ -23,10 +23,12 @@ class Game
 {
 protected:
 	Ogre::Camera*& mCamera;
+	Ogre::Camera*& mTopCamera;
 	Ogre::SceneManager*& mSceneMgr;
 	bool& mShutDown;
 public:
 	Game(Ogre::Camera*& mCamera,
+			Ogre::Camera*& mTopCamera,
 			Ogre::SceneManager*& mSceneMgr,
 			bool& mShutDown);
     virtual void createScene(void);

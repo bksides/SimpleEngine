@@ -6,10 +6,11 @@
 #include "Wall.h"
 
 SinglePlayerGame::SinglePlayerGame(Ogre::Camera*& mCamera,
+                                    Ogre::Camera*& mTopCamera,
 									Ogre::SceneManager*& mSceneMgr,
 									bool& mShutDown,
 									CEGUI::Window*& pause_pop_up) :
-									Game(mCamera, mSceneMgr, mShutDown),
+									Game(mCamera, mTopCamera, mSceneMgr, mShutDown),
 									pause_pop_up(pause_pop_up) {}
 
 void SinglePlayerGame::createScene(void)
@@ -42,6 +43,8 @@ void SinglePlayerGame::createScene(void)
     raceWorld->playerVehicle = new PlayerVehicle(mSceneMgr);
     raceWorld->addObject(raceWorld->playerVehicle, Ogre::Vector3::UNIT_Y*10);
     raceWorld->playerVehicle->cameraNode->attachObject(mCamera);
+    raceWorld->playerVehicle->getSceneNode()->attachObject(mTopCamera);
+    mTopCamera->rotate(Ogre::Vector3::UNIT_X, Ogre::Radian(-M_PI/3));
 
     TrackCreator tc;
     std::list<DIRECTION::DIRECTION> turns = tc.createTrack();
@@ -100,7 +103,7 @@ void SinglePlayerGame::createScene(void)
 
 void SinglePlayerGame::createCamera(void)
 {
-    std::cout << "\n\n\n\n\nCREATING CAMERA\n\n\n\n\n";
+    //std::cout << "\n\n\n\n\nCREATING CAMERA\n\n\n\n\n";
     mCamera = mSceneMgr->createCamera("PlayerCam");
     mCamera->setPosition(0,40,100);
     mCamera->lookAt(Ogre::Vector3(0,0,0));
@@ -110,6 +113,7 @@ void SinglePlayerGame::createCamera(void)
 bool SinglePlayerGame::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
     mCamera->lookAt(raceWorld->playerVehicle->getPosition());
+    //mTopCamera->lookAt(raceWorld->playerVehicle->getPosition());
     if (pressedKeys.find(OIS::KC_W) != pressedKeys.end())
     {
         raceWorld->playerVehicle->getRigidBody()->activate(true);

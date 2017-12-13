@@ -5,11 +5,12 @@
 #include "Wall.h"
 
 MultiPlayerServerGame::MultiPlayerServerGame(Ogre::Camera*& mCamera,
+    Ogre::Camera*& mTopCamera,
 	Ogre::SceneManager*& mSceneMgr,
 	bool& mShutDown,
 	std::list<TCPsocket> clients,
     unsigned int clientSeed,
-    RaceApplication* app) : Game(mCamera, mSceneMgr, mShutDown),
+    RaceApplication* app) : Game(mCamera, mTopCamera, mSceneMgr, mShutDown),
     clientSeed(clientSeed), app(app)
 {
 	for(TCPsocket client : clients)
@@ -49,6 +50,8 @@ void MultiPlayerServerGame::createScene(void)
     raceWorld->playerVehicle = new PlayerVehicle(mSceneMgr);
     raceWorld->addObject(raceWorld->playerVehicle, Ogre::Vector3::UNIT_Y*10);
     raceWorld->playerVehicle->cameraNode->attachObject(mCamera);
+    raceWorld->playerVehicle->getSceneNode()->attachObject(mTopCamera);
+    mTopCamera->rotate(Ogre::Vector3::UNIT_X, Ogre::Radian(-M_PI/3));
 
     for(std::pair<TCPsocket, Vehicle*> remotePlayerPair : app->playerVehicles)
     {

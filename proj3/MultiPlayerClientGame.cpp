@@ -5,9 +5,10 @@
 #include "Wall.h"
 
 MultiPlayerClientGame::MultiPlayerClientGame(Ogre::Camera*& mCamera,
+            Ogre::Camera*& mTopCamera,
 			Ogre::SceneManager*& mSceneMgr,
 			bool& mShutDown,
-			unsigned int seed, RaceApplication* app) : Game(mCamera, mSceneMgr, mShutDown), seed(seed),
+			unsigned int seed, RaceApplication* app) : Game(mCamera, mTopCamera, mSceneMgr, mShutDown), seed(seed),
             app(app)
 {
 	for(struct VehicleInfo* info : app->vehicleList)
@@ -48,6 +49,8 @@ void MultiPlayerClientGame::createScene(void)
     raceWorld->playerVehicle = new PlayerVehicle(mSceneMgr);
     raceWorld->addObject(raceWorld->playerVehicle, Ogre::Vector3::UNIT_Y*10);
     raceWorld->playerVehicle->cameraNode->attachObject(mCamera);
+    raceWorld->playerVehicle->getSceneNode()->attachObject(mTopCamera);
+    mTopCamera->rotate(Ogre::Vector3::UNIT_X, Ogre::Radian(-M_PI/3));
 
     for(std::pair<Vehicle*, struct VehicleInfo*> mappair : app->vehicles)
     {
@@ -113,7 +116,7 @@ void MultiPlayerClientGame::createScene(void)
 
 void MultiPlayerClientGame::createCamera(void)
 {
-    std::cout << "\n\n\n\n\nCREATING CAMERA\n\n\n\n\n";
+    //std::cout << "\n\n\n\n\nCREATING CAMERA\n\n\n\n\n";
     mCamera = mSceneMgr->createCamera("PlayerCam");
     mCamera->setPosition(0,40,100);
     mCamera->lookAt(Ogre::Vector3(0,0,0));

@@ -11,6 +11,7 @@ class SinglePlayerGame : public Game
 {
 public:
 	SinglePlayerGame(Ogre::Camera*& mCamera,
+			Ogre::Camera*& mTopCamera,
 			Ogre::SceneManager*& mSceneMgr,
 			bool& mShutDown,
 			CEGUI::Window*& pause_pop_up);

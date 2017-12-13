@@ -21,7 +21,7 @@ size_t std::hash<coord>::operator()(const coord& x) const {
 std::list<DIRECTION::DIRECTION> TrackCreator::createTrack(int x_bound, int y_bound, unsigned seed)
 {
 	srand(seed);
-	std::cout << "TRACK CREATION CALLED WITH SEED: " << seed << "\n\n\n\n";
+	//std::cout << "TRACK CREATION CALLED WITH SEED: " << seed << "\n\n\n\n";
 	std::list<DIRECTION::DIRECTION> turns = randomListOfTurns(x_bound - 1, y_bound - 1);
 	turns.push_front(DIRECTION::DOWN);
 	turns.push_back(DIRECTION::RIGHT);
@@ -43,10 +43,10 @@ std::list<DIRECTION::DIRECTION> TrackCreator::randomListOfTurns(int x_bound, int
 
 	for(int i = 0; i < x_bound; ++i)
 	{
-		////std::cout << "1:1: " << i << "\n";
+		//////std::cout << "1:1: " << i << "\n";
 		for(int j = 0; j < y_bound; ++j)
 		{
-			//std::cout << "1:2: " << j << "\n";
+			////std::cout << "1:2: " << j << "\n";
 			if(i == 0)
 			{
 				nodes[i][j][0] = std::numeric_limits<float>::infinity();
@@ -84,7 +84,7 @@ std::list<DIRECTION::DIRECTION> TrackCreator::randomListOfTurns(int x_bound, int
 		}
 	}
 
-	//std::cout << (std::numeric_limits<float>::infinity() > 0.0f) << "\n";
+	////std::cout << (std::numeric_limits<float>::infinity() > 0.0f) << "\n";
 
 	nodes[0][0][4] = 0;
 
@@ -95,33 +95,33 @@ std::list<DIRECTION::DIRECTION> TrackCreator::randomListOfTurns(int x_bound, int
 	struct coord cur = source;
 	while(!visited.count(dest))
 	{
-		//std::cout << "cur = " << cur.x << ", " << cur.y << "\n";
+		////std::cout << "cur = " << cur.x << ", " << cur.y << "\n";
 		float curcost = nodes[cur.x][cur.y][4];
-		//std::cout << "Left edge: " << nodes[cur.x][cur.y][0] << "\n";
+		////std::cout << "Left edge: " << nodes[cur.x][cur.y][0] << "\n";
 		if( cur.x > 0 && nodes[cur.x-1][cur.y][4] > curcost + nodes[cur.x][cur.y][0] )
 		{
-			//std::cout << "Found a new shortest path LEFT.\n";
+			////std::cout << "Found a new shortest path LEFT.\n";
 			nodes[cur.x-1][cur.y][4] = curcost + nodes[cur.x][cur.y][0];
 			nodes[cur.x-1][cur.y][5] = DIRECTION::RIGHT;
 		}
-		//std::cout << "Lower edge: " << nodes[cur.x][cur.y][1] << "\n";
+		////std::cout << "Lower edge: " << nodes[cur.x][cur.y][1] << "\n";
 		if( cur.y < y_bound-1 && nodes[cur.x][cur.y+1][4] > curcost + nodes[cur.x][cur.y][1] )
 		{
-			//std::cout << "Found a new shortest path DOWN.\n";
+			////std::cout << "Found a new shortest path DOWN.\n";
 			nodes[cur.x][cur.y+1][4] = curcost + nodes[cur.x][cur.y][1];
 			nodes[cur.x][cur.y+1][5] = DIRECTION::UP;
 		}
-		//std::cout << "Right edge: " << nodes[cur.x][cur.y][2] << "\n";
+		////std::cout << "Right edge: " << nodes[cur.x][cur.y][2] << "\n";
 		if(cur.y > (int)ceil(((float)(y_bound)/x_bound)*cur.x) && nodes[cur.x+1][cur.y][4] > curcost + nodes[cur.x][cur.y][2] )
 		{
-			//std::cout << "Found a new shortest path RIGHT.\n";
+			////std::cout << "Found a new shortest path RIGHT.\n";
 			nodes[cur.x+1][cur.y][4] = curcost + nodes[cur.x][cur.y][2];
 			nodes[cur.x+1][cur.y][5] = DIRECTION::LEFT;
 		}
-		//std::cout << "Upper edge: " << nodes[cur.x][cur.y][3] << "\n";
+		////std::cout << "Upper edge: " << nodes[cur.x][cur.y][3] << "\n";
 		if( cur.y > (int)ceil(((float)(y_bound)/x_bound)*cur.x) && nodes[cur.x][cur.y-1][4] > curcost + nodes[cur.x][cur.y][3] )
 		{
-			//std::cout << "Found a new shortest path UP.\n";
+			////std::cout << "Found a new shortest path UP.\n";
 			nodes[cur.x][cur.y-1][4] = curcost + nodes[cur.x][cur.y][3];
 			nodes[cur.x][cur.y-1][5] = DIRECTION::DOWN;
 		}
@@ -138,8 +138,8 @@ std::list<DIRECTION::DIRECTION> TrackCreator::randomListOfTurns(int x_bound, int
 			}
 		}
 	}
-	//std::cout << "Made it past loop 2: cur = " << cur.x << ", " << cur.y << "\n";
-	//std::cout << nodes[0][0][5] << "\n";
+	////std::cout << "Made it past loop 2: cur = " << cur.x << ", " << cur.y << "\n";
+	////std::cout << nodes[0][0][5] << "\n";
 	std::list<DIRECTION::DIRECTION> turns;
 	for(struct coord cur = {.x = x_bound-1, .y = y_bound-1}; nodes[cur.x][cur.y][5] != DIRECTION::FUCK;)
 	{

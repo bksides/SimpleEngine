@@ -22,6 +22,7 @@ private:
     RaceApplication* app;
 public:
 	MultiPlayerServerGame(Ogre::Camera*& mCamera,
+			Ogre::Camera*& mTopCamera,
 			Ogre::SceneManager*& mSceneMgr,
 			bool& mShutDown, std::list<TCPsocket> clients,
 			unsigned int clientSeed,

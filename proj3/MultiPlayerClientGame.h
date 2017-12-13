@@ -15,6 +15,7 @@ private:
 	RaceApplication* app;
 public:
 	MultiPlayerClientGame(Ogre::Camera*& mCamera,
+			Ogre::Camera*& mTopCamera,
 			Ogre::SceneManager*& mSceneMgr,
 			bool& mShutDown,
 			unsigned int seed,

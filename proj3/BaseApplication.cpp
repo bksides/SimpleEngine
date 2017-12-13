@@ -108,12 +108,15 @@ void BaseApplication::createCamera(void)
 {
     // Create the camera
     mCamera = mSceneMgr->createCamera("PlayerCam");
-
+    mTopCamera = mSceneMgr->createCamera("TopCam");
     // Position it at 500 in Z direction
     mCamera->setPosition(Ogre::Vector3(0,0,80));
+    mTopCamera->setPosition(Ogre::Vector3(1250, 10000, 1250));
     // Look back along -Z
     mCamera->lookAt(Ogre::Vector3(0,0,-300));
     mCamera->setNearClipDistance(5);
+    mTopCamera->lookAt(Ogre::Vector3(1250, 0, 1250));
+    mTopCamera->setNearClipDistance(5);
 }
 //---------------------------------------------------------------------------
 void BaseApplication::createFrameListener(void)
@@ -151,11 +154,14 @@ void BaseApplication::destroyScene(void)
 void BaseApplication::createViewports(void)
 {
     // Create one viewport, entire window
-    Ogre::Viewport* vp = mWindow->addViewport(mCamera);
+    Ogre::Viewport* vp = mWindow->addViewport(mTopCamera, 0);
     vp->setBackgroundColour(Ogre::ColourValue(0,0,0));
+
+    Ogre::Viewport* tvp = mWindow->addViewport(mTopCamera, 1, .5, .5, .25, .25);
 
     // Alter the camera aspect ratio to match the viewport
     mCamera->setAspectRatio(Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
+    mTopCamera->setAspectRatio(Ogre::Real(tvp->getActualWidth()) / Ogre::Real(tvp->getActualHeight()));
 }
 //---------------------------------------------------------------------------
 void BaseApplication::setupResources(void)

@@ -43,6 +43,7 @@ public:
     NetworkServer* server = NULL;
     bool startgame = false;
     bool startmultgame = false;
+    bool startclientgame = false;
     bool stopAsking = false;
     std::mutex startmultgamemutex;
     std::list<struct VehicleInfo*> vehicleList;

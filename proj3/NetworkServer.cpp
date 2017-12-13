@@ -7,27 +7,27 @@ void threadloop(NetworkServer* server)
 {
 	if(server->sock == NULL)
 	{
-		std::cout << "\n\n\nTHE SOCKET WAS NOT CREATED\n\n\n";
+		//std::cout << "\n\n\nTHE SOCKET WAS NOT CREATED\n\n\n";
 	}
 
 	SDLNet_SocketSet set;
 	
 	if(set = SDLNet_AllocSocketSet(1))
 	{
-		std::cout << "\n\n\nSuccessfully alloced socket set\n\n\n";
+		//std::cout << "\n\n\nSuccessfully alloced socket set\n\n\n";
 	}
 	else
 	{
-		std::cout << "\n\n\nError on AllocSocketSet\n\n\n";
+		//std::cout << "\n\n\nError on AllocSocketSet\n\n\n";
 	}
 
 	if(SDLNet_TCP_AddSocket(set, server->sock) == -1)
 	{
-		std::cout << "\n\n\nError on AddSocket.\n\n\n";
+		//std::cout << "\n\n\nError on AddSocket.\n\n\n";
 	}
 	else
 	{
-		std::cout << "\n\n\nSuccessfully added socket\n\n\n";
+		//std::cout << "\n\n\nSuccessfully added socket\n\n\n";
 	}
 
 	while(!server->readyToTerminate())
@@ -35,7 +35,7 @@ void threadloop(NetworkServer* server)
         SDLNet_CheckSockets(set, 0);
         if(SDLNet_SocketReady(server->sock))
 		{
-			std::cout << "GOT A CONNECTION\n";
+			//std::cout << "GOT A CONNECTION\n";
 			TCPsocket handlersock = SDLNet_TCP_Accept(server->sock);
 			server->accept(handlersock);
 			server->addClientSock(handlersock);
@@ -46,11 +46,11 @@ void threadloop(NetworkServer* server)
 					int identifier;
 					if(SDLNet_TCP_Recv(sock, &identifier, sizeof(int)) <= 0)
 					{
-						std::cout << "\n\nERROR!!!\n\n" << SDLNet_GetError() << "\n\n";
+						//std::cout << "\n\nERROR!!!\n\n" << SDLNet_GetError() << "\n\n";
 						server->socketDisconnected(sock);
 						break;
 					}
-					std::cout << "Received function call: " << identifier << "\n";
+					//std::cout << "Received function call: " << identifier << "\n";
 					server->protocol->call(identifier, sock);
 					if(server->readyToTerminateClientSock(sock))
 					{
@@ -60,7 +60,7 @@ void threadloop(NetworkServer* server)
 			}, handlersock);
 		}
 	}
-	std::cout << "\n\n\nTHREAD FINISHED EXECUTION\n\n\n";
+	//std::cout << "\n\n\nTHREAD FINISHED EXECUTION\n\n\n";
 }
 
 void NetworkServer::addClientSock(TCPsocket sock)

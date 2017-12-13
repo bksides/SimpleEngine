@@ -47,8 +47,8 @@ public:
 		T* ret = (T*)calloc(len + 1, sizeof(T));
 		if(SDLNet_TCP_Recv(sock, ret, len * sizeof(T)) <= 0)
 		{
-			std::cout << "ERROR: did not receive all the data expected.\n";
-			std::cout << "Expected " << len << "objects.\n";
+			//std::cout << "ERROR: did not receive all the data expected.\n";
+			//std::cout << "Expected " << len << "objects.\n";
 			return std::pair<T*, int>(NULL, 0);
 		}
 		return std::pair<T*, int>(ret, len);
