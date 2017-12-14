@@ -40,6 +40,7 @@ public:
     RaceApplication(void);
     virtual ~RaceApplication(void);
     CEGUI::Window* pause_pop_up = NULL;
+    CEGUI::Window* score_board = NULL;
     CEGUI::Window* start_menu = NULL;
     CEGUI::Window *mult_menu = NULL;
     CEGUI::Window* mult_info = NULL;

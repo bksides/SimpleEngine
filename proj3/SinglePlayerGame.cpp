@@ -4,14 +4,16 @@
 #include "StartTile.h"
 #include "TrackCreator.h"
 #include "Wall.h"
+#include <string>
 
 SinglePlayerGame::SinglePlayerGame(Ogre::Camera*& mCamera,
                                     Ogre::Camera*& mTopCamera,
 									Ogre::SceneManager*& mSceneMgr,
 									bool& mShutDown,
-									CEGUI::Window*& pause_pop_up) :
+									CEGUI::Window*& pause_pop_up, 
+                                    CEGUI::Window*& score_board) :
 									Game(mCamera, mTopCamera, mSceneMgr, mShutDown),
-									pause_pop_up(pause_pop_up) {}
+									pause_pop_up(pause_pop_up), score_board(score_board) {}
 
 void SinglePlayerGame::createScene(void)
 {
@@ -114,6 +116,17 @@ bool SinglePlayerGame::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
     mCamera->lookAt(raceWorld->playerVehicle->getPosition());
     //mTopCamera->lookAt(raceWorld->playerVehicle->getPosition());
+    score_board->setVisible(true);
+    if(!lapTimerStarted) {
+        start = std::clock();
+        lapTimerStarted = true;
+    }
+    unsigned curTime = (unsigned)((std::clock() - start) / (double) CLOCKS_PER_SEC);
+    unsigned temp = (unsigned)((std::clock() - start) / (double) CLOCKS_PER_SEC);
+    auto str = std::to_string(curTime);
+    auto str1 = std::to_string(bestTime);
+    //std::cout << str << "\n";
+    score_board->setText("Current Lap Time: " + str + "\nBest Lap Time: " + str1);
     if (pressedKeys.find(OIS::KC_W) != pressedKeys.end())
     {
         raceWorld->playerVehicle->getRigidBody()->activate(true);
@@ -145,7 +158,19 @@ bool SinglePlayerGame::frameRenderingQueued(const Ogre::FrameEvent& evt)
     {
         if(raceWorld->playerVehicle->visitedTiles == raceWorld->trackcoords)
         {
-            pause_pop_up->setVisible(true);
+            //pause_pop_up->setVisible(true);
+            raceWorld->playerVehicle->visitedTiles.clear();
+            if(bestTime == 0) {
+                bestTime = temp;
+                start = std::clock();
+            }
+            else if(bestTime >= temp) {
+                bestTime = temp;
+                start = std::clock();
+            }
+            else{
+                start = std::clock();
+            }
         }
     }
     raceWorld->update(evt.timeSinceLastFrame);

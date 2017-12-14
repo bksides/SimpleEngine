@@ -170,18 +170,26 @@ void RaceApplication::CEGUI_Init()
     CEGUI::Window *sheet = wmgr.createWindow("DefaultWindow", "CEGUIDemo/Sheet");
 
     pause_pop_up = wmgr.createWindow("TaharezLook/StaticText", "CEGUIDemo/PausePopUp");
+    score_board = wmgr.createWindow("TaharezLook/StaticText", "CEGUIDemo/ScoreBoard");
     
     createStartMenu(wmgr);
     createMultiPlayerMenu(wmgr);
     createJoinMenu(wmgr);
     
-    //score_board->setProperty("HorzFormatting","HorzCentred");
+    pause_pop_up->setProperty("HorzFormatting","HorzCentred");
     pause_pop_up->setText("You Win!");
     pause_pop_up->setPosition(CEGUI::UVector2(CEGUI::UDim(0.35, 0), CEGUI::UDim(.25, 0)));
     pause_pop_up->setSize(CEGUI::USize(CEGUI::UDim(0.3, 0), CEGUI::UDim(0.5, 0)));
     pause_pop_up->setVisible(false);
 
+    score_board->setProperty("HorzFormatting","HorzCentred");
+    score_board->setText("Current Lap Time: \nBest Lap Time: ");
+    score_board->setPosition(CEGUI::UVector2(CEGUI::UDim(0.375, 0), CEGUI::UDim(0, 0)));
+    score_board->setSize(CEGUI::USize(CEGUI::UDim(0.25, 0), CEGUI::UDim(0.075, 0)));
+    score_board->setVisible(false);
+
     sheet->addChild(pause_pop_up);
+    sheet->addChild(score_board);
     sheet->addChild(start_menu);
     sheet->addChild(mult_menu);
     sheet->addChild(join_menu);
@@ -315,7 +323,7 @@ void RaceApplication::createScene(void)
     //score_board->setVisible(true);
     CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().hide();
 
-    game = new SinglePlayerGame(mCamera, mTopCamera, mSceneMgr, mShutDown, pause_pop_up);
+    game = new SinglePlayerGame(mCamera, mTopCamera, mSceneMgr, mShutDown, pause_pop_up, score_board);
 
     if(game != NULL)
     {
